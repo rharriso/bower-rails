@@ -7,6 +7,6 @@ Gem::Specification.new do |s|
   s.description   = "Bower for Rails"
   s.authors       = ["Ross Harrison"]
   s.email         = "rtharrison86@gmail.com"
-  s.files         = Dir["lib/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
+  s.files         = Dir["lib/**/*"] + ["MIT-LICENSE", "README.md"]
   s.require_paths = ["lib"]
 end

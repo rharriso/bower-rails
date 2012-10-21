@@ -3,6 +3,13 @@ bower-rails
 
 rake tasks for bower on rails. Dependency file is bower.json in Rails root dir.
 
+**Install**
+in Gemfile
+
+``` Ruby
+  gem 'bower-rails'
+```
+
 **example config file**
 ``` javascript
 {
