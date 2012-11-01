@@ -21,7 +21,7 @@ namespace :bower do
 end
 
 #run the passed bower block in appropriate folders
-def perform_command remove_components = true 
+def perform_command remove_components = true, &block
   #load in bower json file
   txt  = File.read("#{Rails.root}/bower.json")
   json = JSON.parse(txt)
@@ -41,10 +41,8 @@ def perform_command remove_components = true
         f.write(data.to_json)
       end
 
-      #install
-      if block_given
-        yield
-      end
+      #run command
+      block.call
 
       #remove component file
       FileUtils.rm("component.json")

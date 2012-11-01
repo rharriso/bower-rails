@@ -28,8 +28,9 @@ in Gemfile
 ```
 
 
-**To install javascript files to correspondign directories**
+**Available command
 
 ``` bash
-  rake bower:install
+  rake bower:install #install js components
+  rake bower:update  #update js components
 ```
