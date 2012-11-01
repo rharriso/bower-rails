@@ -4,29 +4,48 @@ require 'pp'
 namespace :bower do
   
   desc "install files from bower"
-  task :install do
-    #load in bower json file
-    txt  = File.read("#{Rails.root}/bower.json")
-    json = JSON.parse(txt)
-
+  task :install do    
     #install to corresponding directories
-    install_components "lib", json["lib"]
-    install_components "vendor", json["vendor"]
+    perform_command { %x[bower install] }     
+  end
+
+  desc "update bower packages"
+  task :update do    
+    #install to corresponding directories
+    perform_command { %x[bower update] }     
   end
 end
 
-def install_components dir, data = nil
-  Dir.chdir("#{Rails.root}/#{dir}/assets/javascripts") do
-    #remove old components
-    FileUtils.rm_rf("components")
-    #create component json
-    File.open("component.json","w") do |f|
-      f.write(data.to_json)
-    end
+#run the passed bower block in appropriate folders
+def perform_command 
+  #load in bower json file
+  txt  = File.read("#{Rails.root}/bower.json")
+  json = JSON.parse(txt)
 
-    #install
-    %x[bower install]
-    #remove component file
-    FileUtils.rm("component.json")
-  end if data
+  ["lib", "vendor"].each do |dir|
+
+    data = json[dir]
+
+    #go in to dir to act
+    Dir.chdir("#{Rails.root}/#{dir}/assets/javascripts") do
+      
+      #remove old components
+      FileUtils.rm_rf("components")
+      
+      #create component json
+      File.open("component.json","w") do |f|
+        f.write(data.to_json)
+      end
+
+      #install
+      if block_given
+        yield
+      end
+
+      #remove component file
+      FileUtils.rm("component.json")
+
+    end if data
+
+  end
 end
