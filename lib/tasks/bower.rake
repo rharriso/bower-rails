@@ -12,12 +12,12 @@ namespace :bower do
   desc "update bower packages"
   task :update do    
     #install to corresponding directories
-    perform_command { %x[bower update] }     
+    perform_command false { %x[bower update] }     
   end
 end
 
 #run the passed bower block in appropriate folders
-def perform_command 
+def perform_command remove_components = true 
   #load in bower json file
   txt  = File.read("#{Rails.root}/bower.json")
   json = JSON.parse(txt)
@@ -30,7 +30,7 @@ def perform_command
     Dir.chdir("#{Rails.root}/#{dir}/assets/javascripts") do
       
       #remove old components
-      FileUtils.rm_rf("components")
+      FileUtils.rm_rf("components") if remove_components
       
       #create component json
       File.open("component.json","w") do |f|
