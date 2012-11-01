@@ -6,13 +6,17 @@ namespace :bower do
   desc "install files from bower"
   task :install do    
     #install to corresponding directories
-    perform_command { %x[bower install] }     
+    perform_command do 
+      %x[bower install]
+    end
   end
 
   desc "update bower packages"
   task :update do    
     #install to corresponding directories
-    perform_command false { %x[bower update] }     
+    perform_command false do
+      %x[bower update]
+    end
   end
 end
 
