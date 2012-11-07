@@ -14,14 +14,14 @@ namespace :bower do
   desc "update bower packages"
   task :update do    
     #install to corresponding directories
-    perform_command do
+    perform_command false do
       %x[bower update]
     end
   end
 end
 
 #run the passed bower block in appropriate folders
-def perform_command
+def perform_command remove_components = true
   #load in bower json file
   txt  = File.read("#{Rails.root}/bower.json")
   json = JSON.parse(txt)
