@@ -7,7 +7,7 @@ namespace :bower do
   task :install do    
     #install to corresponding directories
     perform_command do 
-      %x[bower install]
+      system 'bower install'
     end
   end
 
@@ -15,7 +15,7 @@ namespace :bower do
   task :update do    
     #install to corresponding directories
     perform_command false do
-      %x[bower update]
+      system 'bower update'
     end
   end
 end
