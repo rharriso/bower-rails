@@ -2,20 +2,20 @@ require 'json'
 require 'pp'
 
 namespace :bower do
-  
+
   desc "install files from bower"
-  task :install do    
+  task :install do
     #install to corresponding directories
-    perform_command do 
-      system 'bower install'
+    perform_command do
+      sh 'bower install'
     end
   end
 
   desc "update bower packages"
-  task :update do    
+  task :update do
     #install to corresponding directories
     perform_command false do
-      system 'bower update'
+      sh 'bower update'
     end
   end
 end
@@ -32,10 +32,10 @@ def perform_command remove_components = true
 
     #go in to dir to act
     Dir.chdir("#{Rails.root}/#{dir}/assets/javascripts") do
-      
+
       #remove old components
       FileUtils.rm_rf("components") if remove_components
-      
+
       #create component json
       File.open("component.json","w") do |f|
         f.write(data.to_json)
