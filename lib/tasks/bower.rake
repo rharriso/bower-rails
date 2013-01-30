@@ -30,8 +30,11 @@ def perform_command remove_components = true
 
     data = json[dir]
 
+    #check folder existence and create?
+    dir = "#{Rails.root}/#{dir}/assets/javascripts"
+    FileUtils.mkdir_p dir unless File.directory? dir
     #go in to dir to act
-    Dir.chdir("#{Rails.root}/#{dir}/assets/javascripts") do
+    Dir.chdir(dir) do
 
       #remove old components
       FileUtils.rm_rf("components") if remove_components

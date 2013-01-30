@@ -18,7 +18,7 @@ in Gemfile
 
 **Initialize**
 
-To add an empty component.json file to the project root.
+To add an empty bower.json file to the project root.
 
 ``` Bash
 	rails g bower_rails:initialize
@@ -27,9 +27,9 @@ To add an empty component.json file to the project root.
 
 **Configuration**
 
-The component.json file is two seperate bower package files. Defining a package in lib and vendor will install those packages to the corresponding directories.
+The bower.json file is two seperate bower [component.js](https://github.com/twitter/bower#defining-a-package) files. Defining a package in lib and vendor will install those packages to the corresponding directories.
 
-**example component.json file**
+**example bower.json file**
 
 ``` javascript
 {

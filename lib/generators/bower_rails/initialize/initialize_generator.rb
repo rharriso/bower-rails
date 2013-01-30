@@ -8,7 +8,7 @@ module BowerRails
       end
 
       def create_initializer_file
-        template "component.json", 'component.json'
+        template "bower.json", 'bower.json'
       end
 
     end
