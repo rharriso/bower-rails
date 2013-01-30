@@ -48,7 +48,7 @@ The bower.json file is two seperate bower [component.js](https://github.com/twit
 ```
 
 
-**Available command
+**Available commands**
 
 ``` bash
   rake bower:install #install js components
