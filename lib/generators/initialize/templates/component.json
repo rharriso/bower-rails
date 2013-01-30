@@ -1,0 +1,10 @@
+{
+   "lib": {
+    "dependencies": {      
+    }    
+  },
+  "vendor": {
+    "dependencies": {
+    }
+  }
+}
