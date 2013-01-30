@@ -6,7 +6,6 @@ module BowerRails
 
     rake_tasks do
       load "tasks/bower.rake"
-      load "generators/initialize_generator.rb"
     end
   end
 end
