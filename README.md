@@ -13,7 +13,7 @@ rake tasks for bower on rails. Dependency file is bower.json in Rails root dir.
 in Gemfile
 
 ``` Ruby
-	gem 'bower-rails'
+	gem "bower-rails", "~> 0.2.1"
 ```
 
 **Initialize**
