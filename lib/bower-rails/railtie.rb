@@ -4,8 +4,10 @@ module BowerRails
   class Railtie < Rails::Railtie
     railtie_name :bower
 
-    ["lib", "vendor"].each do |dir|
-      config.assets.paths << Rails.root.join(dir, 'assets', 'components')
+    config.after_initialize do |app|
+      ["lib", "vendor"].each do |dir|
+        app.config.assets.paths << Rails.root.join(dir, 'assets', 'components')
+      end
     end
 
     rake_tasks do
