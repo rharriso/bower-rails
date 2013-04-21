@@ -24,7 +24,7 @@ To add an empty bower.json file to the project root.
 	rails g bower_rails:initialize
 ```
 
-* JSON configuration *
+##JSON configuration
 
 The bower.json file is two seperate bower [component.js](https://github.com/twitter/bower#defining-a-package) files. Defining a package in lib and vendor will install those packages to the corresponding directories.
 
@@ -55,7 +55,7 @@ The bower.json file is two seperate bower [component.js](https://github.com/twit
 ```
 
 
-*Ruby DSL configuration*
+##Ruby DSL configuration
 
 The Ruby DSL configuration is a Jsfile with DSL syntax similar to Bundler
 
