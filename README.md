@@ -24,8 +24,7 @@ To add an empty bower.json file to the project root.
 	rails g bower_rails:initialize
 ```
 
-
-**Configuration**
+##JSON configuration
 
 The bower.json file is two seperate bower [component.js](https://github.com/twitter/bower#defining-a-package) files. Defining a package in lib and vendor will install those packages to the corresponding directories.
 
@@ -36,8 +35,8 @@ The bower.json file is two seperate bower [component.js](https://github.com/twit
    "lib": {
     "dependencies": {
       "threex"      : "git@github.com:rharriso/threex.git",
-      "gsvpano.js"  : "https://github.com/rharriso/GSVPano.js/blob/master/src/GSVPano.js"  
-    }    
+      "gsvpano.js"  : "https://github.com/rharriso/GSVPano.js/blob/master/src/GSVPano.js"
+    }
   },
   "vendor": {
     "dependencies": {
@@ -54,3 +53,39 @@ The bower.json file is two seperate bower [component.js](https://github.com/twit
   rake bower:install #install js components
   rake bower:update  #update js components
 ```
+
+
+##Ruby DSL configuration
+
+The Ruby DSL configuration is a Jsfile with DSL syntax similar to Bundler
+
+
+**Example Jsfile**
+
+``` ruby
+assets_path "assets/javascript"
+
+# Puts files under ./venodor/assrts/js
+group :vendor, :assets_path => "assets/js"  do
+  js "jquery"            # Assummes it's latests
+  js "backbone", "1.2"
+end
+
+# Puts files under ./lib/assets/javascript
+group :lib do
+  js "jquery"
+  js "backbone", "1.2"
+end
+```
+
+**Available commands with a Jsfile**
+
+``` bash
+  rake bower:dsl:install #install js components
+  rake bower:dsl:update  #update js components
+```
+
+
+
+
+
