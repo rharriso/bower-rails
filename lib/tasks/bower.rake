@@ -1,6 +1,5 @@
 require 'json'
 require 'pp'
-
 namespace :bower do
 
   desc "install files from bower"
@@ -16,6 +15,40 @@ namespace :bower do
     #install to corresponding directories
     perform_command false do
       sh 'bower update'
+    end
+  end
+  
+  namespace :dsl do
+    desc "install files from bower"
+    task :install do
+      #install to corresponding directories
+      dsl_perform_command do
+        sh 'bower install'
+      end
+    end
+
+    desc "update bower packages"
+    task :update do
+      #install to corresponding directories
+      dsl_perform_command false do
+        sh 'bower update'
+      end
+    end
+  end
+end
+
+def dsl_perform_command remove_components = true
+  BowerRails::Dsl.config = {:root_path => Rails.root}
+  dsl = BowerRails::Dsl.evalute(Rails.root.join("Jsfile"))
+  
+  if remove_components  
+    dsl.write_components_js 
+    puts "component.js files generated"
+  end
+  
+  dsl.directories.each do |dir|
+    Dir.chdir(dir) do
+      yield
     end
   end
 end
