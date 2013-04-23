@@ -3,6 +3,17 @@ bower-rails
 
 rake tasks for bower on rails. Dependency file is bower.json in Rails root dir.
 
+**Asset Pipeline**
+
+As of version 0.3.0 bower-rails installs components in the asset directory, rather than assets/javascripts. This is because some of these packages also include stylesheets, or images. As such you may have to add components to your asset pipeline.
+
+``` Ruby
+  # config/application.rb
+
+  config.assets.paths << Rails.root.join("lib", "assets", "components")
+  config.assets.paths << Rails.root.join("vendor", "assets", "components")
+```
+
 **Requirements**
 
 * [node](http://nodejs.org) ([on github](https://github.com/joyent/node))
@@ -13,7 +24,7 @@ rake tasks for bower on rails. Dependency file is bower.json in Rails root dir.
 in Gemfile
 
 ``` Ruby
-	gem "bower-rails", "~> 0.2.1"
+	gem "bower-rails", "~> 0.3.0"
 ```
 
 **Initialize**
