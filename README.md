@@ -76,7 +76,7 @@ The Ruby DSL configuration is a Jsfile with DSL syntax similar to Bundler
 ``` ruby
 assets_path "assets/javascript"
 
-# Puts files under ./venodor/assrts/js
+# Puts files under ./vendor/assets/js
 group :vendor, :assets_path => "assets/js"  do
   js "jquery"            # Assummes it's latests
   js "backbone", "1.2"
