@@ -42,8 +42,8 @@ def dsl_perform_command remove_components = true
   dsl = BowerRails::Dsl.evalute(Rails.root.join("Jsfile"))
   
   if remove_components  
-    dsl.write_components_js 
-    puts "component.js files generated"
+    dsl.write_bower_json
+    puts "bower.js files generated"
   end
   
   dsl.directories.each do |dir|
@@ -72,16 +72,16 @@ def perform_command remove_components = true
       #remove old components
       FileUtils.rm_rf("components") if remove_components
 
-      #create component json
-      File.open("component.json","w") do |f|
+      #create bower json
+      File.open("bower.json","w") do |f|
         f.write(data.to_json)
       end
 
       #run command
       yield
 
-      #remove component file
-      FileUtils.rm("component.json")
+      #remove bower file
+      FileUtils.rm("bower.json")
 
     end if data
 
