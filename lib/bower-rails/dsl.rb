@@ -65,10 +65,10 @@ module BowerRails
       dependencies_to_json @dependencies[normalize_location_path(location)]
     end
 
-    def write_components_js
+    def write_bower_json
       @dependencies.each do |dir,data|
         FileUtils.mkdir_p dir unless File.directory? dir
-        File.open(File.join(dir,"component.json"),"w") do |f|
+        File.open(File.join(dir,"bower.json"),"w") do |f|
           f.write(dependencies_to_json(data))
         end
       end
