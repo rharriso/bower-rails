@@ -43,7 +43,7 @@ def dsl_perform_command remove_components = true
   else
     bower_root = Dir.pwd
   end
-  BowerRails::Dsl.config = {:root_path => Rails.root}
+  BowerRails::Dsl.config = {:root_path => bower_root}
   dsl = BowerRails::Dsl.evalute(File.join(bower_root, "Jsfile"))
   
   if remove_components  
