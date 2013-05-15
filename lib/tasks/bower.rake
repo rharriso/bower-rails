@@ -60,7 +60,7 @@ end
 
 #run the passed bower block in appropriate folders
 def perform_command remove_components = true
-  defined?(Rails)
+  if defined?(Rails)
     bower_root = Rails.root  
   else
     bower_root = Dir.pwd
