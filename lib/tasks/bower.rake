@@ -66,7 +66,7 @@ def perform_command remove_components = true
     bower_root = Dir.pwd
   end
   #load in bower json file
-  txt  = File.read(File.join(bower_root, "bower.json")
+  txt  = File.read(File.join(bower_root, "bower.json"))
   json = JSON.parse(txt)
 
   ["lib", "vendor"].each do |dir|
