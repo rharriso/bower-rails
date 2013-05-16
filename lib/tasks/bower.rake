@@ -37,9 +37,18 @@ namespace :bower do
   end
 end
 
+def get_bower_root_path
+  if defined?(Rails)
+    return Rails.root  
+  else
+    return Dir.pwd
+  end
+end
+
 def dsl_perform_command remove_components = true
-  BowerRails::Dsl.config = {:root_path => Rails.root}
-  dsl = BowerRails::Dsl.evalute(Rails.root.join("Jsfile"))
+  bower_root = get_bower_root_path
+  BowerRails::Dsl.config = {:root_path => bower_root}
+  dsl = BowerRails::Dsl.evalute(File.join(bower_root, "Jsfile"))
   
   if remove_components  
     dsl.write_bower_json
@@ -55,8 +64,9 @@ end
 
 #run the passed bower block in appropriate folders
 def perform_command remove_components = true
+  bower_root = get_bower_root_path
   #load in bower json file
-  txt  = File.read("#{Rails.root}/bower.json")
+  txt  = File.read(File.join(bower_root, "bower.json"))
   json = JSON.parse(txt)
 
   ["lib", "vendor"].each do |dir|
@@ -64,7 +74,7 @@ def perform_command remove_components = true
     data = json[dir]
 
     #check folder existence and create?
-    dir = "#{Rails.root}/#{dir}/assets"
+    dir = File.join(bower_root, "dir", "assets")
     FileUtils.mkdir_p dir unless File.directory? dir
     #go in to dir to act
     Dir.chdir(dir) do
