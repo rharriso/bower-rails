@@ -37,12 +37,16 @@ namespace :bower do
   end
 end
 
-def dsl_perform_command remove_components = true
+def get_bower_root_path
   if defined?(Rails)
-    bower_root = Rails.root  
+    return Rails.root  
   else
-    bower_root = Dir.pwd
+    return Dir.pwd
   end
+end
+
+def dsl_perform_command remove_components = true
+  bower_root = get_bower_root_path
   BowerRails::Dsl.config = {:root_path => bower_root}
   dsl = BowerRails::Dsl.evalute(File.join(bower_root, "Jsfile"))
   
@@ -60,11 +64,7 @@ end
 
 #run the passed bower block in appropriate folders
 def perform_command remove_components = true
-  if defined?(Rails)
-    bower_root = Rails.root  
-  else
-    bower_root = Dir.pwd
-  end
+  bower_root = get_bower_root_path
   #load in bower json file
   txt  = File.read(File.join(bower_root, "bower.json"))
   json = JSON.parse(txt)
