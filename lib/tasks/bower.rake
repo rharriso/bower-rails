@@ -74,7 +74,7 @@ def perform_command remove_components = true
     data = json[dir]
 
     #check folder existence and create?
-    dir = File.join(bower_root, "dir", "assets")
+    dir = File.join(bower_root, dir, "assets")
     FileUtils.mkdir_p dir unless File.directory? dir
     #go in to dir to act
     Dir.chdir(dir) do
