@@ -24,7 +24,7 @@ As of version 0.3.0 bower-rails installs components in the asset directory, rath
 in Gemfile
 
 ``` Ruby
-	gem "bower-rails", "~> 0.3.1"
+	gem "bower-rails", "~> 0.3.2"
 ```
 
 **Initialize**
