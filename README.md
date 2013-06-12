@@ -17,7 +17,7 @@ As of version 0.3.0 bower-rails installs components in the asset directory, rath
 **Requirements**
 
 * [node](http://nodejs.org) ([on github](https://github.com/joyent/node))
-* [bower](https://github.com/twitter/bow) (>= 0.9) installed with npm
+* [bower](https://github.com/bower/bower) (>= 0.9) installed with npm
 
 **Install**
 
