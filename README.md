@@ -3,28 +3,17 @@ bower-rails
 
 rake tasks for bower on rails. Dependency file is bower.json in Rails root dir.
 
-**Asset Pipeline**
-
-As of version 0.3.0 bower-rails installs components in the asset directory, rather than assets/javascripts. This is because some of these packages also include stylesheets, or images. As such you may have to add components to your asset pipeline.
-
-``` Ruby
-  # config/application.rb
-
-  config.assets.paths << Rails.root.join("lib", "assets", "components")
-  config.assets.paths << Rails.root.join("vendor", "assets", "components")
-```
-
 **Requirements**
 
 * [node](http://nodejs.org) ([on github](https://github.com/joyent/node))
-* [bower](https://github.com/bower/bower) (>= 0.9) installed with npm
+* [bower](https://github.com/bower/bower) (>= 0.10.0) installed with npm
 
 **Install**
 
 in Gemfile
 
 ``` Ruby
-	gem "bower-rails", "~> 0.3.2"
+	gem "bower-rails", "~> 0.4.0"
 ```
 
 **Initialize**
@@ -44,14 +33,16 @@ The bower.json file is two seperate bower [component.js](https://github.com/twit
 ``` javascript
 {
    "lib": {
+    "name": "bower-rails generated lib assets",
     "dependencies": {
       "threex"      : "git@github.com:rharriso/threex.git",
       "gsvpano.js"  : "https://github.com/rharriso/GSVPano.js/blob/master/src/GSVPano.js"
     }
   },
   "vendor": {
+    "name": "bower-rails generated vendor assets",
     "dependencies": {
-      "three.js"  : "https://raw.github.com/mrdoob/three.js/master/build/three.js"
+      "three.js"    : "https://raw.github.com/mrdoob/three.js/master/build/three.js"
     }
   }
 }

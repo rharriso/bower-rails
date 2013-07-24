@@ -6,7 +6,7 @@ module BowerRails
 
     config.after_initialize do |app|
       ["lib", "vendor"].each do |dir|
-        app.config.assets.paths << Rails.root.join(dir, 'assets', 'components')
+        app.config.assets.paths << Rails.root.join(dir, 'assets', 'bower_components')
       end
     end
 
