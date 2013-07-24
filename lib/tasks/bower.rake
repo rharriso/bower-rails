@@ -17,7 +17,7 @@ namespace :bower do
       sh 'bower update'
     end
   end
-  
+
   namespace :dsl do
     desc "install files from bower"
     task :install do
@@ -39,7 +39,7 @@ end
 
 def get_bower_root_path
   if defined?(Rails)
-    return Rails.root  
+    return Rails.root
   else
     return Dir.pwd
   end
@@ -49,12 +49,12 @@ def dsl_perform_command remove_components = true
   bower_root = get_bower_root_path
   BowerRails::Dsl.config = {:root_path => bower_root}
   dsl = BowerRails::Dsl.evalute(File.join(bower_root, "Jsfile"))
-  
-  if remove_components  
+
+  if remove_components
     dsl.write_bower_json
     puts "bower.js files generated"
   end
-  
+
   dsl.directories.each do |dir|
     Dir.chdir(dir) do
       yield
