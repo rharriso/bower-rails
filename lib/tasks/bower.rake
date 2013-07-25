@@ -80,7 +80,7 @@ def perform_command remove_components = true
     Dir.chdir(dir) do
 
       #remove old components
-      FileUtils.rm_rf("components") if remove_components
+      FileUtils.rm_rf("bower_components") if remove_components
 
       #create bower json
       File.open("bower.json","w") do |f|
