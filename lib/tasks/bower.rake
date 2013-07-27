@@ -10,6 +10,14 @@ namespace :bower do
     end
   end
 
+  namespace :install do
+    task :force do
+      perform_command do
+        sh 'bower install -F'
+      end
+    end
+  end
+
   desc "update bower packages"
   task :update do
     #install to corresponding directories
