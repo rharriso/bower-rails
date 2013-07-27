@@ -1,16 +1,10 @@
-require "json"
+require 'json'
 require 'fileutils'
 
 module BowerRails
   class Dsl
-
-    def self.config=(conf)
-      @config = conf
-    end
-
-    def self.config
-      @config
-    end
+    cattr_accessor :config
+    attr_reader :dependencies
 
     def self.evalute(file)
       inst = new
@@ -26,16 +20,12 @@ module BowerRails
     end
 
     def eval_file(file)
-      contents = File.open(file,"r").read
+      contents = File.open(file, "r").read
       instance_eval(contents, file.to_s, 1)
     end
 
     def directories
       @dependencies.keys
-    end
-
-    def dependencies
-      @dependencies
     end
 
     def group(*args, &blk)
