@@ -52,6 +52,7 @@ def dsl_perform_command remove_components = true
 
   if remove_components
     dsl.write_bower_json
+    dsl.write_dotbowerrc
     puts "bower.js files generated"
   end
 
