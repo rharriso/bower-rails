@@ -7,21 +7,20 @@ module BowerRails
     attr_reader :dependencies
 
     def self.evalute(file)
-      inst = new
-      inst.eval_file(file)
-      inst
+      instance = new
+      instance.eval_file(file)
+      instance
     end
 
     def initialize
       @dependencies = {}
       @groups = []
       @root_path = BowerRails::Dsl.config[:root_path] ||  File.expand_path("./")
-      @assets_path = BowerRails::Dsl.config[:assets_path] ||  "/assets"
+      @assets_path = BowerRails::Dsl.config[:assets_path] ||  "assets"
     end
 
     def eval_file(file)
-      contents = File.open(file, "r").read
-      instance_eval(contents, file.to_s, 1)
+      instance_eval(File.open(file, "rb") { |f| f.read }, file.to_s)
     end
 
     def directories
@@ -29,23 +28,22 @@ module BowerRails
     end
 
     def group(*args, &blk)
-      @groups.concat [args]
+      custom_assets_path = args[1][:assets_path]
+      raise ArgumentError, "Assets should be stored in /assets directory, try :assets_path => 'assets/#{custom_assets_path}' instead" if custom_assets_path.match(/assets/).nil?
+      new_group = [args[0], args[1]]
+      @groups << new_group
       yield
-    ensure
-      args.each { @groups.pop }
     end
 
     def js(name, *args)
-      options = Hash === args.last ? args.pop : {}
       version = args.first || "latest"
-
-      @groups = [["vendor", {}]] if @groups.empty?
+      @groups = [[:vendor, { assets_path: @assets_path }]] if @groups.empty?
 
       @groups.each do |g|
-        g_options = Hash === g.last ? g.pop : {}
-        assets_path = g_options[:assets_path] || @assets_path
+        group_options = g.last
+        assets_path = group_options[:assets_path]
 
-        g_norm = normalize_location_path(g.first,assets_path)
+        g_norm = normalize_location_path(g.first.to_s, assets_path)
         @dependencies[g_norm] ||= {}
         @dependencies[g_norm][name] = version
       end
@@ -65,17 +63,23 @@ module BowerRails
     end
 
     def write_dotbowerrc
-      @groups = [["vendor", {}]] if @groups.empty?
-      
-      @groups.each do |g|
-        g_options = Hash === g.last ? g.pop : {}
-        assets_path = g_options[:assets_path] || @assets_path
+      @groups = [[:vendor, { assets_path: @assets_path }]] if @groups.empty?
+      @groups.map do |g|
+        group_options = g.last
+        assets_path = group_options[:assets_path]
 
-        File.open(File.join(g.first, assets_path, ".bowerrc"), "w") do |f|
+        File.open(File.join(g.first.to_s, assets_path, ".bowerrc"), "w") do |f|
           f.write(JSON.pretty_generate({:directory => "bower_components"}))
         end
       end
     end
+
+    def final_assets_path
+      @groups = [[:vendor, { assets_path: @assets_path }]] if @groups.empty? 
+      @groups.map do |g|
+        [g.first.to_s, g.last[:assets_path]]
+      end
+    end    
 
     private
 
@@ -87,10 +91,11 @@ module BowerRails
     end
 
     def assets_path(assets_path)
+      raise ArgumentError, "Assets should be stored in /assets directory, try assets_path 'assets/#{assets_path}' instead" if assets_path.match(/assets/).nil?
       @assets_path = assets_path
     end
 
-    def normalize_location_path(loc,assets_path)
+    def normalize_location_path(loc, assets_path)
       File.join(@root_path, loc.to_s, assets_path)
     end
 
