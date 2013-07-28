@@ -28,8 +28,10 @@ module BowerRails
     end
 
     def group(*args, &blk)
-      custom_assets_path = args[1][:assets_path]
-      raise ArgumentError, "Assets should be stored in /assets directory, try :assets_path => 'assets/#{custom_assets_path}' instead" if custom_assets_path.match(/assets/).nil?
+      if args[1]
+        custom_assets_path = args[1][:assets_path]
+        raise ArgumentError, "Assets should be stored in /assets directory, try :assets_path => 'assets/#{custom_assets_path}' instead" if custom_assets_path.match(/assets/).nil?
+      end
       new_group = [args[0], args[1]]
       @groups << new_group
       yield
@@ -40,8 +42,8 @@ module BowerRails
       @groups = [[:vendor, { assets_path: @assets_path }]] if @groups.empty?
 
       @groups.each do |g|
-        group_options = g.last
-        assets_path = group_options[:assets_path]
+        group_options = Hash === g.last ? g.pop : {}
+        assets_path = group_options[:assets_path] || @assets_path
 
         g_norm = normalize_location_path(g.first.to_s, assets_path)
         @dependencies[g_norm] ||= {}
@@ -65,8 +67,8 @@ module BowerRails
     def write_dotbowerrc
       @groups = [[:vendor, { assets_path: @assets_path }]] if @groups.empty?
       @groups.map do |g|
-        group_options = g.last
-        assets_path = group_options[:assets_path]
+        group_options = Hash === g.last ? g.pop : {}
+        assets_path = group_options[:assets_path] || @assets_path
 
         File.open(File.join(g.first.to_s, assets_path, ".bowerrc"), "w") do |f|
           f.write(JSON.pretty_generate({:directory => "bower_components"}))
@@ -77,7 +79,9 @@ module BowerRails
     def final_assets_path
       @groups = [[:vendor, { assets_path: @assets_path }]] if @groups.empty? 
       @groups.map do |g|
-        [g.first.to_s, g.last[:assets_path]]
+        group_options = Hash === g.last ? g.pop : {}
+        assets_path = group_options[:assets_path] || @assets_path
+        [g.first.to_s, assets_path]
       end
     end    
 
