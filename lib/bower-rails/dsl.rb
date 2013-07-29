@@ -81,8 +81,8 @@ module BowerRails
     end   
 
     def group_assets_path group
-      group_options = Hash === group.last ? group.pop : {}
-      group_options[:assets_path] || @assets_path 
+      group_options = Hash === group.last ? group.last : {:assets_path => @assets_path}
+      group_options[:assets_path]
     end 
 
     private

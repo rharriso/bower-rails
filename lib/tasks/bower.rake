@@ -84,8 +84,13 @@ def perform_command remove_components = true
       FileUtils.rm_rf("bower_components") if remove_components
 
       #create bower json
-      File.open("bower.json","w") do |f|
+      File.open("bower.json", "w") do |f|
         f.write(data.to_json)
+      end
+
+      #create .bowerrc
+      File.open(".bowerrc", "w") do |f|
+        f.write(JSON.pretty_generate({:directory => "bower_components"}))
       end
 
       #run command
@@ -94,7 +99,8 @@ def perform_command remove_components = true
       #remove bower file
       FileUtils.rm("bower.json")
 
-    end if data
-
+      #remove .bowerrc
+      FileUtils.rm(".bowerrc")
+    end if data && !data["dependencies"].empty?
   end
 end
