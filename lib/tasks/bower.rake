@@ -90,6 +90,9 @@ def perform_command remove_components = true
       #run command
       yield
 
+      #touch everything to shake up the rails asset cache, in case we are going to prev version
+      FileUtils.touch(Dir.glob('**'));
+
       #remove bower file
       FileUtils.rm("bower.json")
 
