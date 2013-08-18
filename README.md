@@ -53,7 +53,9 @@ The bower.json file is two seperate bower [component.js](https://github.com/twit
 
 ``` bash
   rake bower:install #install js components
-  rake bower:update  #update js components
+  rake bower:install:force #install with force option
+  rake bower:update #update js components
+  rake bower:update:prune #update components and uninstall extraneous packages
 ```
 
 
@@ -105,7 +107,9 @@ NOTE: All the assets should be stored in `/assets` subdirectory so putting it un
 
 ``` bash
   rake bower:dsl:install #install js components
-  rake bower:dsl:update  #update js components
+  rake bower:dsl:install:force #install with force option
+  rake bower:dsl:update #update js components
+  rake bower:dsl:update:prune #update components and uninstall extraneous packages
 ```
 
 

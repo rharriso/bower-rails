@@ -1,8 +1,9 @@
 require 'json'
 require 'pp'
+
 namespace :bower do
 
-  desc "install files from bower"
+  desc "install components from bower"
   task :install do
     #install to corresponding directories
     perform_command do
@@ -11,6 +12,7 @@ namespace :bower do
   end
 
   namespace :install do
+    desc "install components with -F option"
     task :force do
       perform_command do
         sh 'bower install -F'
@@ -18,7 +20,7 @@ namespace :bower do
     end
   end
 
-  desc "update bower packages"
+  desc "update bower components"
   task :update do
     #install to corresponding directories
     perform_command false do
@@ -26,8 +28,17 @@ namespace :bower do
     end
   end
 
+  namespace :update do
+    desc "update existing components and uninstalls extraneous components"
+    task :prune do
+      perform_command false do
+        sh 'bower update && bower prune'
+      end
+    end
+  end
+
   namespace :dsl do
-    desc "install files from bower"
+    desc "install components from bower"
     task :install do
       #install to corresponding directories
       dsl_perform_command do
@@ -35,14 +46,34 @@ namespace :bower do
       end
     end
 
-    desc "update bower packages"
+    namespace :install do
+      desc "install components with -F option"
+      task :force do
+        dsl_perform_command do
+          sh 'bower install -F'
+        end
+      end
+    end
+
+    desc "update bower components"
     task :update do
       #install to corresponding directories
       dsl_perform_command false do
         sh 'bower update'
       end
     end
+
+    namespace :update do
+      desc "update existing components and uninstalls extraneous components"
+      task :prune do
+        dsl_perform_command false do
+          sh 'bower update && bower prune'
+        end
+      end
+    end
+    
   end
+
 end
 
 def get_bower_root_path
