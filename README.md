@@ -1,7 +1,8 @@
 bower-rails
 ===========
 
-rake tasks for bower on rails. Dependency file is bower.json in Rails root dir.
+Bower support for Rails projects. Dependency file is bower.json in Rails root dir or Bowerfile if you use DSL.
+Check out Changelog.md for the latest changes and releases.
 
 **Requirements**
 
