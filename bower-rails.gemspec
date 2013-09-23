@@ -9,5 +9,5 @@ Gem::Specification.new do |s|
   s.email         = "rtharrison86@gmail.com"
   s.files         = Dir["lib/**/*"] + ["MIT-LICENSE", "README.md"]
   s.require_paths = ["lib"]
-  spec.license    = 'MIT'
+  s.license    = 'MIT'
 end
