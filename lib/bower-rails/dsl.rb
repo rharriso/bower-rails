@@ -40,7 +40,7 @@ module BowerRails
       yield
     end
 
-    def js(name, *args)
+    def asset(name, *args)
       version = args.first || "latest"
       @groups = [[:vendor, { assets_path: @assets_path }]] if @groups.empty?
 
@@ -102,6 +102,5 @@ module BowerRails
     def normalize_location_path(loc, assets_path)
       File.join(@root_path, loc.to_s, assets_path)
     end
-
   end
 end
