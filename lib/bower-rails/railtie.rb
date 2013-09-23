@@ -6,9 +6,10 @@ module BowerRails
   class Railtie < Rails::Railtie
     railtie_name :bower
 
-    if File.exist?(File.join("Jsfile"))
+    bowerfile = File.join("Bowerfile")
+    if File.exist?(bowerfile)
       BowerRails::Dsl.config = {:root_path => Rails.root}
-      dsl = BowerRails::Dsl.evalute(File.join("Jsfile"))
+      dsl = BowerRails::Dsl.evalute(bowerfile)
 
       config.before_initialize do |app|
         dsl.final_assets_path.map do |assets_root, assets_path|
