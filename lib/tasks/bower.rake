@@ -2,78 +2,49 @@ require 'json'
 require 'pp'
 
 namespace :bower do
-
-  desc "install components from bower"
+  desc "Install components from bower"
   task :install do
-    #install to corresponding directories
-    perform_command do
+    perform do
       sh 'bower install'
     end
   end
 
   namespace :install do
-    desc "install components with -F option"
+    desc "Install components with -F option"
     task :force do
-      perform_command do
+      perform do
         sh 'bower install -F'
       end
     end
   end
 
-  desc "update bower components"
+  desc "Update bower components"
   task :update do
-    #install to corresponding directories
-    perform_command false do
+    perform false do
       sh 'bower update'
     end
   end
 
   namespace :update do
-    desc "update existing components and uninstalls extraneous components"
+    desc "Update existing components and uninstalls extraneous components"
     task :prune do
-      perform_command false do
+      perform false do
         sh 'bower update && bower prune'
       end
     end
   end
+end
 
-  namespace :dsl do
-    desc "install components from bower"
-    task :install do
-      #install to corresponding directories
-      dsl_perform_command do
-        sh 'bower install'
-      end
-    end
+def perform remove_components = true, &block
+  entries = Dir.entries(get_bower_root_path)
 
-    namespace :install do
-      desc "install components with -F option"
-      task :force do
-        dsl_perform_command do
-          sh 'bower install -F'
-        end
-      end
-    end
-
-    desc "update bower components"
-    task :update do
-      #install to corresponding directories
-      dsl_perform_command false do
-        sh 'bower update'
-      end
-    end
-
-    namespace :update do
-      desc "update existing components and uninstalls extraneous components"
-      task :prune do
-        dsl_perform_command false do
-          sh 'bower update && bower prune'
-        end
-      end
-    end
-    
+  if entries.include?('Bowerfile')
+    dsl_perform_command remove_components, &block
+  elsif entries.include?('bower.json')
+    perform_command remove_components, &block
+  else
+    raise LoadError, "No Bowerfile or bower.json file found. Make sure you have it at the root of your project"
   end
-
 end
 
 def get_bower_root_path
@@ -84,7 +55,7 @@ def get_bower_root_path
   end
 end
 
-def dsl_perform_command remove_components = true
+def dsl_perform_command remove_components = true, &block
   bower_root = get_bower_root_path
   BowerRails::Dsl.config = {:root_path => bower_root}
   dsl = BowerRails::Dsl.evalute(File.join(bower_root, "Bowerfile"))
@@ -95,15 +66,17 @@ def dsl_perform_command remove_components = true
     puts "bower.js files generated"
   end
 
-  dsl.directories.each do |dir|
-    Dir.chdir(dir) do
-      yield
+  if block_given?
+    dsl.directories.each do |dir|
+      Dir.chdir(dir) do
+        yield
+      end
     end
   end
 end
 
 #run the passed bower block in appropriate folders
-def perform_command remove_components = true
+def perform_command remove_components = true, &block
   bower_root = get_bower_root_path
   #load in bower json file
   txt  = File.read(File.join(bower_root, "bower.json"))
@@ -133,7 +106,7 @@ def perform_command remove_components = true
       end
 
       #run command
-      yield
+      yield  if block_given?
 
       #remove bower file
       FileUtils.rm("bower.json")

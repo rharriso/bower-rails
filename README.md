@@ -49,17 +49,6 @@ The bower.json file is two seperate bower [component.js](https://github.com/twit
 }
 ```
 
-
-**Available commands**
-
-``` bash
-  rake bower:install #install js components
-  rake bower:install:force #install with force option
-  rake bower:update #update js components
-  rake bower:update:prune #update components and uninstall extraneous packages
-```
-
-
 ##Ruby DSL configuration
 
 The Ruby DSL configuration is a Bowerfile at the project's root with DSL syntax similar to Bundler. 
@@ -104,16 +93,11 @@ end
 ```
 NOTE: All the assets should be stored in `/assets` subdirectory so putting it under `./vendor/js` directory is unavailable
 
-**Available commands with a Bowerfile**
+##Rake tasks
 
-``` bash
-  rake bower:dsl:install #install js components
-  rake bower:dsl:install:force #install with force option
-  rake bower:dsl:update #update js components
-  rake bower:dsl:update:prune #update components and uninstall extraneous packages
-```
+Once you are done with `bower.json` or `Bowerfile` you can run
 
-
-
-
-
+* `rake bower:install` to install js components
+* `rake bower:install:force` to install with force option
+* `rake bower:update` to update js components
+* `rake bower:update:prune` to update components and uninstall extraneous packages
