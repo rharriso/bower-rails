@@ -108,6 +108,9 @@ def perform_command remove_components = true, &block
       #run command
       yield  if block_given?
 
+      #touch everything to shake up the rails asset cache, in case we are going to prev version
+      FileUtils.touch(Dir.glob('**'));
+
       #remove bower file
       FileUtils.rm("bower.json")
 
