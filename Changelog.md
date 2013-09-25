@@ -1,4 +1,5 @@
 ## Edge version
+* `rake bower:list` task now available
 * There is no more `dsl` namespace for rake tasks. Tasks are the same as for `bower.json` also for `Bowerfile` configuration files.
 
 ## v0.5.0
