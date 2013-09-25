@@ -25,6 +25,13 @@ namespace :bower do
     end
   end
 
+  desc "List bower components"
+  task :list do
+    perform false do
+      sh 'bower list'
+    end
+  end  
+
   namespace :update do
     desc "Update existing components and uninstalls extraneous components"
     task :prune do
