@@ -3,14 +3,17 @@ require 'fileutils'
 
 module BowerRails
   class Dsl
-    cattr_accessor :config
-    attr_reader :dependencies
+    class << self
+      attr_accessor :config
 
-    def self.evalute(file)
-      instance = new
-      instance.eval_file(file)
-      instance
+      def evalute(file)
+        instance = new
+        instance.eval_file(file)
+        instance
+      end
     end
+
+    attr_reader :dependencies
 
     def initialize
       @dependencies = {}

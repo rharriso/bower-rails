@@ -8,6 +8,10 @@ Gem::Specification.new do |s|
   s.authors       = ["Ross Harrison"]
   s.email         = "rtharrison86@gmail.com"
   s.files         = Dir["lib/**/*"] + ["MIT-LICENSE", "README.md"]
+  s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.require_paths = ["lib"]
   s.license    = 'MIT'
+
+  s.add_development_dependency "rspec"
+  s.add_development_dependency "rake"
 end
