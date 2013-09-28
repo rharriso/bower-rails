@@ -17,9 +17,9 @@ module BowerRails
 
     def initialize
       @dependencies = {}
-      @groups = []
       @root_path = BowerRails::Dsl.config[:root_path] ||  File.expand_path("./")
       @assets_path = BowerRails::Dsl.config[:assets_path] ||  "assets"
+      @groups ||= [[:vendor, { assets_path: @assets_path }]]
     end
 
     def eval_file(file)
@@ -45,7 +45,6 @@ module BowerRails
 
     def asset(name, *args)
       version = args.first || "latest"
-      @groups = [[:vendor, { assets_path: @assets_path }]] if @groups.empty?
 
       @groups.each do |g|
         g_norm = normalize_location_path(g.first.to_s, group_assets_path(g))
@@ -68,7 +67,6 @@ module BowerRails
     end
 
     def write_dotbowerrc
-      @groups = [[:vendor, { assets_path: @assets_path }]] if @groups.empty?
       @groups.map do |g|
         File.open(File.join(g.first.to_s, group_assets_path(g), ".bowerrc"), "w") do |f|
           f.write(JSON.pretty_generate({:directory => "bower_components"}))
@@ -77,7 +75,6 @@ module BowerRails
     end
 
     def final_assets_path
-      @groups = [[:vendor, { assets_path: @assets_path }]] if @groups.empty? 
       @groups.map do |g|
         [g.first.to_s, group_assets_path(g)]
       end
