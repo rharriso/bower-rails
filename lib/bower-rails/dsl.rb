@@ -3,22 +3,18 @@ require 'fileutils'
 
 module BowerRails
   class Dsl
-    class << self
-      attr_accessor :config
-
-      def evalute(file)
-        instance = new
-        instance.eval_file(file)
-        instance
-      end
+    def self.evalute(filename)
+      instance = new
+      instance.eval_file(File.join(instance.root_path, filename))
+      instance
     end
 
-    attr_reader :dependencies
+    attr_reader :dependencies, :root_path
 
     def initialize
       @dependencies = {}
-      @root_path = BowerRails::Dsl.config[:root_path] ||  File.expand_path("./")
-      @assets_path = BowerRails::Dsl.config[:assets_path] ||  "assets"
+      @root_path ||= defined?(Rails) ? Rails.root : Dir.pwd
+      @assets_path ||= "assets"
       @groups ||= [[:vendor, { assets_path: @assets_path }]]
     end
 
@@ -30,7 +26,7 @@ module BowerRails
       @dependencies.keys
     end
 
-    def group(*args, &blk)
+    def group(*args, &block)
       if args[1]
         custom_assets_path = args[1][:assets_path]
         raise ArgumentError, "Assets should be stored in /assets directory, try :assets_path => 'assets/#{custom_assets_path}' instead" unless custom_assets_path.start_with?('assets', '/assets')
@@ -38,16 +34,17 @@ module BowerRails
       else
         new_group = [args[0]]
       end
-      
+        
       @groups << new_group
-      yield
+
+      yield if block_given?
     end
 
     def asset(name, *args)
       version = args.first || "latest"
 
       @groups.each do |g|
-        g_norm = normalize_location_path(g.first.to_s, group_assets_path(g))
+        g_norm = normalize_location_path(g.first, group_assets_path(g))
         @dependencies[g_norm] ||= {}
         @dependencies[g_norm][name] = version
       end

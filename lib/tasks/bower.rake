@@ -63,9 +63,7 @@ def get_bower_root_path
 end
 
 def dsl_perform_command remove_components = true, &block
-  bower_root = get_bower_root_path
-  BowerRails::Dsl.config = {:root_path => bower_root}
-  dsl = BowerRails::Dsl.evalute(File.join(bower_root, "Bowerfile"))
+  dsl = BowerRails::Dsl.evalute("Bowerfile")
 
   if remove_components
     dsl.write_bower_json
