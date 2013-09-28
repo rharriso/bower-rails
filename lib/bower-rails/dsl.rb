@@ -33,7 +33,7 @@ module BowerRails
     def group(*args, &blk)
       if args[1]
         custom_assets_path = args[1][:assets_path]
-        raise ArgumentError, "Assets should be stored in /assets directory, try :assets_path => 'assets/#{custom_assets_path}' instead" if custom_assets_path.match(/assets/).nil?
+        raise ArgumentError, "Assets should be stored in /assets directory, try :assets_path => 'assets/#{custom_assets_path}' instead" unless custom_assets_path.start_with?('assets', '/assets')
         new_group = [args[0], args[1]]
       else
         new_group = [args[0]]
@@ -95,7 +95,7 @@ module BowerRails
     end
 
     def assets_path(assets_path)
-      raise ArgumentError, "Assets should be stored in /assets directory, try assets_path 'assets/#{assets_path}' instead" if assets_path.match(/assets/).nil?
+      raise ArgumentError, "Assets should be stored in /assets directory, try assets_path 'assets/#{assets_path}' instead" unless assets_path.start_with?('assets', '/assets')
       @assets_path = assets_path
     end
 
