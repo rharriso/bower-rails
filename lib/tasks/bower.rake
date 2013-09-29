@@ -20,7 +20,7 @@ namespace :bower do
 
   desc "Update bower components"
   task :update do
-    perform false do
+    perform do
       sh 'bower update'
     end
   end
@@ -35,7 +35,7 @@ namespace :bower do
   namespace :update do
     desc "Update existing components and uninstalls extraneous components"
     task :prune do
-      perform false do
+      perform do
         sh 'bower update && bower prune'
       end
     end
