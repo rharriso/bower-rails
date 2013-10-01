@@ -65,7 +65,8 @@ module BowerRails
 
     def write_dotbowerrc
       @groups.map do |g|
-        File.open(File.join(g.first.to_s, group_assets_path(g), ".bowerrc"), "w") do |f|
+        g_norm = normalize_location_path(g.first, group_assets_path(g))
+        File.open(File.join(g_norm, ".bowerrc"), "w") do |f|
           f.write(JSON.pretty_generate({:directory => "bower_components"}))
         end
       end
