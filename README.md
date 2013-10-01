@@ -14,7 +14,7 @@ Check out Changelog.md for the latest changes and releases.
 in Gemfile
 
 ``` Ruby
-	gem "bower-rails", "~> 0.4.4"
+	gem "bower-rails", "~> 0.5.0"
 ```
 
 **Initialize**
