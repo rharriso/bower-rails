@@ -15,7 +15,6 @@ module BowerRails
       @dependencies = {}
       @root_path ||= defined?(Rails) ? Rails.root : Dir.pwd
       @assets_path ||= "assets"
-      @groups ||= [[:vendor, { assets_path: @assets_path }]]
     end
 
     def eval_file(file)
@@ -34,8 +33,8 @@ module BowerRails
       else
         new_group = [args[0]]
       end
-        
-      @groups << new_group
+
+      add_group(new_group)
 
       yield if block_given?
     end
@@ -43,7 +42,7 @@ module BowerRails
     def asset(name, *args)
       version = args.first || "latest"
 
-      @groups.each do |g|
+      groups.each do |g|
         g_norm = normalize_location_path(g.first, group_assets_path(g))
         @dependencies[g_norm] ||= {}
         @dependencies[g_norm][name] = version
@@ -64,7 +63,7 @@ module BowerRails
     end
 
     def write_dotbowerrc
-      @groups.map do |g|
+      groups.map do |g|
         g_norm = normalize_location_path(g.first, group_assets_path(g))
         File.open(File.join(g_norm, ".bowerrc"), "w") do |f|
           f.write(JSON.pretty_generate({:directory => "bower_components"}))
@@ -73,7 +72,7 @@ module BowerRails
     end
 
     def final_assets_path
-      @groups.map do |g|
+      groups.map do |g|
         [g.first.to_s, group_assets_path(g)]
       end
     end   
@@ -84,6 +83,14 @@ module BowerRails
     end 
 
     private
+
+    def add_group(group)
+      @groups = (groups << group)
+    end
+
+    def groups
+      @groups ||= [[:vendor, { assets_path: @assets_path }]]
+    end
 
     def dependencies_to_json(data)
       JSON.pretty_generate({
