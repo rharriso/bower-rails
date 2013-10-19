@@ -3,10 +3,9 @@ require 'fileutils'
 
 module BowerRails
   class Dsl
+
     def self.evalute(filename)
-      instance = new
-      instance.eval_file(File.join(instance.root_path, filename))
-      instance
+      new.tap { |dsl| dsl.eval_file(File.join(dsl.root_path, filename)) }
     end
 
     attr_reader :dependencies, :root_path
@@ -15,7 +14,6 @@ module BowerRails
       @dependencies = {}
       @root_path ||= defined?(Rails) ? Rails.root : Dir.pwd
       @assets_path ||= "assets"
-      @groups ||= [[:vendor, { assets_path: @assets_path }]]
     end
 
     def eval_file(file)
@@ -26,24 +24,16 @@ module BowerRails
       @dependencies.keys
     end
 
-    def group(*args, &block)
-      if args[1]
-        custom_assets_path = args[1][:assets_path]
-        raise ArgumentError, "Assets should be stored in /assets directory, try :assets_path => 'assets/#{custom_assets_path}' instead" unless custom_assets_path.start_with?('assets', '/assets')
-        new_group = [args[0], args[1]]
-      else
-        new_group = [args[0]]
+    def group(name, options = {}, &block)
+      if custom_assets_path = options[:assets_path]
+        assert_asset_path custom_assets_path
       end
-        
-      @groups << new_group
-
+      add_group(name, options)
       yield if block_given?
     end
 
-    def asset(name, *args)
-      version = args.first || "latest"
-
-      @groups.each do |g|
+    def asset(name, version = "latest")
+      groups.each do |g|
         g_norm = normalize_location_path(g.first, group_assets_path(g))
         @dependencies[g_norm] ||= {}
         @dependencies[g_norm][name] = version
@@ -64,7 +54,7 @@ module BowerRails
     end
 
     def write_dotbowerrc
-      @groups.map do |g|
+      groups.map do |g|
         g_norm = normalize_location_path(g.first, group_assets_path(g))
         File.open(File.join(g_norm, ".bowerrc"), "w") do |f|
           f.write(JSON.pretty_generate({:directory => "bower_components"}))
@@ -73,7 +63,7 @@ module BowerRails
     end
 
     def final_assets_path
-      @groups.map do |g|
+      groups.map do |g|
         [g.first.to_s, group_assets_path(g)]
       end
     end   
@@ -85,6 +75,14 @@ module BowerRails
 
     private
 
+    def add_group(*group)
+      @groups = (groups << group)
+    end
+
+    def groups
+      @groups ||= [[:vendor, { :assets_path => @assets_path }]]
+    end
+
     def dependencies_to_json(data)
       JSON.pretty_generate({
         :name => "dsl-generated dependencies",
@@ -93,8 +91,14 @@ module BowerRails
     end
 
     def assets_path(assets_path)
-      raise ArgumentError, "Assets should be stored in /assets directory, try assets_path 'assets/#{assets_path}' instead" unless assets_path.start_with?('assets', '/assets')
+      assert_asset_path assets_path
       @assets_path = assets_path
+    end
+
+    def assert_asset_path(path)
+      if !path.start_with?('assets', '/assets')
+        raise ArgumentError, "Assets should be stored in /assets directory, try assets_path 'assets/#{path}' instead"
+      end
     end
 
     def normalize_location_path(loc, assets_path)
