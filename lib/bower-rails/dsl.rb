@@ -3,10 +3,9 @@ require 'fileutils'
 
 module BowerRails
   class Dsl
+
     def self.evalute(filename)
-      instance = new
-      instance.eval_file(File.join(instance.root_path, filename))
-      instance
+      new.tap { |dsl| dsl.eval_file(File.join(dsl.root_path, filename)) }
     end
 
     attr_reader :dependencies, :root_path
