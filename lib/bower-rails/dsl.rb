@@ -80,7 +80,7 @@ module BowerRails
     end
 
     def groups
-      @groups ||= [[:vendor, { assets_path: @assets_path }]]
+      @groups ||= [[:vendor, { :assets_path => @assets_path }]]
     end
 
     def dependencies_to_json(data)
