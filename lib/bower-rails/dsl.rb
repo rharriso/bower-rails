@@ -26,9 +26,7 @@ module BowerRails
 
     def group(name, options = {}, &block)
       if custom_assets_path = options[:assets_path]
-        unless custom_assets_path.start_with?('assets', '/assets')
-          raise ArgumentError, "Assets should be stored in /assets directory, try :assets_path => 'assets/#{custom_assets_path}' instead"
-        end
+        assert_asset_path custom_assets_path
       end
       add_group(name, options)
       yield if block_given?
@@ -93,8 +91,14 @@ module BowerRails
     end
 
     def assets_path(assets_path)
-      raise ArgumentError, "Assets should be stored in /assets directory, try assets_path 'assets/#{assets_path}' instead" unless assets_path.start_with?('assets', '/assets')
+      assert_asset_path assets_path
       @assets_path = assets_path
+    end
+
+    def assert_asset_path(path)
+      if !path.start_with?('assets', '/assets')
+        raise ArgumentError, "Assets should be stored in /assets directory, try assets_path 'assets/#{path}' instead"
+      end
     end
 
     def normalize_location_path(loc, assets_path)

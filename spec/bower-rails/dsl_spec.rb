@@ -36,4 +36,9 @@ describe BowerRails::Dsl do
       subject.dependencies.values.should include :new_hotness => "1.0"
     end
   end
+
+  it "should have a private method to validate asset paths" do
+    subject.send(:assert_asset_path, "/assets/bar")
+    lambda { subject.send(:assert_asset_path, "/not-assets/bar") }.should raise_error(ArgumentError)
+  end
 end
