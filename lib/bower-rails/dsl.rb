@@ -25,17 +25,13 @@ module BowerRails
       @dependencies.keys
     end
 
-    def group(*args, &block)
-      if args[1]
-        custom_assets_path = args[1][:assets_path]
-        raise ArgumentError, "Assets should be stored in /assets directory, try :assets_path => 'assets/#{custom_assets_path}' instead" unless custom_assets_path.start_with?('assets', '/assets')
-        new_group = [args[0], args[1]]
-      else
-        new_group = [args[0]]
+    def group(name, options = {}, &block)
+      if custom_assets_path = options[:assets_path]
+        unless custom_assets_path.start_with?('assets', '/assets')
+          raise ArgumentError, "Assets should be stored in /assets directory, try :assets_path => 'assets/#{custom_assets_path}' instead"
+        end
       end
-
-      add_group(new_group)
-
+      add_group(name, options)
       yield if block_given?
     end
 
@@ -84,7 +80,7 @@ module BowerRails
 
     private
 
-    def add_group(group)
+    def add_group(*group)
       @groups = (groups << group)
     end
 
