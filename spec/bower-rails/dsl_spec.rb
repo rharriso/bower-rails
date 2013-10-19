@@ -24,4 +24,16 @@ describe BowerRails::Dsl do
       subject.send(:groups).should include [:foo, { :assets_path => "/assets/bar"}]
     end
   end
+
+  context "asset dsl method" do
+    it "should default to the latest version" do
+      subject.asset :new_hotness
+      subject.dependencies.values.should include :new_hotness => "latest"
+    end
+
+    it "should accept a version string" do
+      subject.asset :new_hotness, "1.0"
+      subject.dependencies.values.should include :new_hotness => "1.0"
+    end
+  end
 end

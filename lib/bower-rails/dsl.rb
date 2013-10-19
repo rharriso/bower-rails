@@ -35,9 +35,7 @@ module BowerRails
       yield if block_given?
     end
 
-    def asset(name, *args)
-      version = args.first || "latest"
-
+    def asset(name, version = "latest")
       groups.each do |g|
         g_norm = normalize_location_path(g.first, group_assets_path(g))
         @dependencies[g_norm] ||= {}
