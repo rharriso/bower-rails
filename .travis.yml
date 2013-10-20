@@ -7,5 +7,13 @@ rvm:
   - rbx-19mode
   - ruby-head
   - jruby-head
-
+env:
+  - "RAILS_VERSION=3.0.0"
+  - "RAILS_VERSION=3.1.0"
+  - "RAILS_VERSION=3.2.0"
+  - "RAILS_VERSION=4.0.0"
+  - "RAILS_VERSION=master"  
+matrix:
+  allow_failures:
+    - env: "RAILS_VERSION=master"
 script: rspec spec
