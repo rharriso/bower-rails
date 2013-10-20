@@ -16,4 +16,7 @@ env:
 matrix:
   allow_failures:
     - env: "RAILS_VERSION=master"
+  exclude:
+    - rvm: 1.9.2
+      env: RAILS_VERSION=4.0.0  
 script: rspec spec
