@@ -1,6 +1,12 @@
 bower-rails
 ===========
 
+[![Gem Version](https://badge.fury.io/rb/bower-rails.png)](http://badge.fury.io/rb/bower-rails)
+[![Code Climate](https://codeclimate.com/github/42dev/bower-rails.png)](https://codeclimate.com/github/42dev/bower-rails)
+[![Dependency Status](https://gemnasium.com/SergeyKishenin/bower-rails.png)](https://gemnasium.com/SergeyKishenin/bower-rails)
+[![Build Status](https://travis-ci.org/SergeyKishenin/bower-rails.png?branch=master)](https://travis-ci.org/SergeyKishenin/bower-rails)
+[![Coverage Status](https://coveralls.io/repos/42dev/bower-rails/badge.png)](https://coveralls.io/r/42dev/bower-rails)
+
 Bower support for Rails projects. Dependency file is bower.json in Rails root dir or Bowerfile if you use DSL.
 Check out Changelog.md for the latest changes and releases.
 
