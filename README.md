@@ -108,3 +108,9 @@ Once you are done with `bower.json` or `Bowerfile` you can run
 * `rake bower:update` to update js components
 * `rake bower:update:prune` to update components and uninstall extraneous packages
 * `rake bower:list` to list all packages
+
+##Bower Configuration
+
+If you provide a `.bowerrc` in the rails project root, bower-rails will use it for bower configuration.
+Some .bowerrc options are not supported: `directory`, `cwd`, and `interactive`. Bower-rails
+will ignore the `directory` property and instead will use the automatically generated asset path.
