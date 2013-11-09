@@ -87,9 +87,15 @@ def perform_command remove_components = true, &block
   txt  = File.read(File.join(bower_root, "bower.json"))
   json = JSON.parse(txt)
 
-  ["lib", "vendor"].each do |dir|
+  folders = ["vendor"]
+  folders << "lib" if !!json["lib"]
+
+  folders.each do |dir|
 
     data = json[dir]
+
+    # assume using standard bower.json if folder name is not found
+    data = json if data.nil?
 
     #check folder existence and create?
     dir = File.join(bower_root, dir, "assets")
