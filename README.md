@@ -20,20 +20,20 @@ Check out Changelog.md for the latest changes and releases.
 in Gemfile
 
 ``` Ruby
-	gem "bower-rails", "~> 0.5.0"
-```
-
-**Initialize**
-
-To add an empty bower.json file to the project root.
-
-``` Bash
-	rails g bower_rails:initialize
+  gem "bower-rails", "~> 0.5.0"
 ```
 
 ##JSON configuration
 
-The bower.json file is two seperate bower [component.js](https://github.com/twitter/bower#defining-a-package) files. Defining a package in lib and vendor will install those packages to the corresponding directories.
+Bower-rails now supports the standard [bower package](https://github.com/bower/bower#defining-a-package) format out-of-the-box. Simply place your bower.json file the Rails root directory to start. Using the standard format will default all bower components to be installed under the `vendor` directory.
+
+To install dependencies into both `lib` and `vendor` directories, run the initializer to generate a custom bower.json:
+
+``` Bash
+  rails g bower_rails:initialize
+```
+
+This will generate a special bower.json that combines two standard bower packages into one. Simply specify your dependencies under each folder name to install them into the corresponding directories.
 
 **example bower.json file**
 
