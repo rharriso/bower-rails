@@ -53,11 +53,16 @@ module BowerRails
       end
     end
 
+    def generate_dotbowerrc
+      contents = JSON.parse(File.read(File.join(@root_path, '.bowerrc'))) rescue {}
+      contents["directory"] = "bower_components"
+    end
+
     def write_dotbowerrc
       groups.map do |g|
         g_norm = normalize_location_path(g.first, group_assets_path(g))
         File.open(File.join(g_norm, ".bowerrc"), "w") do |f|
-          f.write(JSON.pretty_generate({:directory => "bower_components"}))
+          f.write(JSON.pretty_generate(generate_dotbowerrc))
         end
       end
     end
