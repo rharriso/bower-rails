@@ -83,6 +83,11 @@ def perform_command remove_components = true, &block
   txt  = File.read(File.join(bower_root, "bower.json"))
   json = JSON.parse(txt)
 
+
+  #load and merge root .bowerrc
+  dot_bowerrc = JSON.parse(File.read(File.join(bower_root, '.bowerrc'))) rescue {}
+  dot_bowerrc["directory"] = "bower_components"
+
   folders = ["vendor"]
   folders << "lib" if !!json["lib"]
 
@@ -109,7 +114,7 @@ def perform_command remove_components = true, &block
 
       #create .bowerrc
       File.open(".bowerrc", "w") do |f|
-        f.write(JSON.pretty_generate({:directory => "bower_components"}))
+        f.write(JSON.pretty_generate(dot_bowerrc))
       end
 
       #run command
