@@ -12,7 +12,7 @@ module BowerRails
 
     def initialize
       @dependencies = {}
-      @root_path ||= defined?(Rails) ? Rails.root : Dir.pwd
+      @root_path ||= Dir.pwd
       @assets_path ||= "assets"
     end
 

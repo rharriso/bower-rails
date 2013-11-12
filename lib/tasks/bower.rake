@@ -55,11 +55,7 @@ def perform remove_components = true, &block
 end
 
 def get_bower_root_path
-  if defined?(Rails)
-    return Rails.root
-  else
-    return Dir.pwd
-  end
+  Dir.pwd
 end
 
 def dsl_perform_command remove_components = true, &block
