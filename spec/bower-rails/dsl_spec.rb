@@ -51,4 +51,20 @@ describe BowerRails::Dsl do
     subject.send(:assert_asset_path, "/assets/bar")
     lambda { subject.send(:assert_asset_path, "/not-assets/bar") }.should raise_error(ArgumentError)
   end
+
+  it "should have a private method to validate group name" do
+    subject.send(:assert_group_name, :vendor)
+    lambda { subject.send(:assert_group_name, :invalid) }.should raise_error(ArgumentError)
+  end
+
+  context "default_group dsl method" do
+    it "should set the default group" do
+      subject.send(:default_group).should eq [:vendor, { :assets_path => "assets" }]
+    end
+
+    it "should set the default group with custom assets_path" do
+      subject.send :assets_path, "assets/somepath"
+      subject.send(:default_group).should eq [:vendor, { :assets_path => "assets/somepath" }]
+    end 
+  end
 end

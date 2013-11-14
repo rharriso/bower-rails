@@ -43,9 +43,9 @@ module BowerRails
     end
 
     def write_bower_json
-      @dependencies.each do |dir,data|
+      @dependencies.each do |dir, data|
         FileUtils.mkdir_p dir unless File.directory? dir
-        File.open(File.join(dir,"bower.json"), "w") do |f|
+        File.open(File.join(dir, "bower.json"), "w") do |f|
           f.write(dependencies_to_json(data))
         end
       end
@@ -103,7 +103,7 @@ module BowerRails
     end
 
     def assert_asset_path(path)
-      if !path.start_with?('assets', '/assets')
+      unless path.start_with?('assets', '/assets')
         raise ArgumentError, "Assets should be stored in /assets directory, try assets_path 'assets/#{path}' instead"
       end
     end
