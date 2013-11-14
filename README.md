@@ -97,6 +97,7 @@ group :lib do
   asset "backbone", "1.2"
 end
 ```
+NOTE: Available groups are `:lib` and `:vendor`. Others are not allowed according to the Rails convention.
 NOTE: All the assets should be stored in `/assets` subdirectory so putting it under `./vendor/js` directory is unavailable
 
 ##Rake tasks

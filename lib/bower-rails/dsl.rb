@@ -28,6 +28,7 @@ module BowerRails
       if custom_assets_path = options[:assets_path]
         assert_asset_path custom_assets_path
       end
+      raise ArgumentError, "Group name should be :lib or :vendor only" unless [:lib, :vendor].include?(name)
       add_group(name, options)
       yield if block_given?
     end

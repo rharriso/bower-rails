@@ -14,14 +14,18 @@ describe BowerRails::Dsl do
 
   context "group dsl method" do
     it "should create a group with just a name" do
-      subject.send :group, :foo
-      subject.send(:groups).should include [:foo, {}]
+      subject.send :group, :vendor
+      subject.send(:groups).should include [:vendor, {}]
+    end
+
+    it "should ensure that group has a correct name" do
+      lambda {subject.send :group, :foo }.should raise_error(ArgumentError)
     end
 
     it "should ensure that :assets_path option begins with '/assets'" do
-      subject.send :group, :foo, { :assets_path => "/assets/bar"}
-      lambda { subject.send(:group, :foo, { :assets_path => "/not-assets/bar"}) }.should raise_error(ArgumentError)
-      subject.send(:groups).should include [:foo, { :assets_path => "/assets/bar"}]
+      subject.send :group, :vendor, { :assets_path => "/assets/bar"}
+      lambda { subject.send(:group, :vendor, { :assets_path => "/not-assets/bar"}) }.should raise_error(ArgumentError)
+      subject.send(:groups).should include [:vendor, { :assets_path => "/assets/bar"}]
     end
   end
 
