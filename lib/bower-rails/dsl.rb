@@ -25,10 +25,11 @@ module BowerRails
     end
 
     def group(name, options = {}, &block)
-      if custom_assets_path = options[:assets_path]
-        assert_asset_path custom_assets_path
-      end      
+      options[:assets_path] ||= @assets_path
+      
+      assert_asset_path options[:assets_path]
       assert_group_name name
+      
       @current_group = add_group name, options
       yield if block_given?
     end
@@ -57,23 +58,22 @@ module BowerRails
     end
 
     def write_dotbowerrc
-      groups.map do |g|
-        g_norm = normalize_location_path(g.first, group_assets_path(g))
-        File.open(File.join(g_norm, ".bowerrc"), "w") do |f|
+      groups.map do |group|
+        normalized_group_path = normalize_location_path(group.first, group_assets_path(group))
+        File.open(File.join(normalized_group_path, ".bowerrc"), "w") do |f|
           f.write(generate_dotbowerrc)
         end
       end
     end
 
     def final_assets_path
-      groups.map do |g|
-        [g.first.to_s, group_assets_path(g)]
+      groups.map do |group|
+        [group.first.to_s, group_assets_path(group)]
       end
     end   
 
     def group_assets_path group
-      group_options = Hash === group.last ? group.last : {:assets_path => @assets_path}
-      group_options[:assets_path]
+      group.last[:assets_path]
     end
 
     private

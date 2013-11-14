@@ -15,7 +15,13 @@ describe BowerRails::Dsl do
   context "group dsl method" do
     it "should create a group with just a name" do
       subject.send :group, :vendor
-      subject.send(:groups).should include [:vendor, {}]
+      subject.send(:groups).should include [:vendor, {:assets_path => "assets"}]
+    end
+
+    it "should assign a group custom assets_path if not provided" do
+      subject.send :assets_path, "assets/somepath"
+      subject.send :group, :vendor
+      subject.send(:groups).should include [:vendor, {:assets_path => "assets/somepath"}]
     end
 
     it "should ensure that group has a correct name" do

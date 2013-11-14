@@ -5,8 +5,9 @@
 * Add support for standard bower package format by @kenips ([#41][])
 * If a `.bowerrc` file is available in the rails project root, it will now be used as the starting point for the generated `.bowerrc` by @3martini. ([#40][])
 * Root path is now always `Dir.pwd` without depending on `Rails.root`. Fixes [#42][]
-* Allow to store assets only in `:lib` or `:vendor` directories.
-* Keep groups independent for DSL. Fixes [#44][]
+* [DSL] Allow to store assets only in `:lib` or `:vendor` directories.
+* [DSL] Keep groups independent. Fixes [#44][]
+* [DSL] Assign default or custom `assets_path` for a group if it is not provided
 
 [#44]: https://github.com/42dev/bower-rails/issues/44
 [#42]: https://github.com/42dev/bower-rails/issues/42
