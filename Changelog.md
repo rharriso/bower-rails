@@ -6,7 +6,9 @@
 * If a `.bowerrc` file is available in the rails project root, it will now be used as the starting point for the generated `.bowerrc` by @3martini. ([#40][])
 * Root path is now always `Dir.pwd` without depending on `Rails.root`. Fixes [#42][]
 * Allow to store assets only in `:lib` or `:vendor` directories.
+* Keep groups independent for DSL. Fixes [#44][]
 
+[#44]: https://github.com/42dev/bower-rails/issues/44
 [#42]: https://github.com/42dev/bower-rails/issues/42
 [#41]: https://github.com/42dev/bower-rails/pull/41
 [#40]: https://github.com/42dev/bower-rails/pull/40

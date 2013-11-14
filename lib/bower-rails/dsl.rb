@@ -27,22 +27,18 @@ module BowerRails
     def group(name, options = {}, &block)
       if custom_assets_path = options[:assets_path]
         assert_asset_path custom_assets_path
-      end
-      raise ArgumentError, "Group name should be :lib or :vendor only" unless [:lib, :vendor].include?(name)
-      add_group(name, options)
+      end      
+      assert_group_name name
+      @current_group = add_group name, options
       yield if block_given?
     end
 
     def asset(name, version = "latest")
-      groups.each do |g|
-        g_norm = normalize_location_path(g.first, group_assets_path(g))
-        @dependencies[g_norm] ||= {}
-        @dependencies[g_norm][name] = version
-      end
-    end
+      group = @current_group ? @current_group : default_group
 
-    def to_json(location)
-      dependencies_to_json @dependencies[normalize_location_path(location)]
+      normalized_group_path = normalize_location_path(group.first, group_assets_path(group))
+      @dependencies[normalized_group_path] ||= {}
+      @dependencies[normalized_group_path][name] = version
     end
 
     def write_bower_json
@@ -78,16 +74,20 @@ module BowerRails
     def group_assets_path group
       group_options = Hash === group.last ? group.last : {:assets_path => @assets_path}
       group_options[:assets_path]
-    end 
+    end
 
     private
 
     def add_group(*group)
-      @groups = (groups << group)
+      @groups = (groups << group) and return group
     end
 
     def groups
-      @groups ||= [[:vendor, { :assets_path => @assets_path }]]
+      @groups ||= [default_group]
+    end
+
+    def default_group
+      [:vendor, { :assets_path => @assets_path }]
     end
 
     def dependencies_to_json(data)
@@ -106,6 +106,10 @@ module BowerRails
       if !path.start_with?('assets', '/assets')
         raise ArgumentError, "Assets should be stored in /assets directory, try assets_path 'assets/#{path}' instead"
       end
+    end
+
+    def assert_group_name name
+      raise ArgumentError, "Group name should be :lib or :vendor only" unless [:lib, :vendor].include?(name)
     end
 
     def normalize_location_path(loc, assets_path)
