@@ -88,10 +88,15 @@ def perform_command remove_components = true, &block
   dot_bowerrc = JSON.parse(File.read(File.join(bower_root, '.bowerrc'))) rescue {}
   dot_bowerrc["directory"] = "bower_components"
 
-  folders = ["vendor"]
-  folders << "lib" if !!json["lib"]
+  if json.except('lib', 'vendor').empty?
+    folders = json.keys
+  else
+    raise "Assuming a standard bower package but cannot find the required 'name' key" unless !!json['name']
+    folders = ['vendor']
+  end
 
   folders.each do |dir|
+    puts "\nInstalling dependencies into #{dir}"
 
     data = json[dir]
 
