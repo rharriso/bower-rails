@@ -30,13 +30,22 @@ namespace :bower do
     perform false do
       sh 'bower list'
     end
-  end  
+  end
 
   namespace :update do
     desc "Update existing components and uninstalls extraneous components"
     task :prune do
       perform do
         sh 'bower update && bower prune'
+      end
+    end
+  end
+
+  namespace :list do
+    desc "List bower components with paths"
+    task :paths do
+      perform do
+        sh 'bower list --paths'
       end
     end
   end
