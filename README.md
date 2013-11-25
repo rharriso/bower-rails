@@ -109,6 +109,7 @@ Once you are done with `bower.json` or `Bowerfile` you can run
 * `rake bower:update` to update js components
 * `rake bower:update:prune` to update components and uninstall extraneous packages
 * `rake bower:list` to list all packages
+* `rake bower:list:paths` to list all packages with paths
 
 ##Bower Configuration
 
