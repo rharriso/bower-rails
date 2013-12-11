@@ -49,6 +49,9 @@ namespace :bower do
   end
 end
 
+# Install bower assets before precompile
+Rake::Task['assets:precompile'].enhance ['bower:install', 'bower:resolve']
+
 def perform remove_components = true, &block
   entries = Dir.entries(get_bower_root_path)
 
