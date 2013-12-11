@@ -100,12 +100,6 @@ end
 NOTE: Available groups are `:lib` and `:vendor`. Others are not allowed according to the Rails convention.
 NOTE: All the assets should be stored in `/assets` subdirectory so putting it under `./vendor/js` directory is unavailable
 
-##Relative asset paths
-
-Some bower components (eg. Bootstrap) have relative urls in the CSS files for imports, images, etc. Rails prefers using [helper methods](http://guides.rubyonrails.org/asset_pipeline.html#coding-links-to-assets) for linking to assets within CSS. Relative paths can cause issues when assets are precompiled for production.
-
-Before the `rake assets:precompile` task is run, the bower assets will be reinstalled with the relative paths replaced with calls to `asset_path` so that all asset links work in production.
-
 ##Rake tasks
 
 Once you are done with `bower.json` or `Bowerfile` you can run
@@ -115,10 +109,16 @@ Once you are done with `bower.json` or `Bowerfile` you can run
 * `rake bower:update` to update js components
 * `rake bower:update:prune` to update components and uninstall extraneous packages
 * `rake bower:list` to list all packages
-* `rake bower:resolve` to resolve relative asset paths in components
+* `rake bower:resolve` to resolve [relative asset paths](#relative-asset-paths) in components
 
 ##Bower Configuration
 
 If you provide a `.bowerrc` in the rails project root, bower-rails will use it for bower configuration.
 Some .bowerrc options are not supported: `directory`, `cwd`, and `interactive`. Bower-rails
 will ignore the `directory` property and instead will use the automatically generated asset path.
+
+##Relative asset paths
+
+Some bower components (eg. [Bootstrap](https://github.com/twbs/bootstrap/blob/0016c17f9307bc71fc96d8d4680a9c861f137cae/dist/css/bootstrap.css#L2263)) have relative urls in the CSS files for imports, images, etc. Rails prefers using [helper methods](http://guides.rubyonrails.org/asset_pipeline.html#coding-links-to-assets) for linking to assets within CSS. Relative paths can cause issues when assets are precompiled for production.
+
+Before the `rake assets:precompile` task is run, the bower assets will be reinstalled with the relative paths replaced with calls to `asset_path` so that all asset links work in production.
