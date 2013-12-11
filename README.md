@@ -100,6 +100,12 @@ end
 NOTE: Available groups are `:lib` and `:vendor`. Others are not allowed according to the Rails convention.
 NOTE: All the assets should be stored in `/assets` subdirectory so putting it under `./vendor/js` directory is unavailable
 
+##Relative asset paths
+
+Some bower components (eg. Bootstrap) have relative urls in the CSS files for imports, images, etc. Rails prefers using [helper methods](http://guides.rubyonrails.org/asset_pipeline.html#coding-links-to-assets) for linking to assets within CSS. Relative paths can cause issues when assets are precompiled for production.
+
+Before the `rake assets:precompile` task is run, the bower assets will be reinstalled with the relative paths replaced with calls to `asset_path` so that all asset links work in production.
+
 ##Rake tasks
 
 Once you are done with `bower.json` or `Bowerfile` you can run
@@ -109,6 +115,7 @@ Once you are done with `bower.json` or `Bowerfile` you can run
 * `rake bower:update` to update js components
 * `rake bower:update:prune` to update components and uninstall extraneous packages
 * `rake bower:list` to list all packages
+* `rake bower:resolve` to resolve relative asset paths in components
 
 ##Bower Configuration
 
