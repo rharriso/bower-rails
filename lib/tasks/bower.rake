@@ -4,39 +4,39 @@ require 'pp'
 namespace :bower do
   desc "Install components from bower"
   task :install do
-    perform do
-      sh 'bower install'
+    perform do |bower|
+      sh "#{bower} install"
     end
   end
 
   namespace :install do
     desc "Install components with -F option"
     task :force do
-      perform do
-        sh 'bower install -F'
+      perform do |bower|
+        sh "#{bower} install -F"
       end
     end
   end
 
   desc "Update bower components"
   task :update do
-    perform do
-      sh 'bower update'
+    perform do |bower|
+      sh "#{bower} update"
     end
   end
 
   desc "List bower components"
   task :list do
-    perform false do
-      sh 'bower list'
+    perform false do |bower|
+      sh "#{bower} list"
     end
   end
 
   namespace :update do
     desc "Update existing components and uninstalls extraneous components"
     task :prune do
-      perform do
-        sh 'bower update && bower prune'
+      perform do |bower|
+        sh "#{bower} update && #{bower} prune"
       end
     end
   end
@@ -55,10 +55,26 @@ end
 def perform remove_components = true, &block
   entries = Dir.entries(get_bower_root_path)
 
+  npm_path = File.join(get_bower_root_path, 'node_modules', '.bin')
+  bower = find_command('bower', [npm_path])
+
+  if bower.nil?
+    $stderr.puts <<EOS
+Bower not found! You can install Bower using Node and npm:
+$ npm install bower -g
+For more info see http://twitter.github.com/bower/
+EOS
+    return
+  end
+
   if entries.include?('Bowerfile')
-    dsl_perform_command remove_components, &block
+    dsl_perform_command remove_components do
+      yield bower if block_given?
+    end
   elsif entries.include?('bower.json')
-    perform_command remove_components, &block
+    perform_command remove_components do
+      yield bower if block_given?
+    end
   else
     raise LoadError, "No Bowerfile or bower.json file found. Make sure you have it at the root of your project"
   end
@@ -170,4 +186,17 @@ def resolve_asset_paths
       File.write(filename + '.erb', new_contents)
     end
   end
+end
+
+# http://stackoverflow.com/questions/2108727/which-in-ruby-checking-if-program-exists-in-path-from-ruby
+def find_command(cmd, paths = [])
+  exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
+  paths += ENV['PATH'].split(File::PATH_SEPARATOR)
+  paths.each do |path|
+    exts.each do |ext|
+      exe = File.join(path, "#{cmd}#{ext}")
+      return exe if File.executable? exe
+    end
+  end
+  nil
 end
