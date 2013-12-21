@@ -117,6 +117,10 @@ If you provide a `.bowerrc` in the rails project root, bower-rails will use it f
 Some .bowerrc options are not supported: `directory`, `cwd`, and `interactive`. Bower-rails
 will ignore the `directory` property and instead will use the automatically generated asset path.
 
+###Bower Installation
+
+[Bower](https://github.com/bower/bower) should be installed using npm. Bower can be installed globally (with `$ npm install -g bower`) or in `node_modules` in the root directory of your project.
+
 ##Relative asset paths
 
 Some bower components (eg. [Bootstrap](https://github.com/twbs/bootstrap/blob/0016c17f9307bc71fc96d8d4680a9c861f137cae/dist/css/bootstrap.css#L2263)) have relative urls in the CSS files for imports, images, etc. Rails prefers using [helper methods](http://guides.rubyonrails.org/asset_pipeline.html#coding-links-to-assets) for linking to assets within CSS. Relative paths can cause issues when assets are precompiled for production.
