@@ -1,4 +1,8 @@
 ## Edge version
+* Search node_modules directory local to project by @jimpo [#52][]
+
+[#52]: https://github.com/42dev/bower-rails/pull/52
+
 ## v0.6.0
 * fixed bug with `bower:update` and `bower update:prune`: now refreshes `bower.json` after update task is executed
 * `rake bower:list` task now available
@@ -10,9 +14,7 @@
 * [DSL] Keep groups independent. Fixes [#44][]
 * [DSL] Assign default or custom `assets_path` for a group if it is not provided
 * Add `bower:resolve` task to fix relative URLs in CSS files with Rails asset_path helper and resolve bower components before precompile by @jimpo [#49][]
-* Search node_modules directory local to project by @jimpo [#52][]
 
-[#52]: https://github.com/42dev/bower-rails/pull/52
 [#49]: https://github.com/42dev/bower-rails/pull/49
 [#44]: https://github.com/42dev/bower-rails/issues/44
 [#42]: https://github.com/42dev/bower-rails/issues/42
