@@ -1,4 +1,5 @@
 ## Edge version
+* Disable installing bower assets before precompilation
 * Search node_modules directory local to project by @jimpo [#52][]
 
 [#52]: https://github.com/42dev/bower-rails/pull/52
