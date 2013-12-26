@@ -1,4 +1,7 @@
 ## Edge version
+
+## v0.6.1
+
 * Disable installing bower assets before precompilation
 * Search node_modules directory local to project by @jimpo [#52][]
 

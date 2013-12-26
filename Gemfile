@@ -21,8 +21,4 @@ end
 
 gem "rails", rails
 
-group :test do
-  gem "coveralls", :require => false
-end
-
 gemspec
