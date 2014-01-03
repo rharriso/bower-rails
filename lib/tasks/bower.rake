@@ -163,7 +163,7 @@ end
 def resolve_asset_paths
   # Resolve relative paths in CSS
   Dir['bower_components/**/*.css'].each do |filename|
-    contents = File.read(filename)
+    contents = File.read(filename) if FileTest.file?(filename)
     # http://www.w3.org/TR/CSS2/syndata.html#uri
     url_regex = /url\(\s*['"]?(?![a-z]+:)([^'"\)]*)['"]?\s*\)/
 
