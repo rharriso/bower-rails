@@ -1,5 +1,9 @@
 ## Edge version
 
+* fixed bug with `bower:resolve` task: skip `File.read` if it's not a file (ex.: a directory name contains ".css") by @yujiym [#55][]
+
+[#55]: https://github.com/42dev/bower-rails/pull/55
+
 ## v0.6.1
 
 * Disable installing bower assets before precompilation

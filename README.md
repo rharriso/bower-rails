@@ -8,7 +8,9 @@ bower-rails
 [![Coverage Status](https://coveralls.io/repos/42dev/bower-rails/badge.png)](https://coveralls.io/r/42dev/bower-rails)
 
 Bower support for Rails projects. Dependency file is bower.json in Rails root dir or Bowerfile if you use DSL.
-Check out Changelog.md for the latest changes and releases.
+Check out [changelog][] for the latest changes and releases.
+
+[changelog]: https://github.com/42dev/bower-rails/blob/master/CHANGELOG.md
 
 **Requirements**
 
