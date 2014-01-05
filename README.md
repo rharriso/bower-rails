@@ -127,4 +127,12 @@ will ignore the `directory` property and instead will use the automatically gene
 
 Some bower components (eg. [Bootstrap](https://github.com/twbs/bootstrap/blob/0016c17f9307bc71fc96d8d4680a9c861f137cae/dist/css/bootstrap.css#L2263)) have relative urls in the CSS files for imports, images, etc. Rails prefers using [helper methods](http://guides.rubyonrails.org/asset_pipeline.html#coding-links-to-assets) for linking to assets within CSS. Relative paths can cause issues when assets are precompiled for production.
 
-Before the `rake assets:precompile` task is run, the bower assets will be reinstalled with the relative paths replaced with calls to `asset_path` so that all asset links work in production.
+If you would like the bower assets to be reinstalled with the relative paths on every deploy, provide an option for `bower-rails` so it do it automatically before the `rake assets:precompile` task is run:
+
+``` ruby
+BowerRails.configure do |bower_rails|
+  # By default this option is false
+  bower_rails.resolve_before_precompile = true
+end
+```
+Remember that you should have [bower installed](#bower-installation) either locally in your project or on a remote server.
