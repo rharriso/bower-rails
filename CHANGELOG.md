@@ -1,5 +1,7 @@
 ## Edge version
 
+## 0.7.0
+
 * add configuration option for `BowerRails` that invokes `rake bower:install` and `rake bower:resolve` tasks before assets precompilation
 * fixed bug with `bower:resolve` task: skip `File.read` if it's not a file (ex.: a directory name contains ".css") by @yujiym [#55][]
 
