@@ -32,7 +32,7 @@ Bower-rails now supports the standard [bower package](https://github.com/bower/b
 To install dependencies into both `lib` and `vendor` directories, run the initializer to generate a custom bower.json:
 
 ``` Bash
-  rails g bower_rails:initialize
+  rails g bower_rails:initialize json
 ```
 
 This will generate a special bower.json that combines two standard bower packages into one. Simply specify your dependencies under each folder name to install them into the corresponding directories.
@@ -59,7 +59,13 @@ This will generate a special bower.json that combines two standard bower package
 
 ##Ruby DSL configuration
 
-The Ruby DSL configuration is a Bowerfile at the project's root with DSL syntax similar to Bundler. 
+The Ruby DSL configuration is a Bowerfile at the project's root with DSL syntax similar to Bundler.
+
+Run the initializer to generate a sample Bowerfile inside rails root:
+
+``` Bash
+  rails g bower_rails:initialize
+```
 
 **Example Bowerfile**
 
