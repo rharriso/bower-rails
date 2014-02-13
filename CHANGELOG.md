@@ -1,5 +1,7 @@
 ## Edge version
 
+*  update initialize generator to create sample Bowerfile
+
 ## v0.7.0
 
 * add configuration option for `BowerRails` that invokes `rake bower:install` and `rake bower:resolve` tasks before assets precompilation
