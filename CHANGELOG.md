@@ -1,5 +1,7 @@
 ## Edge version
 
+## v0.7.1
+
 * update initialize generator to create sample `Bowerfile` by @byterussian [#64][]
 * update initialize generator to create a `bower-rails` initializer file
 
