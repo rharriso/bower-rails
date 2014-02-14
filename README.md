@@ -35,7 +35,7 @@ To install dependencies into both `lib` and `vendor` directories, run the initia
   rails g bower_rails:initialize json
 ```
 
-This will generate a special bower.json that combines two standard bower packages into one. Simply specify your dependencies under each folder name to install them into the corresponding directories.
+This will generate a `config/initializers/bower_rails.rb` config file and a special bower.json that combines two standard bower packages into one. Simply specify your dependencies under each folder name to install them into the corresponding directories.
 
 **example bower.json file**
 
@@ -61,7 +61,7 @@ This will generate a special bower.json that combines two standard bower package
 
 The Ruby DSL configuration is a Bowerfile at the project's root with DSL syntax similar to Bundler.
 
-Run the initializer to generate a sample Bowerfile inside rails root:
+Run the initializer to generate a sample Bowerfile inside the Rails root and a `config/initializers/bower_rails.rb` config file:
 
 ``` Bash
   rails g bower_rails:initialize
@@ -96,13 +96,13 @@ assets_path "assets/javascript"
 # Puts files under ./vendor/assets/js/bower_components
 group :vendor, :assets_path => "assets/js"  do
   asset "jquery"            # Assummes it's latests
-  asset "backbone", "1.2"
+  asset "backbone", "1.1.1"
 end
 
 # Puts files under ./lib/assets/javascript/bower_components
 group :lib do
   asset "jquery"
-  asset "backbone", "1.2"
+  asset "backbone", "1.1.1"
 end
 ```
 NOTE: Available groups are `:lib` and `:vendor`. Others are not allowed according to the Rails convention.

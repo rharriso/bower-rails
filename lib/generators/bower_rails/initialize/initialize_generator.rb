@@ -1,20 +1,22 @@
 module BowerRails
   module Generators
     class InitializeGenerator < Rails::Generators::Base
-      desc "Adds a boilerplate bower.json or Bowerfile  to root of rails project"
+      desc 'Adds a boilerplate bower.json or Bowerfile to the root of Rails project and an empty initializer'
+      source_root File.expand_path('../templates', __FILE__)
+      argument :config_file, :type => :string, :default => 'bowerfile'
 
-      argument :layout, :type => :string, :default => "bowerfile"
-      def self.source_root
-        @_bower_rails_source_root ||= File.expand_path("../templates", __FILE__)
+      def create_config_file
+        config_file_name = config_file.underscore
+        case config_file_name
+        when 'bowerfile' then copy_file 'Bowerfile',  'Bowerfile'
+        when 'json'      then copy_file 'bower.json', 'bower.json'
+        else
+          raise ArgumentError, 'You can setup bower-rails only using bower.json or Bowerfile. Please provide `json` or `bowerfile` as an argument instead'
+        end
       end
 
-      def create_initializer_file
-        type = layout.underscore
-        if type == "json"
-          template "bower.json", 'bower.json'
-        elsif type == "bowerfile"
-          copy_file 'Bowerfile', 'Bowerfile'
-        end
+      def copy_initializer_file
+        copy_file 'bower_rails.rb', 'config/initializers/bower_rails.rb'
       end
     end
   end

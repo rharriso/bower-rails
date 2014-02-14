@@ -1,6 +1,9 @@
 ## Edge version
 
-*  update initialize generator to create sample Bowerfile
+* update initialize generator to create sample `Bowerfile` by @byterussian [#64][]
+* update initialize generator to create a `bower-rails` initializer file
+
+[#64]: https://github.com/42dev/bower-rails/pull/64
 
 ## v0.7.0
 

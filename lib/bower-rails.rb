@@ -12,6 +12,6 @@ module BowerRails
     end
   end
 
-  # Set default values for options 
+  # Set default values for options
   @resolve_before_precompile = false
 end
