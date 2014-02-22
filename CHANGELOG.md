@@ -1,5 +1,7 @@
 ## Edge version
 
+* `rake bower:clean` task added to remove any component files not specified in their respective bower.json main directives
+
 ## v0.7.0
 
 * add configuration option for `BowerRails` that invokes `rake bower:install` and `rake bower:resolve` tasks before assets precompilation
