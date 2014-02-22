@@ -47,10 +47,17 @@ namespace :bower do
       resolve_asset_paths
     end
   end
+
+  desc "Attempt to keep only files listed in 'main' of each component's bower.json"
+  task :clean do
+    perform false do
+      remove_extra_files
+    end
+  end
 end
 
 # Install bower assets before precompile if an corresponding option provided
-Rake::Task['assets:precompile'].enhance ['bower:install', 'bower:resolve'] if BowerRails.resolve_before_precompile
+Rake::Task['assets:precompile'].enhance ['bower:install', 'bower:clean', 'bower:resolve'] if BowerRails.resolve_before_precompile
 
 def perform remove_components = true, &block
   entries = Dir.entries(get_bower_root_path)
@@ -122,8 +129,6 @@ def perform_command remove_components = true, &block
   end
 
   folders.each do |dir|
-    puts "\nInstalling dependencies into #{dir}"
-
     data = json[dir]
 
     # assume using standard bower.json if folder name is not found
@@ -184,6 +189,41 @@ def resolve_asset_paths
       # Replace CSS with ERB CSS file with resolved asset paths
       FileUtils.rm(filename)
       File.write(filename + '.erb', new_contents)
+    end
+  end
+end
+
+def remove_extra_files
+  puts "\nAttempting to remove all but main files as specified by bower\n"
+
+  Dir['bower_components/*'].each do |component_dir|
+    if File.exists?(File.join(component_dir, 'bower.json'))
+      bower_file = File.read(File.join(component_dir, 'bower.json'))
+    elsif File.exists?(File.join(component_dir, '.bower.json'))
+      bower_file = File.read(File.join(component_dir, '.bower.json'))
+    else
+      next
+    end
+
+    # parse bower.json
+    bower_json = JSON.parse(bower_file)
+    main_files = bower_json['main']
+    next unless main_files
+
+    # handle singular or multiple files
+    main_files = [main_files] unless main_files.is_a?(Array)
+
+    # Remove "./" relative path from main file strings
+    main_files.map! { |file| File.join(component_dir, file.gsub(/^\.\//, '')) }
+
+    # delete all files that are not in main
+    Find.find(component_dir).reverse_each do |file_or_dir|
+      next if main_files.include?(file_or_dir)
+      if File.directory?(file_or_dir)
+        Dir.rmdir(file_or_dir) if (Dir.entries(file_or_dir) - %w[ . .. ]).empty?
+      else
+        FileUtils.rm(file_or_dir)
+      end
     end
   end
 end
