@@ -117,6 +117,7 @@ Once you are done with `bower.json` or `Bowerfile` you can run
 * `rake bower:update` to update js components
 * `rake bower:update:prune` to update components and uninstall extraneous packages
 * `rake bower:list` to list all packages
+* `rake bower:clean` to remove all files not listed as [main files](#bower-main-files) (if specified)
 * `rake bower:resolve` to resolve [relative asset paths](#relative-asset-paths) in components
 
 ##Bower Configuration
@@ -142,3 +143,7 @@ BowerRails.configure do |bower_rails|
 end
 ```
 Remember that you should have [bower installed](#bower-installation) either locally in your project or on a remote server.
+
+##Bower Main Files
+
+Each bower component should follow the [bower.json spec](https://github.com/bower/bower.json-spec) which designates a recommended `main` directive that lists the primary files of that component. You may choose to reference these files if you are using the asset pipeline, in which case other extraneous includes of the bower component are not needed. The `rake bower:clean` task removes every file that isn't listed in the `main` directive, if the component specifies a `main` directive. Otherwise, the library will remain as bower installed it.
