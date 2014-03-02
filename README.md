@@ -113,7 +113,6 @@ NOTE: All the assets should be stored in `/assets` subdirectory so putting it un
 Once you are done with `bower.json` or `Bowerfile` you can run
 
 * `rake bower:install` to install js components
-* `rake bower:install:force` to install with force option
 * `rake bower:update` to update js components
 * `rake bower:update:prune` to update components and uninstall extraneous packages
 * `rake bower:list` to list all packages

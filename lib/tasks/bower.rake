@@ -5,23 +5,14 @@ namespace :bower do
   desc "Install components from bower"
   task :install do
     perform do |bower|
-      sh "#{bower} install"
-    end
-  end
-
-  namespace :install do
-    desc "Install components with -F option"
-    task :force do
-      perform do |bower|
-        sh "#{bower} install -F"
-      end
+      sh "#{bower} install -f"
     end
   end
 
   desc "Update bower components"
   task :update do
     perform do |bower|
-      sh "#{bower} update"
+      sh "#{bower} update -f"
     end
   end
 
@@ -36,7 +27,7 @@ namespace :bower do
     desc "Update existing components and uninstalls extraneous components"
     task :prune do
       perform do |bower|
-        sh "#{bower} update && #{bower} prune"
+        sh "#{bower} update -f && #{bower} prune"
       end
     end
   end
