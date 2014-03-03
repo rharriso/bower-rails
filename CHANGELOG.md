@@ -1,5 +1,6 @@
 ## Edge version
 
+* add ability to pass bower CLI options to bower-rails rake tasks if nessesary
 * `rake bower:clean` task added to remove any component files not specified in their respective bower.json main directives by @paulnsorensen [#65][]
 
 [#65]: https://github.com/42dev/bower-rails/pull/65

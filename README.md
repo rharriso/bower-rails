@@ -113,12 +113,17 @@ NOTE: All the assets should be stored in `/assets` subdirectory so putting it un
 Once you are done with `bower.json` or `Bowerfile` you can run
 
 * `rake bower:install` to install js components
-* `rake bower:install:force` to install with force option
 * `rake bower:update` to update js components
 * `rake bower:update:prune` to update components and uninstall extraneous packages
 * `rake bower:list` to list all packages
 * `rake bower:clean` to remove all files not listed as [main files](#bower-main-files) (if specified)
 * `rake bower:resolve` to resolve [relative asset paths](#relative-asset-paths) in components
+
+If you'd like to pass any bower CLI options to a rake task, like `-f`, `-j`, you can simply do:
+
+```bash
+rake bower:install['-f']
+```
 
 ##Bower Configuration
 
