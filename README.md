@@ -119,6 +119,12 @@ Once you are done with `bower.json` or `Bowerfile` you can run
 * `rake bower:clean` to remove all files not listed as [main files](#bower-main-files) (if specified)
 * `rake bower:resolve` to resolve [relative asset paths](#relative-asset-paths) in components
 
+If you'd like to pass any bower CLI options to a rake task, like `-f`, `-j`, you can simply do:
+
+```bash
+rake bower:install['-f']
+```
+
 ##Bower Configuration
 
 If you provide a `.bowerrc` in the rails project root, bower-rails will use it for bower configuration.
