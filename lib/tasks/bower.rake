@@ -56,8 +56,7 @@ namespace :bower do
   end
 end
 
-# Install bower assets before precompile if an corresponding option provided
-Rake::Task['assets:precompile'].enhance ['bower:install', 'bower:clean', 'bower:resolve'] if BowerRails.resolve_before_precompile
+BowerRails.enhance_tasks
 
 def perform remove_components = true, &block
   entries = Dir.entries(get_bower_root_path)
