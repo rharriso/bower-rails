@@ -3,25 +3,18 @@ require 'pp'
 
 namespace :bower do
   desc "Install components from bower"
-  task :install do
+  task :install, :options do |_, args|
+    args.with_defaults(:options => '')
     perform do |bower|
-      sh "#{bower} install"
-    end
-  end
-
-  namespace :install do
-    desc "Install components with -F option"
-    task :force do
-      perform do |bower|
-        sh "#{bower} install -F"
-      end
+      sh "#{bower} install #{args[:options]}"
     end
   end
 
   desc "Update bower components"
-  task :update do
+  task :update, :options do |_, args|
+    args.with_defaults(:options => '')
     perform do |bower|
-      sh "#{bower} update"
+      sh "#{bower} update #{args[:options]}"
     end
   end
 
@@ -34,9 +27,10 @@ namespace :bower do
 
   namespace :update do
     desc "Update existing components and uninstalls extraneous components"
-    task :prune do
+    task :prune, :options do |_, args|
+      args.with_defaults(:options => '')
       perform do |bower|
-        sh "#{bower} update && #{bower} prune"
+        sh "#{bower} update #{args[:options]} && #{bower} prune #{args[:options]}"
       end
     end
   end
