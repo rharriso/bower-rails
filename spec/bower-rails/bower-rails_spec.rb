@@ -9,8 +9,13 @@ describe BowerRails do
     expect(BowerRails.clean_before_precompile).to eq(false)
   end
 
+  it 'should set default value for @tasks option' do
+    expect(BowerRails.instance_variable_get(:@tasks)).to be_empty
+  end
+
   describe '#configure' do
     before :each do
+      BowerRails.instance_variable_set(:@tasks, [])
       BowerRails.configure do |bower_rails|
         bower_rails.resolve_before_precompile = false
         bower_rails.resolve_before_precompile = false
