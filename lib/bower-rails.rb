@@ -23,13 +23,15 @@ module BowerRails
     private
 
     def collect_tasks
-      @tasks = []
       @tasks << ['bower:install', 'bower:resolve'] if @resolve_before_precompile
       @tasks << ['bower:install', 'bower:clean']   if @clean_before_precompile
       @tasks.flatten!
       @tasks.uniq!
     end
   end
+
+  # By default tasks are empty
+  @tasks = []
 
   # Set default values for options
   @resolve_before_precompile = false
