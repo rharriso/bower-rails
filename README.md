@@ -110,13 +110,13 @@ NOTE: All the assets should be stored in `/assets` subdirectory so putting it un
 
 ##Configuration
 
-Change options in your `config/initializers/bower-rails.rb`:
+Change options in your `config/initializers/bower_rails.rb`:
 
 ``` ruby
 BowerRails.configure do |bower_rails|
   # By default options are false
-  bower_rails.resolve_before_precompile = true # invokes [`rake bower:resolve`](##relative-asset-paths) before precompilation
-  bower_rails.clean_before_precompile = true   # invokes [`rake bower:clean`](#bower-main-files) before precompilation
+  bower_rails.resolve_before_precompile = true # invokes rake bower:resolve before precompilation
+  bower_rails.clean_before_precompile = true   # invokes rake bower:clean before precompilation
 end
 ```
 
