@@ -1,5 +1,6 @@
 require 'json'
 require 'pp'
+require 'find'
 
 namespace :bower do
   desc "Install components from bower"
