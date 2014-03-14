@@ -3,8 +3,10 @@
 * add configurable option for performing `rake bower:install` and `rake bower:clean` tasks before assets precompilation
 * add ability to pass bower CLI options to bower-rails rake tasks if nessesary
 * `rake bower:clean` task added to remove any component files not specified in their respective bower.json main directives by @paulnsorensen [#65][]
+* `require 'find'` in bower.rake to fix `uninitialized constant Find` by @cmckni3 [#69][]
 
 [#65]: https://github.com/42dev/bower-rails/pull/65
+[#69]: https://github.com/42dev/bower-rails/pull/69
 
 ## v0.7.1
 
