@@ -12,6 +12,9 @@ test/tmp
 test/version_tmp
 tmp
 Gemfile.lock
+.ruby-version
+.ruby-gemset
+*.sw?
 
 # YARD artifacts
 .yardoc
