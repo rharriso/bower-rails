@@ -45,6 +45,16 @@ describe BowerRails::Dsl do
       subject.asset :new_hotness, "1.0"
       subject.dependencies.values.should include :new_hotness => "1.0"
     end
+
+    it "should accept a git url" do
+      subject.asset :new_hotness, "git@github.com:initech/tps-kit"
+      subject.dependencies.values.should include :new_hotness => "git@github.com:initech/tps-kit"
+    end
+
+    it "should accept git url and a version and put it all together" do
+      subject.asset :new_hotness, "1.2.3", :git => "git@github.com:initech/tps-kit"
+      subject.dependencies.values.should include :new_hotness => "git@github.com:initech/tps-kit#1.2.3"
+    end
   end
 
   it "should have a private method to validate asset paths" do
