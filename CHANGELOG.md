@@ -4,9 +4,11 @@
 * add ability to pass bower CLI options to bower-rails rake tasks if nessesary
 * `rake bower:clean` task added to remove any component files not specified in their respective bower.json main directives by @paulnsorensen [#65][]
 * `require 'find'` in bower.rake to fix `uninitialized constant Find` by @cmckni3 [#69][]
+* allow a bundler-like way of specifying versions for Git Repos by @davetron5000 [#70][]
 
 [#65]: https://github.com/42dev/bower-rails/pull/65
 [#69]: https://github.com/42dev/bower-rails/pull/69
+[#70]: https://github.com/42dev/bower-rails/pull/70
 
 ## v0.7.1
 
