@@ -34,8 +34,16 @@ module BowerRails
       yield if block_given?
     end
 
-    def asset(name, version = "latest")
+    def asset(name, version = "latest", options={})
       group = @current_group ? @current_group : default_group
+
+      if options[:git]
+        version = if version == 'latest'
+                    options[:git]
+                  else
+                    options[:git] + "#" + version
+                  end
+      end
 
       normalized_group_path = normalize_location_path(group.first, group_assets_path(group))
       @dependencies[normalized_group_path] ||= {}
