@@ -51,7 +51,11 @@ namespace :bower do
   end
 end
 
-BowerRails.enhance_tasks
+Rake::Task['assets:precompile'].enhance do 
+  BowerRails.tasks.map do |task|
+    Rake::Task[task].invoke
+  end
+end
 
 def perform remove_components = true, &block
   entries = Dir.entries(get_bower_root_path)

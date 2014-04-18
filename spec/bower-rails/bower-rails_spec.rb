@@ -34,7 +34,7 @@ describe BowerRails do
       end
 
       it 'should form correct tasks for enhancing assets:precompile' do
-        expect(BowerRails.instance_variable_get(:@tasks)).to eq(['bower:install', 'bower:resolve'])
+        expect(BowerRails.tasks).to eq(['bower:install', 'bower:resolve'])
       end
     end
 
@@ -50,7 +50,7 @@ describe BowerRails do
       end
 
       it 'should form correct tasks for enhancing assets:precompile' do
-        expect(BowerRails.instance_variable_get(:@tasks)).to eq(['bower:install', 'bower:clean'])
+        expect(BowerRails.tasks).to eq(['bower:install', 'bower:clean'])
       end
     end
 
@@ -63,11 +63,11 @@ describe BowerRails do
       end
 
       it 'should form correct tasks for enhancing assets:precompile' do
-        expect(BowerRails.instance_variable_get(:@tasks)).to include('bower:install', 'bower:clean', 'bower:resolve')
+        expect(BowerRails.tasks).to include('bower:install', 'bower:clean', 'bower:resolve')
       end
 
       it 'should has three tasks for enhancing' do
-        expect(BowerRails.instance_variable_get(:@tasks).size).to eq(3)
+        expect(BowerRails.tasks.size).to eq(3)
       end
     end    
   end
