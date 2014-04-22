@@ -2,6 +2,8 @@ require 'json'
 require 'pp'
 require 'find'
 
+include BeforeHook
+
 namespace :bower do
   desc "Install components from bower"
   task :install, :options do |_, args|
@@ -51,7 +53,7 @@ namespace :bower do
   end
 end
 
-Rake::Task['assets:precompile'].enhance do 
+before 'assets:precompile' do
   BowerRails.tasks.map do |task|
     Rake::Task[task].invoke
   end
