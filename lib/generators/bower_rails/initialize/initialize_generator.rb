@@ -18,6 +18,12 @@ module BowerRails
       def copy_initializer_file
         copy_file 'bower_rails.rb', 'config/initializers/bower_rails.rb'
       end
+
+      def require_initializer_in_application_rb
+        if Rails.version < "4.0.0"
+          environment { "require \"#{Rails.root}/config/initializers/bower_rails.rb\"" }
+        end
+      end
     end
   end
 end
