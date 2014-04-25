@@ -26,16 +26,21 @@ module BowerRails
 
     def group(name, options = {}, &block)
       options[:assets_path] ||= @assets_path
-      
+
       assert_asset_path options[:assets_path]
       assert_group_name name
-      
+
       @current_group = add_group name, options
       yield if block_given?
     end
 
-    def asset(name, version = "latest", options={})
-      group = @current_group ? @current_group : default_group
+    def asset(name, *args)
+      group = @current_group || default_group
+
+      options = Hash === args.last ? args.pop.dup : {}
+      version = args.last || "latest"
+
+      options[:git] = "git://github.com/#{options[:github]}" if options[:github]
 
       if options[:git]
         version = if version == 'latest'
@@ -78,7 +83,7 @@ module BowerRails
       groups.map do |group|
         [group.first.to_s, group_assets_path(group)]
       end
-    end   
+    end
 
     def group_assets_path group
       group.last[:assets_path]
