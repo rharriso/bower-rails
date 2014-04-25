@@ -63,7 +63,7 @@ def perform remove_components = true, &block
     $stderr.puts <<EOS
 Bower not found! You can install Bower using Node and npm:
 $ npm install bower -g
-For more info see http://twitter.github.com/bower/
+For more info see http://bower.io/
 EOS
     return
   end
