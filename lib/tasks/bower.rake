@@ -2,6 +2,8 @@ require 'json'
 require 'pp'
 require 'find'
 
+include BeforeHook
+
 namespace :bower do
   desc "Install components from bower"
   task :install, :options do |_, args|
@@ -51,7 +53,11 @@ namespace :bower do
   end
 end
 
-BowerRails.enhance_tasks
+before 'assets:precompile' do
+  BowerRails.tasks.map do |task|
+    Rake::Task[task].invoke
+  end
+end
 
 def perform remove_components = true, &block
   entries = Dir.entries(get_bower_root_path)

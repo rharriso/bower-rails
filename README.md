@@ -125,6 +125,19 @@ BowerRails.configure do |bower_rails|
 end
 ```
 
+If you are using Rails version < 4.0.0 then you are to require `bower_rails.rb` initializer manually in `application.rb`:
+
+```ruby
+module YourAppName
+  class Application < Rails::Application
+    require "#{Rails.root}/config/initializers/bower_rails.rb"
+    ...
+  end
+end
+```
+
+By default this line is added while running the generator.
+
 ##Rake tasks
 
 Once you are done with `bower.json` or `Bowerfile` you can run
