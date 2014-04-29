@@ -77,10 +77,12 @@ By default assets are put to `./vendor/assets/bower_components` directory:
 asset "backbone"
 asset "moment", "2.0.0" # get exactly version 2.0.0
 asset "secret_styles", "git@github.com:initech/secret_styles" # get from a git repo
+
 # get from a git repo using the tag 1.0.0
 asset "secret_logic", "1.0.0", git: "git@github.com:initech/secret_logic"
-# short-hand for
-# asset "secret_logic", "git@github.com:initech/secret_logic#1.0.0"
+
+# get from a github repo
+asset "secret_logic", "1.0.0", github: "initech/secret_logic"
 ```
 
 But the default value can be overridden by `assets_path` method:
