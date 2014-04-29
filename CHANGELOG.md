@@ -6,11 +6,13 @@
 * `require 'find'` in bower.rake to fix `uninitialized constant Find` by @cmckni3 [#69][]
 * allow a bundler-like way of specifying versions for Git Repos by @davetron5000 [#70][]
 * Fix bug with `rake assets:precompile` enhancing [#72][]
+* Ensuring executable command doesn't point to a directory by @clouseauu [#73][]
 
 [#65]: https://github.com/42dev/bower-rails/pull/65
 [#69]: https://github.com/42dev/bower-rails/pull/69
 [#70]: https://github.com/42dev/bower-rails/pull/70
 [#72]: https://github.com/42dev/bower-rails/pull/72
+[#73]: https://github.com/42dev/bower-rails/pull/73
 
 ## v0.7.1
 
