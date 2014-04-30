@@ -102,7 +102,7 @@ assets_path "assets/javascript"
 
 # Puts files under ./vendor/assets/js/bower_components
 group :vendor, :assets_path => "assets/js"  do
-  asset "jquery"            # Assummes it's latests
+  asset "jquery"            # Defaults to 'latest'
   asset "backbone", "1.1.1"
 end
 
