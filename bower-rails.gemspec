@@ -1,7 +1,12 @@
+$:.push File.expand_path("../lib", __FILE__)
+
+# Maintain your gem's version:
+require "bower-rails/version"
+
 Gem::Specification.new do |s|
   s.name          = "bower-rails"
   s.homepage      = "https://github.com/rharriso/bower-rails"
-  s.version       = "0.7.1"
+  s.version       = BowerRails::VERSION
   s.date          = "2013-12-12"
   s.summary       = "Bower for Rails"
   s.description   = "Rails integration for bower."
