@@ -1,5 +1,7 @@
 ## Edge version
 
+* DSL: Add ability to specify `ref` option which accepts commit's SHA and composes it as a component's version
+
 ## v0.7.2
 
 * add configurable option for performing `rake bower:install` and `rake bower:clean` tasks before assets precompilation
