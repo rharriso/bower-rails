@@ -36,9 +36,10 @@ module BowerRails
 
     def asset(name, *args)
       group = @current_group || default_group
-
       options = Hash === args.last ? args.pop.dup : {}
+
       version = args.last || "latest"
+      version = options[:ref] if options[:ref]
 
       options[:git] = "git://github.com/#{options[:github]}" if options[:github]
 
