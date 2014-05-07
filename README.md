@@ -83,6 +83,9 @@ asset "secret_logic", "1.0.0", git: "git@github.com:initech/secret_logic"
 
 # get from a github repo
 asset "secret_logic", "1.0.0", github: "initech/secret_logic"
+
+# get a specific revision from a git endpoint 
+asset "secret_logic", github: "initech/secret_logic", ref: '0adff'
 ```
 
 But the default value can be overridden by `assets_path` method:
