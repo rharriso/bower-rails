@@ -1,5 +1,6 @@
 ## Edge version
 
+* Add `install_before_precompile` configurable option to invoke `rake bower:install` before precompilation
 * DSL: Add ability to specify `ref` option which accepts commit's SHA and composes it as a component's version
 
 ## v0.7.2
