@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe BowerRails do
+  it 'should set default value for install_before_precompile option' do
+    expect(BowerRails.install_before_precompile).to eq(false)
+  end
+
   it 'should set default value for resolve_before_precompile option' do
     expect(BowerRails.resolve_before_precompile).to eq(false)
   end
@@ -17,8 +21,25 @@ describe BowerRails do
     before :each do
       BowerRails.instance_variable_set(:@tasks, [])
       BowerRails.configure do |bower_rails|
+        bower_rails.install_before_precompile = false
         bower_rails.resolve_before_precompile = false
-        bower_rails.resolve_before_precompile = false
+        bower_rails.clean_before_precompile = false
+      end
+    end
+
+    describe '#install_before_precompile' do
+      before do
+        BowerRails.configure do |bower_rails|
+          bower_rails.install_before_precompile = true
+        end
+      end
+
+      it 'should set install_before_precompile option' do
+        expect(BowerRails.install_before_precompile).to eq(true)
+      end
+
+      it 'should form correct tasks for enhancing assets:precompile' do
+        expect(BowerRails.tasks).to eq(['bower:install'])
       end
     end
 
@@ -38,7 +59,7 @@ describe BowerRails do
       end
     end
 
-    describe '#resolve_before_precompile' do
+    describe '#clean_before_precompile' do
       before do
         BowerRails.configure do |bower_rails|
           bower_rails.clean_before_precompile = true

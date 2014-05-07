@@ -1,5 +1,7 @@
 ## Edge version
 
+* Add `install_before_precompile` configurable option to invoke `rake bower:install` before precompilation
+
 ## v0.7.2
 
 * add configurable option for performing `rake bower:install` and `rake bower:clean` tasks before assets precompilation
