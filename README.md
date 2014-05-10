@@ -84,7 +84,7 @@ asset "secret_logic", "1.0.0", git: "git@github.com:initech/secret_logic"
 # get from a github repo
 asset "secret_logic", "1.0.0", github: "initech/secret_logic"
 
-# get a specific revision from a git endpoint 
+# get a specific revision from a git endpoint
 asset "secret_logic", github: "initech/secret_logic", ref: '0adff'
 ```
 
@@ -170,10 +170,6 @@ will ignore the `directory` property and instead will use the automatically gene
 ###Bower Installation
 
 [Bower](https://github.com/bower/bower) should be installed using npm. Bower can be installed globally (with `$ npm install -g bower`) or in `node_modules` in the root directory of your project.
-
-##Relative asset paths
-
-Some bower components (eg. [Bootstrap](https://github.com/twbs/bootstrap/blob/0016c17f9307bc71fc96d8d4680a9c861f137cae/dist/css/bootstrap.css#L2263)) have relative urls in the CSS files for imports, images, etc. Rails prefers using [helper methods](http://guides.rubyonrails.org/asset_pipeline.html#coding-links-to-assets) for linking to assets within CSS. Relative paths can cause issues when assets are precompiled for production.
 
 Remember that you should have [bower installed](#bower-installation) either locally in your project or on a remote server.
 
