@@ -148,8 +148,8 @@ By default this line is added while running the generator.
 
 Once you are done with `bower.json` or `Bowerfile` you can run
 
-* `rake bower:install` to install js components
-* `rake bower:update` to update js components
+* `rake bower:install` to install packages
+* `rake bower:update` to update packages
 * `rake bower:update:prune` to update components and uninstall extraneous packages
 * `rake bower:list` to list all packages
 * `rake bower:clean` to remove all files not listed as [main files](#bower-main-files) (if specified)
