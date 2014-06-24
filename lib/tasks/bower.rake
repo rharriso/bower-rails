@@ -13,6 +13,16 @@ namespace :bower do
     end
   end
 
+  namespace :install do
+    desc "Install components from bower using previously generated bower.json"
+    task :deployment, :options do |_, args|
+      args.with_defaults(:options => '')
+      perform false do |bower|
+        sh "#{bower} install #{args[:options]}"
+      end
+    end
+  end
+
   desc "Update bower components"
   task :update, :options do |_, args|
     args.with_defaults(:options => '')
