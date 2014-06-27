@@ -1,11 +1,17 @@
 bower-rails
 ===========
 
-[![Gem Version](https://badge.fury.io/rb/bower-rails.png)](http://badge.fury.io/rb/bower-rails)
-[![Code Climate](https://codeclimate.com/github/42dev/bower-rails.png)](https://codeclimate.com/github/42dev/bower-rails)
-[![Dependency Status](https://gemnasium.com/SergeyKishenin/bower-rails.png)](https://gemnasium.com/SergeyKishenin/bower-rails)
-[![Build Status](https://travis-ci.org/42dev/bower-rails.png?branch=master)](https://travis-ci.org/42dev/bower-rails)
-[![Coverage Status](https://coveralls.io/repos/42dev/bower-rails/badge.png)](https://coveralls.io/r/42dev/bower-rails)
+[![Gem Version](http://img.shields.io/gem/v/bower-rails.svg)][gem]
+[![Code Climate](http://img.shields.io/codeclimate/github/42dev/bower-rails.svg)][codeclimate]
+[![Dependency Status](http://img.shields.io/gemnasium/SergeyKishenin/bower-rails.svg)][gemnasium]
+[![Build Status](http://img.shields.io/travis/mbj/concord/master.svg)][travis]
+[![Coverage Status](https://coveralls.io/repos/42dev/bower-rails/badge.png)][coveralls]
+
+[gem]: https://rubygems.org/gems/bower-rails
+[travis]: https://travis-ci.org/mbj/concord
+[gemnasium]: https://gemnasium.com/SergeyKishenin/bower-rails
+[codeclimate]: https://codeclimate.com/github/42dev/bower-rails
+[coveralls]: https://coveralls.io/r/42dev/bower-rails
 
 Bower support for Rails projects. Dependency file is bower.json in Rails root dir or Bowerfile if you use DSL.
 Check out [changelog][] for the latest changes and releases.
