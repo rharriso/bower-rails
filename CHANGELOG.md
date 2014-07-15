@@ -1,6 +1,9 @@
 ## Edge version
 
-* Add `rake bower:install:deployment` which installs from generated bower.json without generating it first, keeping any additions (like dependency conflict resolutions) intact [#89][]
+* Add `rake bower:install:deployment` which installs from generated bower.json without generating it first, keeping any additions (like dependency conflict resolutions) intact [#89][] and [#92][]
+
+[#89]: https://github.com/42dev/bower-rails/pull/89
+[#92]: https://github.com/42dev/bower-rails/pull/92
 
 ## v0.7.3
 
