@@ -155,6 +155,7 @@ By default this line is added while running the generator.
 Once you are done with `bower.json` or `Bowerfile` you can run
 
 * `rake bower:install` to install packages
+* `rake bower:install:deployment` to install packages from bower.json
 * `rake bower:update` to update packages
 * `rake bower:update:prune` to update components and uninstall extraneous packages
 * `rake bower:list` to list all packages
