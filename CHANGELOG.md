@@ -1,5 +1,7 @@
 ## Edge version
 
+* Add `rake bower:install:deployment` which installs from generated bower.json without generating it first, keeping any additions (like dependency conflict resolutions) intact [#89][]
+
 ## v0.7.3
 
 * Add `install_before_precompile` configurable option to invoke `rake bower:install` before precompilation
