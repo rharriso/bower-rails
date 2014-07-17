@@ -70,9 +70,9 @@ before 'assets:precompile' do
 end
 
 def perform remove_components = true, &block
-  entries = Dir.entries(get_bower_root_path)
+  entries = Dir.entries(BowerRails.root_path)
 
-  npm_path = File.join(get_bower_root_path, 'node_modules', '.bin')
+  npm_path = File.join(BowerRails.root_path, 'node_modules', '.bin')
   bower = find_command('bower', [npm_path])
 
   if bower.nil?
@@ -97,10 +97,6 @@ EOS
   end
 end
 
-def get_bower_root_path
-  Dir.pwd
-end
-
 def dsl_perform_command remove_components = true, &block
   dsl = BowerRails::Dsl.evalute("Bowerfile")
 
@@ -121,7 +117,7 @@ end
 
 #run the passed bower block in appropriate folders
 def perform_command remove_components = true, &block
-  bower_root = get_bower_root_path
+  bower_root = BowerRails.root_path
   #load in bower json file
   txt  = File.read(File.join(bower_root, "bower.json"))
   json = JSON.parse(txt)

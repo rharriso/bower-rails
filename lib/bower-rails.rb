@@ -5,6 +5,9 @@ module BowerRails
   extend self
 
   class << self
+    # The root path of the project
+    attr_accessor :root_path
+
     # An array of tasks to enhance `rake assets:precompile`
     attr_reader :tasks
 
@@ -35,10 +38,10 @@ module BowerRails
       end
   end
 
-  # By default tasks are empty
-  @tasks = []
 
   # Set default values for options
+  @root_path = Dir.pwd
+  @tasks = []
   @install_before_precompile = false
   @resolve_before_precompile = false
   @clean_before_precompile   = false
