@@ -1,3 +1,5 @@
+require 'bower-rails/performer'
+
 include BeforeHook
 
 namespace :bower do
