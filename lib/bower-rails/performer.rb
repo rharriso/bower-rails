@@ -5,11 +5,11 @@ require 'find'
 module BowerRails
   class Performer
 
-    def self.perform(*args)
-      new.perform(*args)
+    def self.perform(*args, &block)
+      new.perform(*args, &block)
     end
 
-    def perform(remove_components = true, &block)
+    def perform(remove_components = true)
       entries = Dir.entries(bower_root_path)
 
       npm_path = File.join(bower_root_path, 'node_modules', '.bin')
