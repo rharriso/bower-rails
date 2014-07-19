@@ -66,4 +66,3 @@ before 'assets:precompile' do
     Rake::Task[task].invoke
   end
 end
-

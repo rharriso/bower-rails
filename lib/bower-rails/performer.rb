@@ -38,7 +38,7 @@ EOS
     end
 
     def bower_root_path
-      Dir.pwd
+      BowerRails.root_path
     end
 
     def dsl
@@ -46,7 +46,6 @@ EOS
     end
 
     def dsl_perform_command(remove_components = true, &block)
-
       if remove_components
         dsl.write_bower_json
         dsl.write_dotbowerrc
@@ -63,7 +62,7 @@ EOS
     end
 
     #run the passed bower block in appropriate folders
-    def perform_command remove_components = true, &block
+    def perform_command(remove_components = true, &block)
       bower_root = bower_root_path
       #load in bower json file
       txt  = File.read(File.join(bower_root, "bower.json"))
@@ -193,7 +192,6 @@ EOS
       end
       nil
     end
-
 
   end
 end
