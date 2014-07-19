@@ -10,7 +10,6 @@ module BowerRails
     if File.exist?(@@bowerfile)
       config.before_initialize do |app|
         @dsl = BowerRails::Dsl.evalute(BowerRails.root_path, @@bowerfile)
-r
         @dsl.final_assets_path.map do |assets_root, assets_path|
           app.config.assets.paths << Rails.root.join(assets_root, assets_path, "bower_components")
         end
