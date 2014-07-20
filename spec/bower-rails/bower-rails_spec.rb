@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe BowerRails do
+  it 'should set default value for root_path option' do
+    expect(BowerRails.root_path).to eq(Dir.pwd)
+  end
+
   it 'should set default value for install_before_precompile option' do
     expect(BowerRails.install_before_precompile).to eq(false)
   end
@@ -21,9 +25,16 @@ describe BowerRails do
     before :each do
       BowerRails.instance_variable_set(:@tasks, [])
       BowerRails.configure do |bower_rails|
+        bower_rails.root_path = '/home/username/dirname'
         bower_rails.install_before_precompile = false
         bower_rails.resolve_before_precompile = false
         bower_rails.clean_before_precompile = false
+      end
+    end
+
+    describe '#root_path' do
+      it 'should set root_path option' do
+        expect(BowerRails.root_path).to eq('/home/username/dirname')
       end
     end
 

@@ -4,15 +4,15 @@ require 'fileutils'
 module BowerRails
   class Dsl
 
-    def self.evalute(filename)
-      new.tap { |dsl| dsl.eval_file(File.join(dsl.root_path, filename)) }
+    def self.evalute(root_path, filename)
+      new(root_path).tap { |dsl| dsl.eval_file(File.join(dsl.root_path, filename)) }
     end
 
     attr_reader :dependencies, :root_path
 
-    def initialize
+    def initialize(root_path)
       @dependencies = {}
-      @root_path ||= Dir.pwd
+      @root_path ||= root_path
       @assets_path ||= "assets"
     end
 

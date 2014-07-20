@@ -1,5 +1,6 @@
 ## Edge version
 
+* Add configurable `root_path` option for `bower-rails`
 * Add `rake bower:install:deployment` which installs from generated bower.json without generating it first, keeping any additions (like dependency conflict resolutions) intact [#89][] and [#92][]
 
 [#89]: https://github.com/42dev/bower-rails/pull/89
