@@ -4,33 +4,32 @@ require 'find'
 
 module BowerRails
   class Performer
+    include FileUtils
 
     def self.perform(*args, &block)
       new.perform(*args, &block)
     end
 
-    def perform(remove_components = true)
+    def perform(remove_components = true, &block)
       entries = Dir.entries(bower_root_path)
 
       npm_path = File.join(bower_root_path, 'node_modules', '.bin')
       bower = find_command('bower', [npm_path])
 
       if bower.nil?
-        $stderr.puts <<EOS
-Bower not found! You can install Bower using Node and npm:
-$ npm install bower -g
-For more info see http://bower.io/
-EOS
+        $stderr.puts ["Bower not found! You can install Bower using Node and npm:",
+        "$ npm install bower -g",
+        "For more info see http://bower.io/"].join("\n")
         return
       end
 
       if entries.include?('Bowerfile')
         dsl_perform_command remove_components do
-          yield bower if block_given?
+          instance_exec(bower, &block) if block_given?
         end
       elsif entries.include?('bower.json')
         perform_command remove_components do
-          yield bower if block_given?
+          instance_exec(bower, &block) if block_given?
         end
       else
         raise LoadError, "No Bowerfile or bower.json file found. Make sure you have it at the root of your project"
