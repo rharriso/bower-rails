@@ -98,7 +98,7 @@ module BowerRails
     def final_assets_path
       groups.map do |group|
         [group.first.to_s, group_assets_path(group)]
-      end
+      end.uniq
     end
 
     def group_assets_path group
