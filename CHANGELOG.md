@@ -1,10 +1,12 @@
 ## Edge version
 
 * Add configurable `root_path` option for `bower-rails`
+* Extract performing logic to the separate `BowerRails::Performer` class by @Melanitski [#95][]
 * Add `rake bower:install:deployment` which installs from generated bower.json without generating it first, keeping any additions (like dependency conflict resolutions) intact [#89][] and [#92][]
 
 [#89]: https://github.com/42dev/bower-rails/pull/89
 [#92]: https://github.com/42dev/bower-rails/pull/92
+[#95]: https://github.com/42dev/bower-rails/pull/95
 
 ## v0.7.3
 

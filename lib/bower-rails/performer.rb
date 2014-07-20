@@ -11,9 +11,9 @@ module BowerRails
     end
 
     def perform(remove_components = true, &block)
-      entries = Dir.entries(bower_root_path)
+      entries = Dir.entries(BowerRails.root_path)
 
-      npm_path = File.join(bower_root_path, 'node_modules', '.bin')
+      npm_path = File.join(BowerRails.root_path, 'node_modules', '.bin')
       bower = find_command('bower', [npm_path])
 
       if bower.nil?
@@ -36,12 +36,8 @@ module BowerRails
       end
     end
 
-    def bower_root_path
-      BowerRails.root_path
-    end
-
     def dsl
-      @dsl ||= BowerRails::Dsl.evalute(bower_root_path, "Bowerfile")
+      @dsl ||= BowerRails::Dsl.evalute(BowerRails.root_path, "Bowerfile")
     end
 
     def dsl_perform_command(remove_components = true, &block)
@@ -62,7 +58,7 @@ module BowerRails
 
     #run the passed bower block in appropriate folders
     def perform_command(remove_components = true, &block)
-      bower_root = bower_root_path
+      bower_root = BowerRails.root_path
       #load in bower json file
       txt  = File.read(File.join(bower_root, "bower.json"))
       json = JSON.parse(txt)
