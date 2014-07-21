@@ -5,9 +5,10 @@ include BeforeHook
 namespace :bower do
   desc "Install components from bower"
   task :install, :options do |_, args|
-    args.with_defaults(:options => '')
-    BowerRails::Performer.perform do |bower|
-      sh "#{bower} install #{args[:options]}"
+    if ENV['RAILS_ENV'] && ENV['RAILS_ENV'] == 'development'
+      Rake::Task["bower:install:development"].invoke(args[:options])
+    else
+      Rake::Task["bower:install:production"].invoke(args[:options])
     end
   end
 
@@ -18,6 +19,18 @@ namespace :bower do
       BowerRails::Performer.perform false do |bower|
         sh "#{bower} install #{args[:options]}"
       end
+    end
+
+    desc "Install both dependencies and devDependencies from bower"
+    task :development, :options do |_, args|
+      args.with_defaults(:options => '')
+      perform{ |bower| sh "#{bower} install #{args[:options]}" }
+    end
+
+    desc "Install only dependencies, excluding devDependencies from bower"
+    task :production, :options do |_, args|
+      args.with_defaults(:options => '')
+      perform{ |bower| sh "#{bower} install -p #{args[:options]}" }
     end
   end
 
