@@ -90,7 +90,7 @@ asset "secret_logic", "1.0.0", git: "git@github.com:initech/secret_logic"
 # get from a github repo
 asset "secret_logic", "1.0.0", github: "initech/secret_logic"
 
-# get a specific revision from a git endpoint 
+# get a specific revision from a git endpoint
 asset "secret_logic", github: "initech/secret_logic", ref: '0adff'
 ```
 
@@ -104,7 +104,7 @@ asset "backbone"
 asset "moment"
 ```
 
-And finally, the `assets_path` method can be overridden by an option in a `group` call:
+The `assets_path` method can be overridden by an option in a `group` call:
 
 ``` ruby
 assets_path "assets/javascript"
@@ -123,6 +123,39 @@ end
 ```
 NOTE: Available groups are `:lib` and `:vendor`. Others are not allowed according to the Rails convention.
 NOTE: All the assets should be stored in `/assets` subdirectory so putting it under `./vendor/js` directory is unavailable
+
+And finally, you can specify the assets to be in the devDependencies block:
+
+``` ruby
+asset "backbone", "1.1.1"
+
+# Adds jasmine-sinon and jasmine-matchers to devDependencies
+dependency :dev_dependencies  do
+  asset "jasmine-sinon"            # Defaults to 'latest'
+  asset "jasmine-matchers"         # Defaults to 'latest'
+end
+
+# Explicit dependency group notation ( not neccessary )
+dependency_group :dependencies  do
+  asset "emberjs"                  # Defaults to 'latest'
+end
+```
+results in the following bower.json file:
+
+```
+{
+  "name": "dsl-generated dependencies",
+  "dependencies": {
+    "backbone": "1.1.1"
+    "angular": "1.2.18",
+  },
+  "devDependencies": {
+    "jasmine-sinon": "latest",
+    "jasmine-matchers": "latest"
+  }
+}
+```
+NOTE: Available dependency groups are `:dependencies` (default) and `:dev_dependencies`. Others are not allowed according to the Rails convention.
 
 ##Configuration
 
