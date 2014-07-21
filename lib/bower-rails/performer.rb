@@ -10,10 +10,14 @@ module BowerRails
       new.perform(*args, &block)
     end
 
-    def perform(remove_components = true, &block)
-      entries = Dir.entries(BowerRails.root_path)
+    def root_path
+      BowerRails.root_path
+    end
 
-      npm_path = File.join(BowerRails.root_path, 'node_modules', '.bin')
+    def perform(remove_components = true, &block)
+      entries = Dir.entries(root_path)
+
+      npm_path = File.join(root_path, 'node_modules', '.bin')
       bower = find_command('bower', [npm_path])
 
       if bower.nil?
@@ -37,7 +41,7 @@ module BowerRails
     end
 
     def dsl
-      @dsl ||= BowerRails::Dsl.evalute(BowerRails.root_path, "Bowerfile")
+      @dsl ||= BowerRails::Dsl.evalute(root_path, "Bowerfile")
     end
 
     def dsl_perform_command(remove_components = true, &block)
@@ -58,14 +62,13 @@ module BowerRails
 
     #run the passed bower block in appropriate folders
     def perform_command(remove_components = true, &block)
-      bower_root = BowerRails.root_path
-      #load in bower json file
-      txt  = File.read(File.join(bower_root, "bower.json"))
+      # Load in bower json file
+      txt  = File.read(File.join(root_path, "bower.json"))
       json = JSON.parse(txt)
 
 
-      #load and merge root .bowerrc
-      dot_bowerrc = JSON.parse(File.read(File.join(bower_root, '.bowerrc'))) rescue {}
+      # Load and merge root .bowerrc
+      dot_bowerrc = JSON.parse(File.read(File.join(root_path, '.bowerrc'))) rescue {}
       dot_bowerrc["directory"] = "bower_components"
 
       if json.except('lib', 'vendor').empty?
@@ -78,35 +81,35 @@ module BowerRails
       folders.each do |dir|
         data = json[dir]
 
-        # assume using standard bower.json if folder name is not found
+        # Assume using standard bower.json if folder name is not found
         data = json if data.nil?
 
-        #check folder existence and create?
-        dir = File.join(bower_root, dir, "assets")
+        # Check folder existence and create?
+        dir = File.join(root_path, dir, "assets")
         FileUtils.mkdir_p dir unless File.directory? dir
-        #go in to dir to act
+        # Go in to dir to act
         Dir.chdir(dir) do
 
-          #remove old components
+          # Remove old components
           FileUtils.rm_rf("bower_components") if remove_components
 
-          #create bower json
+          # Create bower.json
           File.open("bower.json", "w") do |f|
             f.write(data.to_json)
           end
 
-          #create .bowerrc
+          # Create .bowerrc
           File.open(".bowerrc", "w") do |f|
             f.write(JSON.pretty_generate(dot_bowerrc))
           end
 
-          #run command
+          # Run command
           yield  if block_given?
 
-          #remove bower file
+          # Remove bower.json
           FileUtils.rm("bower.json")
 
-          #remove .bowerrc
+          # Remove .bowerrc
           FileUtils.rm(".bowerrc")
         end if data && !data["dependencies"].empty?
       end
@@ -152,18 +155,18 @@ module BowerRails
           next
         end
 
-        # parse bower.json
+        # Parse bower.json
         bower_json = JSON.parse(bower_file)
         main_files = bower_json['main']
         next unless main_files
 
-        # handle singular or multiple files
+        # Handle singular or multiple files
         main_files = [main_files] unless main_files.is_a?(Array)
 
         # Remove "./" relative path from main file strings
         main_files.map! { |file| File.join(component_dir, file.gsub(/^\.\//, '')) }
 
-        # delete all files that are not in main
+        # Delete all files that are not in main
         Find.find(component_dir).reverse_each do |file_or_dir|
           next if main_files.include?(file_or_dir)
           if File.directory?(file_or_dir)
