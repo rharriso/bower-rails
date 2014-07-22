@@ -8,7 +8,11 @@ module BeforeHook
 
       desc old_task.full_comment
       task task_name => old_task.prerequisites do
-        new_task.call
+        begin
+          new_task.call
+        rescue LoadError
+          #empty
+        end
         old_task.invoke
       end
     end

@@ -6,14 +6,15 @@ module BowerRails
 
     DEFAULT_DEPENDENCY_GROUP = :dependencies
 
-    def self.evalute(filename)
-      new.tap { |dsl| dsl.eval_file(File.join(BowerRails.root_path, filename)) }
+    def self.evalute(root_path, filename)
+      new.tap { |dsl| dsl.eval_file(File.join(root_path, filename)) }
     end
 
-    attr_reader :dependencies
+    attr_reader :dependencies, :root_path
 
-    def initialize
+    def initialize(root_path)
       @dependency_groups = []
+      @root_path = root_path
       @bower_dependencies_list = []
       @dependencies = {}
       @assets_path ||= "assets"
@@ -80,7 +81,7 @@ module BowerRails
     end
 
     def generate_dotbowerrc
-      contents = JSON.parse(File.read(File.join(BowerRails.root_path, '.bowerrc'))) rescue {}
+      contents = JSON.parse(File.read(File.join(root_path, '.bowerrc'))) rescue {}
       contents["directory"] = "bower_components"
       JSON.pretty_generate(contents)
     end
@@ -181,7 +182,7 @@ module BowerRails
     end
 
     def normalize_location_path(loc, assets_path)
-      File.join(BowerRails.root_path, loc.to_s, assets_path)
+      File.join(root_path, loc.to_s, assets_path)
     end
   end
 end

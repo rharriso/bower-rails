@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe BowerRails::Dsl do
-  subject { BowerRails::Dsl.new }
+  subject { BowerRails::Dsl.new(Dir.pwd) }
 
   it "should have a default group of :vendor with the default assets_path" do
     subject.send(:groups).should == [[:vendor, {:assets_path => "assets"}]]
