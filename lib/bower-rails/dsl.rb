@@ -4,15 +4,18 @@ require 'fileutils'
 module BowerRails
   class Dsl
 
-    def self.evalute(root_path, filename)
-      new(root_path).tap { |dsl| dsl.eval_file(File.join(dsl.root_path, filename)) }
+    DEFAULT_DEPENDENCY_GROUP = :dependencies
+
+    def self.evalute(filename)
+      new.tap { |dsl| dsl.eval_file(File.join(BowerRails.root_path, filename)) }
     end
 
-    attr_reader :dependencies, :root_path
+    attr_reader :dependencies
 
-    def initialize(root_path)
+    def initialize
+      @dependency_groups = []
+      @bower_dependencies_list = []
       @dependencies = {}
-      @root_path ||= root_path
       @assets_path ||= "assets"
     end
 
@@ -34,6 +37,16 @@ module BowerRails
       yield if block_given?
     end
 
+    def dependency_group(name, options = {}, &block)
+
+      assert_dependency_group_name name
+      add_dependency_group name
+
+      yield if block_given?
+
+      remove_dependency_group!
+    end
+
     def asset(name, *args)
       group = @current_group || default_group
       options = Hash === args.last ? args.pop.dup : {}
@@ -53,7 +66,8 @@ module BowerRails
 
       normalized_group_path = normalize_location_path(group.first, group_assets_path(group))
       @dependencies[normalized_group_path] ||= {}
-      @dependencies[normalized_group_path][name] = version
+      @dependencies[normalized_group_path][current_dependency_group_normalized] ||= {}
+      @dependencies[normalized_group_path][current_dependency_group_normalized][name] = version
     end
 
     def write_bower_json
@@ -66,7 +80,7 @@ module BowerRails
     end
 
     def generate_dotbowerrc
-      contents = JSON.parse(File.read(File.join(@root_path, '.bowerrc'))) rescue {}
+      contents = JSON.parse(File.read(File.join(BowerRails.root_path, '.bowerrc'))) rescue {}
       contents["directory"] = "bower_components"
       JSON.pretty_generate(contents)
     end
@@ -83,7 +97,7 @@ module BowerRails
     def final_assets_path
       groups.map do |group|
         [group.first.to_s, group_assets_path(group)]
-      end
+      end.uniq
     end
 
     def group_assets_path group
@@ -91,6 +105,39 @@ module BowerRails
     end
 
     private
+
+    # Returns name for the current dependency from the stack
+    #
+    def current_dependency_group
+      @dependency_groups.last || DEFAULT_DEPENDENCY_GROUP.to_sym
+    end
+
+    # Returns normalized current dependency group name
+    #
+    def current_dependency_group_normalized
+      normalize_dependency_group_name current_dependency_group
+    end
+
+    # Implementing ActiveSupport::Inflector camelize(:lower)
+    #
+    def normalize_dependency_group_name(name)
+      segments = name.to_s.dup.downcase.split(/_/)
+      [segments.shift, *segments.map{ |word| word.capitalize }].join('').to_sym
+    end
+
+    # Stores the dependency group name in the stack
+    #
+    def add_dependency_group(dependency_group)
+      @dependency_groups.push dependency_group.to_sym
+
+      dependency_group
+    end
+
+    # Removes the dependency group name in the stack
+    #
+    def remove_dependency_group!
+      @dependency_groups.pop
+    end
 
     def add_group(*group)
       @groups = (groups << group) and return group
@@ -104,11 +151,18 @@ module BowerRails
       [:vendor, { :assets_path => @assets_path }]
     end
 
+    # Attempts to parse data from @dependencies to JSON
+    #
     def dependencies_to_json(data)
       JSON.pretty_generate({
-        :name => "dsl-generated dependencies",
-        :dependencies => data
-      })
+        :name => "dsl-generated dependencies"
+      }.merge(data))
+    end
+
+    def assert_dependency_group_name(name)
+      unless [:dependencies, :devDependencies].include?(normalize_dependency_group_name(name))
+        raise ArgumentError, "Dependency group should be either dependencies or dev_dependencies, provided: #{name}"
+      end
     end
 
     def assets_path(assets_path)
@@ -127,7 +181,7 @@ module BowerRails
     end
 
     def normalize_location_path(loc, assets_path)
-      File.join(@root_path, loc.to_s, assets_path)
+      File.join(BowerRails.root_path, loc.to_s, assets_path)
     end
   end
 end

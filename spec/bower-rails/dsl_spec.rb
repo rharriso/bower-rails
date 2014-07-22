@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe BowerRails::Dsl do
-  subject { BowerRails::Dsl.new(Dir.pwd) }
+  subject { BowerRails::Dsl.new }
 
   it "should have a default group of :vendor with the default assets_path" do
     subject.send(:groups).should == [[:vendor, {:assets_path => "assets"}]]
@@ -11,6 +11,38 @@ describe BowerRails::Dsl do
     subject.send :assets_path, 'assets/javascripts'
     subject.send(:groups).should == [[:vendor, {:assets_path => 'assets/javascripts'}]]
   end
+
+  context "dependency group dsl method" do
+
+    it "should fallback to default group when no block" do
+      subject.send(:current_dependency_group).should eq :dependencies
+    end
+
+
+    it "should create a group with just a name" do
+      subject.send :dependency_group, :dev_dependencies do
+        subject.send(:current_dependency_group).should eq :dev_dependencies
+      end
+    end
+
+    it "should return parent group after the block" do
+      subject.send :dependency_group, :dev_dependencies do
+        subject.send(:current_dependency_group).should eq :dev_dependencies
+      end
+      subject.send(:current_dependency_group).should eq :dependencies
+    end
+
+    it "should normalize the name to camelCase " do
+      subject.send :dependency_group, :dev_dependencies do
+        subject.send(:current_dependency_group_normalized).should eq :devDependencies
+      end
+      subject.send(:current_dependency_group_normalized).should eq :dependencies
+    end
+
+  end
+
+
+
 
   context "group dsl method" do
     it "should create a group with just a name" do
@@ -38,48 +70,48 @@ describe BowerRails::Dsl do
   context "asset dsl method" do
     it "should default to the latest version" do
       subject.asset :new_hotness
-      subject.dependencies.values.should include :new_hotness => "latest"
+      subject.dependencies.values.should include :dependencies => {:new_hotness => "latest"}
     end
 
     it "should accept a version string" do
       subject.asset :new_hotness, "1.0"
-      subject.dependencies.values.should include :new_hotness => "1.0"
+      subject.dependencies.values.should include :dependencies => {:new_hotness => "1.0"}
     end
 
     it "should accept a git url" do
       subject.asset :new_hotness, "git@github.com:initech/tps-kit"
-      subject.dependencies.values.should include :new_hotness => "git@github.com:initech/tps-kit"
+      subject.dependencies.values.should include :dependencies => {:new_hotness => "git@github.com:initech/tps-kit"}
     end
 
     it "should accept git url and a version and put it all together" do
       subject.asset :new_hotness, "1.2.3", :git => "git@github.com:initech/tps-kit"
-      subject.dependencies.values.should include :new_hotness => "git@github.com:initech/tps-kit#1.2.3"
+      subject.dependencies.values.should include :dependencies => {:new_hotness => "git@github.com:initech/tps-kit#1.2.3"}
     end
 
     it "should accept a github path" do
       subject.asset :new_hotness, :github => "initech/tps-kit"
-      subject.dependencies.values.should include :new_hotness => "git://github.com/initech/tps-kit"
+      subject.dependencies.values.should include :dependencies => {:new_hotness => "git://github.com/initech/tps-kit"}
     end
 
     it "should accept a github path and a version and put it all together" do
       subject.asset :new_hotness, "1.2.3", :github => "initech/tps-kit"
-      subject.dependencies.values.should include :new_hotness => "git://github.com/initech/tps-kit#1.2.3"
+      subject.dependencies.values.should include :dependencies => {:new_hotness => "git://github.com/initech/tps-kit#1.2.3"}
     end
 
     it "should accept a ref option and set it as a version" do
       subject.asset :new_hotness, :ref => "b122a"
-      subject.dependencies.values.should include :new_hotness => "b122a"
+      subject.dependencies.values.should include :dependencies => {:new_hotness => "b122a"}
     end
 
     it "should accept a git and ref option and put it all together" do
       subject.asset :new_hotness, :git => "git@github.com:initech/tps-kit", :ref => "b122a"
-      subject.dependencies.values.should include :new_hotness => "git@github.com:initech/tps-kit#b122a"
-    end  
+      subject.dependencies.values.should include :dependencies => {:new_hotness => "git@github.com:initech/tps-kit#b122a"}
+    end
 
     it "should accept a github and ref option and put it all together" do
       subject.asset :new_hotness, :github => "initech/tps-kit", :ref => "b122a"
-      subject.dependencies.values.should include :new_hotness => "git://github.com/initech/tps-kit#b122a"
-    end     
+      subject.dependencies.values.should include :dependencies => {:new_hotness => "git://github.com/initech/tps-kit#b122a"}
+    end
   end
 
   it "should have a private method to validate asset paths" do
