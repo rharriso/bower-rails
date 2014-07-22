@@ -7,7 +7,7 @@ module BowerRails
     DEFAULT_DEPENDENCY_GROUP = :dependencies
 
     def self.evalute(root_path, filename)
-      new.tap { |dsl| dsl.eval_file(File.join(root_path, filename)) }
+      new(root_path).tap { |dsl| dsl.eval_file(File.join(root_path, filename)) }
     end
 
     attr_reader :dependencies, :root_path
