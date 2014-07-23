@@ -1,5 +1,7 @@
 ## Edge version
 
+## v0.8.0
+
 * Add configurable `root_path` option for `bower-rails`
 * Extract performing logic to the separate `BowerRails::Performer` class by @Melanitski [#95][]
 * Add `rake bower:install:production`, `rake bower:install:development`, set `rake bower:install` to match `rake bower:install:production`
