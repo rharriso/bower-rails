@@ -24,13 +24,17 @@ namespace :bower do
     desc "Install both dependencies and devDependencies from bower"
     task :development, :options do |_, args|
       args.with_defaults(:options => '')
-      BowerRails::Performer.perform{ |bower| sh "#{bower} install #{args[:options]}" }
+      BowerRails::Performer.perform do |bower|
+        sh "#{bower} install #{args[:options]}"
+      end
     end
 
     desc "Install only dependencies, excluding devDependencies from bower"
     task :production, :options do |_, args|
       args.with_defaults(:options => '')
-      BowerRails::Performer.perform{ |bower| sh "#{bower} install -p #{args[:options]}" }
+      BowerRails::Performer.perform do |bower|
+        sh "#{bower} install -p #{args[:options]}"
+      end
     end
   end
 

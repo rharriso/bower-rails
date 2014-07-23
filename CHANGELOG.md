@@ -1,5 +1,11 @@
 ## Edge version
 
+## v0.8.2
+
+* fix `"undefined method 'perform' for main:Object"` by @kenips [#95][]
+
+[#99]: https://github.com/42dev/bower-rails/pull/99
+
 ## v0.8.1
 
 * Add configurable `root_path` option for `bower-rails`
@@ -19,7 +25,7 @@
 
 * Add `install_before_precompile` configurable option to invoke `rake bower:install` before precompilation
 * DSL: Add ability to specify `ref` option which accepts commit's SHA and composes it as a component's version
-* Fix NoMethodError: undefined method `full_comment' for nil:NilClass. Check for `rake assets:precompile` task existance.
+* Fix `NoMethodError: undefined method 'full_comment' for nil:NilClass`. Check for `rake assets:precompile` task existance.
 
 ## v0.7.2
 
