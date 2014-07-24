@@ -2,7 +2,7 @@
 
 ## v0.8.2
 
-* fix `"undefined method 'perform' for main:Object"` by @kenips [#95][]
+* fix `"undefined method 'perform' for main:Object"` by @kenips [#99][]
 
 [#99]: https://github.com/42dev/bower-rails/pull/99
 
