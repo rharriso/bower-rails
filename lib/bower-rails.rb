@@ -22,6 +22,10 @@ module BowerRails
     # are invoked before assets precompilation
     attr_accessor :clean_before_precompile
 
+    # If set to true then rake bower:install && rake bower:clean && rake bower:resolve tasks
+    # are invoked before assets precompilation
+    attr_accessor :use_bower_install_deployment
+
     def configure &block
       yield self if block_given?
       collect_tasks
@@ -30,9 +34,12 @@ module BowerRails
     private
 
       def collect_tasks
-        @tasks << ['bower:install'] if @install_before_precompile
-        @tasks << ['bower:install', 'bower:clean']   if @clean_before_precompile
-        @tasks << ['bower:install', 'bower:resolve'] if @resolve_before_precompile
+        install_cmd = 'bower:install'
+        install_cmd = 'bower:install:deployment' if @use_bower_install_deployment
+
+        @tasks << [install_cmd] if @install_before_precompile
+        @tasks << [install_cmd, 'bower:clean']   if @clean_before_precompile
+        @tasks << [install_cmd, 'bower:resolve'] if @resolve_before_precompile
         @tasks.flatten!
         @tasks.uniq!
       end
