@@ -13,7 +13,7 @@ module BowerRails
 
     # If set to true then rake bower:install task is invoked before assets precompilation
     attr_accessor :install_before_precompile
-    
+
     # If set to true then rake bower:install && rake bower:resolve tasks
     # are invoked before assets precompilation
     attr_accessor :resolve_before_precompile
@@ -31,8 +31,8 @@ module BowerRails
 
       def collect_tasks
         @tasks << ['bower:install'] if @install_before_precompile
-        @tasks << ['bower:install', 'bower:resolve'] if @resolve_before_precompile
         @tasks << ['bower:install', 'bower:clean']   if @clean_before_precompile
+        @tasks << ['bower:install', 'bower:resolve'] if @resolve_before_precompile
         @tasks.flatten!
         @tasks.uniq!
       end
