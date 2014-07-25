@@ -21,4 +21,6 @@ end
 
 gem "rails", rails
 
+gem 'pry'
+
 gemspec
