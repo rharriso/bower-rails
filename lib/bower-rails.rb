@@ -49,7 +49,8 @@ module BowerRails
   # Set default values for options
   @root_path = Dir.pwd
   @tasks = []
-  @install_before_precompile = false
-  @resolve_before_precompile = false
-  @clean_before_precompile   = false
+  @install_before_precompile    = false
+  @resolve_before_precompile    = false
+  @clean_before_precompile      = false
+  @use_bower_install_deployment = false
 end
