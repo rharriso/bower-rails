@@ -35,6 +35,9 @@ describe BowerRails::Performer do
       # points `root_path` to temporary directory
       allow(performer).to receive(:root_path) { "#{root}/tmp" }
 
+      # trick BowerRails that system has bower installed
+      allow(performer).to receive(:find_command) { "bower" }
+
       Dir.chdir("#{root}/tmp")
 
       performer.perform false do
