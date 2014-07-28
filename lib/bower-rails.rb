@@ -18,12 +18,12 @@ module BowerRails
     # are invoked before assets precompilation
     attr_accessor :resolve_before_precompile
 
-    # If set to true then rake bower:install && rake bower:clean && rake bower:resolve tasks
+    # If set to true then rake bower:install && rake bower:clean tasks
     # are invoked before assets precompilation
     attr_accessor :clean_before_precompile
 
-    # If set to true then rake bower:install && rake bower:clean && rake bower:resolve tasks
-    # are invoked before assets precompilation
+    # If set to true then rake bower:install:deployment will be invoked
+    # instead of rake bower:install before assets precompilation
     attr_accessor :use_bower_install_deployment
 
     def configure &block
