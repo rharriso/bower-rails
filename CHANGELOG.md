@@ -1,5 +1,12 @@
 ## Edge version
 
+## v0.8.3
+
+* fix `"cleans *.css.erb files before assets:precompile"` by @Zhomart [#101][]
+* added support wildcards for task `rake bower:clean` by @Zhomart [#101][]
+
+[#101]: https://github.com/42dev/bower-rails/pull/101
+
 ## v0.8.2
 
 * fix `"undefined method 'perform' for main:Object"` by @kenips [#99][]

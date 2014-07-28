@@ -166,7 +166,7 @@ module BowerRails
         # Remove "./" relative path from main file strings
         main_files.map! { |file| File.join(component_dir, file.gsub(/^\.\//, '')) }
 
-        # Make Regexp
+        # Make Regexp to handle wildcards
         main_files.map! { |file| Regexp.new("\\A" + file.gsub(/\*/, '.*') + "\\Z") }
 
         # Delete all files that are not in main
