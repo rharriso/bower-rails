@@ -13,14 +13,18 @@ module BowerRails
 
     # If set to true then rake bower:install task is invoked before assets precompilation
     attr_accessor :install_before_precompile
-    
+
     # If set to true then rake bower:install && rake bower:resolve tasks
     # are invoked before assets precompilation
     attr_accessor :resolve_before_precompile
 
-    # If set to true then rake bower:install && rake bower:clean && rake bower:resolve tasks
+    # If set to true then rake bower:install && rake bower:clean tasks
     # are invoked before assets precompilation
     attr_accessor :clean_before_precompile
+
+    # If set to true then rake bower:install:deployment will be invoked
+    # instead of rake bower:install before assets precompilation
+    attr_accessor :use_bower_install_deployment
 
     def configure &block
       yield self if block_given?
@@ -30,9 +34,12 @@ module BowerRails
     private
 
       def collect_tasks
-        @tasks << ['bower:install'] if @install_before_precompile
-        @tasks << ['bower:install', 'bower:resolve'] if @resolve_before_precompile
-        @tasks << ['bower:install', 'bower:clean']   if @clean_before_precompile
+        install_cmd = 'bower:install'
+        install_cmd = 'bower:install:deployment' if @use_bower_install_deployment
+
+        @tasks << [install_cmd] if @install_before_precompile
+        @tasks << [install_cmd, 'bower:clean']   if @clean_before_precompile
+        @tasks << [install_cmd, 'bower:resolve'] if @resolve_before_precompile
         @tasks.flatten!
         @tasks.uniq!
       end
@@ -42,7 +49,8 @@ module BowerRails
   # Set default values for options
   @root_path = Dir.pwd
   @tasks = []
-  @install_before_precompile = false
-  @resolve_before_precompile = false
-  @clean_before_precompile   = false
+  @install_before_precompile    = false
+  @resolve_before_precompile    = false
+  @clean_before_precompile      = false
+  @use_bower_install_deployment = false
 end

@@ -101,6 +101,6 @@ describe BowerRails do
       it 'should has three tasks for enhancing' do
         expect(BowerRails.tasks.size).to eq(3)
       end
-    end    
+    end
   end
 end

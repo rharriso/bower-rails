@@ -174,6 +174,9 @@ BowerRails.configure do |bower_rails|
 
   # Invokes rake bower:clean before precompilation. Defaults to false
   bower_rails.clean_before_precompile = true
+
+  # Invokes rake bower:install:deployment instead rake bower:install. Defaults to false
+  bower_rails.use_bower_install_deployment = true
 end
 ```
 
@@ -226,4 +229,4 @@ Remember that you should have [bower installed](#bower-installation) either loca
 
 ##Bower Main Files
 
-Each bower component should follow the [bower.json spec](https://github.com/bower/bower.json-spec) which designates a recommended `main` directive that lists the primary files of that component. You may choose to reference these files if you are using the asset pipeline, in which case other extraneous includes of the bower component are not needed. The `rake bower:clean` task removes every file that isn't listed in the `main` directive, if the component specifies a `main` directive. Otherwise, the library will remain as bower installed it.
+Each bower component should follow the [bower.json spec](https://github.com/bower/bower.json-spec) which designates a recommended `main` directive that lists the primary files of that component. You may choose to reference these files if you are using the asset pipeline, in which case other extraneous includes of the bower component are not needed. The `rake bower:clean` task removes every file that isn't listed in the `main` directive, if the component specifies a `main` directive. Otherwise, the library will remain as bower installed it. It supports wildcards in files listed in `main` directive.
