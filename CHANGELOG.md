@@ -2,6 +2,7 @@
 
 ## v0.8.3
 
+* add `use_bower_install_deployment` configurable option by @Zhomart [#101][]
 * fix `"cleans *.css.erb files before assets:precompile"` by @Zhomart [#101][]
 * added support wildcards for task `rake bower:clean` by @Zhomart [#101][]
 
