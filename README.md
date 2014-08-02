@@ -4,11 +4,11 @@ bower-rails
 [![Gem Version](http://img.shields.io/gem/v/bower-rails.svg)][gem]
 [![Code Climate](http://img.shields.io/codeclimate/github/42dev/bower-rails.svg)][codeclimate]
 [![Dependency Status](http://img.shields.io/gemnasium/SergeyKishenin/bower-rails.svg)][gemnasium]
-[![Build Status](http://img.shields.io/travis/mbj/concord/master.svg)][travis]
+[![Build Status](https://travis-ci.org/42dev/bower-rails.svg?branch=master)][travis]
 [![Coverage Status](https://coveralls.io/repos/42dev/bower-rails/badge.png)][coveralls]
 
 [gem]: https://rubygems.org/gems/bower-rails
-[travis]: https://travis-ci.org/mbj/concord
+[travis]: https://travis-ci.org/42dev/bower-rails
 [gemnasium]: https://gemnasium.com/SergeyKishenin/bower-rails
 [codeclimate]: https://codeclimate.com/github/42dev/bower-rails
 [coveralls]: https://coveralls.io/r/42dev/bower-rails
