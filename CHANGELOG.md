@@ -1,5 +1,7 @@
 ## Edge version
 
+* do not resolve urls which start with '#' #102
+
 ## v0.8.3
 
 * add `use_bower_install_deployment` configurable option by @Zhomart [#101][]
