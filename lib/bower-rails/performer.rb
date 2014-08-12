@@ -120,7 +120,7 @@ module BowerRails
       Dir['bower_components/**/*.css'].each do |filename|
         contents = File.read(filename) if FileTest.file?(filename)
         # http://www.w3.org/TR/CSS2/syndata.html#uri
-        url_regex = /url\(\s*['"]?(?![a-z]+:)([^'"\)]*)['"]?\s*\)/
+        url_regex = /url\((?!\#)\s*['"]?(?![a-z]+:)([^'"\)]*)['"]?\s*\)/
 
         # Resolve paths in CSS file if it contains a url
         if contents =~ url_regex
