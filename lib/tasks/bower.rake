@@ -1,3 +1,4 @@
+require_relative 'helpers/before_hook'
 require 'bower-rails/performer'
 
 include BeforeHook
