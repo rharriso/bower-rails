@@ -1,4 +1,4 @@
-require_relative 'helpers/before_hook'
+require 'tasks/helpers/before_hook.rb'
 require 'bower-rails/performer'
 
 include BeforeHook

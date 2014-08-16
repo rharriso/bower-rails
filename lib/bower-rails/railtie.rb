@@ -23,7 +23,6 @@ module BowerRails
     end
 
     rake_tasks do
-      require "tasks/helpers/before_hook.rb"
       load "tasks/bower.rake"
     end
   end
