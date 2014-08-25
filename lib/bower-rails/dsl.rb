@@ -17,6 +17,7 @@ module BowerRails
       @root_path = root_path
       @bower_dependencies_list = []
       @dependencies = {}
+      @resolutions = {}
       @assets_path ||= "assets"
     end
 
@@ -87,10 +88,20 @@ module BowerRails
       yield if block_given?
     end
 
+    def resolution(name, version)
+      @resolutions[name] = version
+    end
+
+    def resolutions_with_root
+      { :resolutions => @resolutions }
+    end
+
     def write_bower_json
       @dependencies.each do |dir, data|
+
         FileUtils.mkdir_p dir unless File.directory? dir
         File.open(File.join(dir, "bower.json"), "w") do |f|
+          data.merge!(resolutions_with_root)
           f.write(dependencies_to_json(data))
         end
       end
