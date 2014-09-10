@@ -79,7 +79,7 @@ namespace :bower do
   end
 end
 
-before 'assets:precompile' do
+before_rake_task 'assets:precompile' do
   BowerRails.tasks.map do |task|
     Rake::Task[task].invoke
   end
