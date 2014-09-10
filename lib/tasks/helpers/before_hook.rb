@@ -1,7 +1,7 @@
 module BeforeHook
-  # The `before` hook for rake tasks. 
+  # The `before` hook for rake tasks.
   # The code was taken from https://github.com/guillermo/rake-hooks/blob/master/lib/rake/hooks.rb#L2
-  def before(*task_names, &new_task)
+  def before_rake_task(*task_names, &new_task)
     task_names.each do |task_name|
       old_task = Rake.application.instance_variable_get('@tasks').delete(task_name.to_s)
       return unless old_task
