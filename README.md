@@ -159,7 +159,7 @@ NOTE: Available dependency groups are `:dependencies` (default) and `:dev_depend
 
 ## Bower Resolutions
 
-To specify a [#bower resolution][] use `resolution` DSL method in your Bowerfile:
+To specify a [bower resolution][] use `resolution` DSL method in your Bowerfile:
 
 ```ruby
 resolution "angular", "1.2.22"
@@ -179,7 +179,7 @@ That will produce `bower.json` like:
 }
 ```
 
-[#bower resolution]: http://jaketrent.com/post/bower-resolutions/
+[bower resolution]: http://jaketrent.com/post/bower-resolutions/
 
 ##Configuration
 
