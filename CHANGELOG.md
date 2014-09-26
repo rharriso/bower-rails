@@ -1,6 +1,12 @@
 ## Edge version
 
+## v0.9.0
+
 * do not resolve urls which start with '#' #102
+* add support for [#bower resolutions][] by @jasonayre [#107][]
+
+[#bower resolutions]: http://jaketrent.com/post/bower-resolutions/
+[#107]: https://github.com/42dev/bower-rails/pull/107
 
 ## v0.8.3
 

@@ -157,6 +157,30 @@ results in the following bower.json file:
 ```
 NOTE: Available dependency groups are `:dependencies` (default) and `:dev_dependencies`. Others are not allowed according to the Rails convention.
 
+## Bower Resolutions
+
+To specify a [#bower resolution][] use `resolution` DSL method in your Bowerfile:
+
+```ruby
+resolution "angular", "1.2.22"
+```
+
+That will produce `bower.json` like:
+
+``` javascript
+{
+  "name" : "dsl-generated dependencies",
+  "dependencies" : {
+    "angular" : "1.2.22"
+  },
+  "resolutions": {
+    "angular": "1.2.22"
+  }
+}
+```
+
+[#bower resolution]: http://jaketrent.com/post/bower-resolutions/
+
 ##Configuration
 
 Change options in your `config/initializers/bower_rails.rb`:
