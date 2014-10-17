@@ -1,5 +1,11 @@
 ## Edge version
 
+## v0.9.1
+
+* add `bower:clean:cache` rake task by @ruprict [#115][]
+
+[#115]: https://github.com/42dev/bower-rails/pull/115
+
 ## v0.9.0
 
 * do not resolve urls which start with '#' #102
