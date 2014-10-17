@@ -28,7 +28,7 @@ Check out [changelog][] for the latest changes and releases.
 in Gemfile
 
 ``` Ruby
-  gem "bower-rails", "~> 0.9.0"
+  gem "bower-rails", "~> 0.9.1"
 ```
 
 ##JSON configuration
