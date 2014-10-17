@@ -228,6 +228,7 @@ Once you are done with `bower.json` or `Bowerfile` you can run
 * `rake bower:list` to list all packages
 * `rake bower:clean` to remove all files not listed as [main files](#bower-main-files) (if specified)
 * `rake bower:resolve` to resolve [relative asset paths](#relative-asset-paths) in components
+* `rake bower:cache:clean` to clear the bower cache. This is useful when you know a component has been updated. 
 
 If you'd like to pass any bower CLI options to a rake task, like `-f`, `-j`, you can simply do:
 

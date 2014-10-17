@@ -77,6 +77,15 @@ namespace :bower do
       remove_extra_files
     end
   end
+
+  namespace :cache do
+    desc "Clear the bower cache ('bower cache clean')"
+    task :clean do
+      BowerRails::Performer.perform false do |bower|
+        sh "#{bower} cache clean"
+      end
+    end
+  end
 end
 
 before_rake_task 'assets:precompile' do
