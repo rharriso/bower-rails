@@ -130,7 +130,7 @@ And finally, you can specify the assets to be in the devDependencies block:
 asset "backbone", "1.1.1"
 
 # Adds jasmine-sinon and jasmine-matchers to devDependencies
-dependency :dev_dependencies  do
+dependency_group :dev_dependencies  do
   asset "jasmine-sinon"            # Defaults to 'latest'
   asset "jasmine-matchers"         # Defaults to 'latest'
 end
