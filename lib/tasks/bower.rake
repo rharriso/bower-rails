@@ -1,7 +1,4 @@
-require 'tasks/helpers/before_hook'
 require 'bower-rails/performer'
-
-include BeforeHook
 
 namespace :bower do
   desc "Install components from bower"
@@ -86,10 +83,12 @@ namespace :bower do
       end
     end
   end
-end
 
-before_rake_task 'assets:precompile' do
-  BowerRails.tasks.map do |task|
-    Rake::Task[task].invoke
+  task :before_precompile do
+    BowerRails.tasks.each do |task|
+      Rake::Task[task].invoke
+    end
   end
 end
+
+task "assets:precompile" => ["bower:before_precompile"]
