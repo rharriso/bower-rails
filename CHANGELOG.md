@@ -1,5 +1,11 @@
 ## Edge version
 
+## v0.9.2
+
+* remove before hook in favour of rake dependency @itszootime and @carsomyr [#121][]
+
+[#121]: https://github.com/42dev/bower-rails/pull/121
+
 ## v0.9.1
 
 * add `bower:clean:cache` rake task by @ruprict [#115][]
