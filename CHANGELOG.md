@@ -2,7 +2,7 @@
 
 ## v0.9.2
 
-* remove before hook in favour of rake dependency @itszootime and @carsomyr [#121][]
+* remove before hook in favour of rake dependency by @itszootime and @carsomyr [#121][]
 
 [#121]: https://github.com/42dev/bower-rails/pull/121
 
