@@ -23,6 +23,8 @@ Check out [changelog][] for the latest changes and releases.
 * [node](http://nodejs.org) ([on github](https://github.com/joyent/node))
 * [bower](https://github.com/bower/bower) (>= 0.10.0) installed with npm
 
+NOTE: If you install `node` via package manager with `sudo apt-get install nodejs` you'll also need to install `nodejs-legacy` with `sudo apt-get install nodejs-legacy`. See [#91](https://github.com/42dev/bower-rails/issues/91)
+
 **Install**
 
 in Gemfile
