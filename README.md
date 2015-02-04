@@ -30,7 +30,7 @@ NOTE: If you install `node` via package manager with `sudo apt-get install nodej
 in Gemfile
 
 ``` Ruby
-  gem "bower-rails", "~> 0.9.1"
+  gem "bower-rails", "~> 0.9.2"
 ```
 
 ##JSON configuration
