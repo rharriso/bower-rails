@@ -2,7 +2,7 @@
 
 * add ability to configure bower to pass -F to bower install by @hubert [#129][]
 
-[#121]: https://github.com/42dev/bower-rails/pull/129
+[#129]: https://github.com/42dev/bower-rails/pull/129
 
 ## v0.9.2
 
