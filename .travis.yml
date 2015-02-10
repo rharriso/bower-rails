@@ -3,7 +3,6 @@ rvm:
   - 2.1.1
   - 2.0.0
   - 1.9.3
-  - 1.9.2
   - jruby-19mode
   - ruby-head
   - jruby-head
@@ -16,7 +15,4 @@ matrix:
   allow_failures:
     - rvm: ruby-head
     - env: "RAILS_VERSION=master"
-  exclude:
-    - rvm: 1.9.2
-      env: RAILS_VERSION=4.0.0  
 script: rspec spec
