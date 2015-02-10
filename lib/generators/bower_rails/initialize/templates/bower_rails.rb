@@ -13,4 +13,7 @@ BowerRails.configure do |bower_rails|
 
   # Invokes rake bower:install:deployment instead rake bower:install. Defaults to false
   # bower_rails.use_bower_install_deployment = true
+  #
+  # Invokes rake bower:install and rake bower:install:deployment with -F (force) flag. Defaults to false
+  # bower_rails.force_install = true
 end

@@ -102,5 +102,24 @@ describe BowerRails do
         expect(BowerRails.tasks.size).to eq(3)
       end
     end
+
+    describe '#force_install' do
+      it 'calls bower install with -f' do
+        BowerRails.configure do |bower_rails|
+          bower_rails.force_install = true
+          bower_rails.install_before_precompile = true
+        end
+        expect(BowerRails.tasks).to include('bower:install[-F]')
+      end
+
+      it 'calls bower install deployement with -f' do
+        BowerRails.configure do |bower_rails|
+          bower_rails.force_install = true
+          bower_rails.use_bower_install_deployment = true
+          bower_rails.install_before_precompile = true
+        end
+        expect(BowerRails.tasks).to include('bower:install:deployment[-F]')
+      end
+    end
   end
 end

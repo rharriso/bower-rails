@@ -1,5 +1,9 @@
 ## Edge version
 
+* add ability to configure bower to pass -F to bower install by @hubert [#129][]
+
+[#129]: https://github.com/42dev/bower-rails/pull/129
+
 ## v0.9.2
 
 * remove before hook in favour of rake dependency by @itszootime and @carsomyr [#121][]

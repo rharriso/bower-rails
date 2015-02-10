@@ -26,6 +26,10 @@ module BowerRails
     # instead of rake bower:install before assets precompilation
     attr_accessor :use_bower_install_deployment
 
+    # If set to true then rake bower:install[-f] will be invoked
+    # instead of rake bower:install before assets precompilation
+    attr_accessor :force_install
+
     def configure &block
       yield self if block_given?
       collect_tasks
@@ -36,6 +40,7 @@ module BowerRails
       def collect_tasks
         install_cmd = 'bower:install'
         install_cmd = 'bower:install:deployment' if @use_bower_install_deployment
+        install_cmd += '[-F]' if @force_install
 
         @tasks << [install_cmd] if @install_before_precompile
         @tasks << [install_cmd, 'bower:clean']   if @clean_before_precompile
@@ -53,4 +58,5 @@ module BowerRails
   @resolve_before_precompile    = false
   @clean_before_precompile      = false
   @use_bower_install_deployment = false
+  @force_install = false
 end

@@ -86,7 +86,7 @@ namespace :bower do
 
   task :before_precompile do
     BowerRails.tasks.each do |task|
-      Rake::Task[task].invoke
+      Rake.application.invoke_task(task)
     end
   end
 end
