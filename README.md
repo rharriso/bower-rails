@@ -241,6 +241,22 @@ If you'd like to pass any bower CLI options to a rake task, like `-f`, `-j`, you
 rake bower:install['-f']
 ```
 
+##Capistrano 3 Configuration
+
+While using Capistrano 3 and Capistrano Rails gem, it's needed to run bower install before assets compile. Add the following code to your deploy.rb, it will run `rake bower:install` before compiling the assets. CI=true flag is used not to ask for the analytics at the first bower install.
+
+```
+desc "Install bower"
+task :install_bower do
+  on roles(:web) do
+    within release_path do
+      execute :rake, 'bower:install CI=true'
+    end
+  end
+end
+before "deploy:compile_assets", "deploy:install_bower"
+```
+
 ##Bower Configuration
 
 If you provide a `.bowerrc` in the rails project root, bower-rails will use it for bower configuration.
