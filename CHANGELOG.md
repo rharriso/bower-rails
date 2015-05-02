@@ -1,6 +1,7 @@
 ## Edge version
 
 * add ability to configure bower to pass -F to bower install by @hubert [#129][]
+* add ability to append files into `main` directive  by @gacha [#117][]
 
 [#129]: https://github.com/42dev/bower-rails/pull/129
 

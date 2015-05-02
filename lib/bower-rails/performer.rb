@@ -157,11 +157,8 @@ module BowerRails
 
         # Parse bower.json
         bower_json = JSON.parse(bower_file)
-        main_files = bower_json['main']
-        next unless main_files
-
-        # Handle singular or multiple files
-        main_files = [main_files] unless main_files.is_a?(Array)
+        main_files = Array(bower_json['main']) + dsl.main_files
+        next if main_files.empty?
 
         # Remove "./" relative path from main file strings
         main_files.map! { |file| File.join(component_dir, file.gsub(/^\.\//, '')) }
