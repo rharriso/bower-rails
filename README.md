@@ -126,6 +126,23 @@ end
 NOTE: Available groups are `:lib` and `:vendor`. Others are not allowed according to the Rails convention.
 NOTE: All the assets should be stored in `/assets` subdirectory so putting it under `./vendor/js` directory is unavailable
 
+You can extend `main` directive to include some missing files using `main_files` 
+option as parameter or in a block:
+
+``` ruby
+# via argument
+asset "moment", "2.10.1", main_files: ["./locale/en-gb.js"]
+
+# or in block
+asset "moment", "2.10.1" do
+  main_files: [
+    "./locale/en-gb.js",
+    "./locale/fr.js",
+    "./locale/lv.js"
+  ]
+end
+```
+
 And finally, you can specify the assets to be in the devDependencies block:
 
 ``` ruby
@@ -275,4 +292,11 @@ Remember that you should have [bower installed](#bower-installation) either loca
 
 ##Bower Main Files
 
-Each bower component should follow the [bower.json spec](https://github.com/bower/bower.json-spec) which designates a recommended `main` directive that lists the primary files of that component. You may choose to reference these files if you are using the asset pipeline, in which case other extraneous includes of the bower component are not needed. The `rake bower:clean` task removes every file that isn't listed in the `main` directive, if the component specifies a `main` directive. Otherwise, the library will remain as bower installed it. It supports wildcards in files listed in `main` directive.
+Each bower component should follow the [bower.json spec](https://github.com/bower/bower.json-spec) 
+which designates a recommended `main` directive that lists the primary files of 
+that component. You may choose to reference these files if you are using the asset 
+pipeline, in which case other extraneous includes of the bower component are not needed. 
+The `rake bower:clean` task removes every file that isn't listed in the `main` directive, 
+if the component specifies a `main` directive. Remember that you can extend the `main` directive
+in [ruby DSL configuration](#ruby-dsl-configuration). Otherwise, the library will remain as bower installed it. It supports wildcards 
+in files listed in `main` directive.

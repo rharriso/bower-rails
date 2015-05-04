@@ -19,9 +19,10 @@ module BowerRails
       @dependencies = {}
       @resolutions = {}
       @assets_path ||= "assets"
+      @main_files = []
     end
 
-    def asset(name, *args)
+    def asset(name, *args, &block)
       group = @current_group || default_group
       options = Hash === args.last ? args.pop.dup : {}
 
@@ -37,6 +38,12 @@ module BowerRails
                     options[:git] + "#" + version
                   end
       end
+
+      if options[:main_files]
+        main_files(options[:main_files])
+      end
+
+      instance_eval(&block) if block_given?
 
       normalized_group_path = normalize_location_path(group.first, group_assets_path(group))
       @dependencies[normalized_group_path] ||= {}
@@ -114,6 +121,14 @@ module BowerRails
           f.write(generate_dotbowerrc)
         end
       end
+    end
+
+    # accepts string or array to alter main option for bower.json
+    def main_files(value = nil)
+      if value
+        @main_files = Array(value)
+      end
+      @main_files
     end
 
     private

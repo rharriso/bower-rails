@@ -5,6 +5,7 @@ require 'pry'
 describe BowerRails::Performer do
 
   let(:performer) { BowerRails::Performer.new }
+  let(:main_files) { [] }
 
   context "remove_extra_files" do
     let(:root) { File.expand_path('../../..', __FILE__) }
@@ -25,6 +26,7 @@ describe BowerRails::Performer do
       FileUtils.touch("#{root}/tmp/vendor/assets/bower_components/moment/fonts/font.svg")
       FileUtils.touch("#{root}/tmp/vendor/assets/bower_components/moment/moment.js")
       FileUtils.touch("#{root}/tmp/vendor/assets/bower_components/moment/unknown.file")
+      FileUtils.touch("#{root}/tmp/vendor/assets/bower_components/moment/moment_plugin.js")
       FileUtils.mkdir("#{root}/tmp/vendor/assets/bower_components/moment/unknown_dir")
 
       # creates bower.json with `main` files: "./moment.js", "./fonts/*"
@@ -37,6 +39,9 @@ describe BowerRails::Performer do
 
       # trick BowerRails that system has bower installed
       allow(performer).to receive(:find_command) { "bower" }
+
+      # sets main_files in DSL
+      allow_any_instance_of(BowerRails::Dsl).to receive(:main_files){ main_files }
 
       Dir.chdir("#{root}/tmp")
 
@@ -63,6 +68,18 @@ describe BowerRails::Performer do
 
     it "keeps font/font.svg" do
       expect(File).to exist("#{root}/tmp/vendor/assets/bower_components/moment/fonts/font.svg")
+    end
+
+    it "removes moment_plugin.js" do
+      expect(File).to_not exist("#{root}/tmp/vendor/assets/bower_components/moment/moment_plugin.js")
+    end
+
+    context "with additional main_files" do
+      let(:main_files) { ['./moment_plugin.js'] }
+
+      it "keeps moment_plugin.js" do
+        expect(File).to exist("#{root}/tmp/vendor/assets/bower_components/moment/moment_plugin.js")
+      end
     end
   end
 

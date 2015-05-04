@@ -112,6 +112,19 @@ describe BowerRails::Dsl do
       subject.asset :new_hotness, :github => "initech/tps-kit", :ref => "b122a"
       subject.dependencies.values.should include :dependencies => {:new_hotness => "git://github.com/initech/tps-kit#b122a"}
     end
+
+    it "should accept a main_files option and put it all together" do
+      subject.asset :new_hotness, :main_files => ['dist/foo.js']
+      subject.main_files.should eq(['dist/foo.js'])
+    end
+
+    it "should be able to set main_files via block and put it all together" do
+      subject.asset :new_hotness do
+        main_files ['dist/foo.js']
+      end
+      subject.main_files.should eq(['dist/foo.js'])
+    end
+
   end
 
   it "should have a private method to validate asset paths" do
