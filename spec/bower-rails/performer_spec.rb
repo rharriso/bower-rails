@@ -5,7 +5,7 @@ require 'pry'
 describe BowerRails::Performer do
 
   let(:performer) { BowerRails::Performer.new }
-  let(:main_files) { [] }
+  let(:main_files) { {} }
 
   context "remove_extra_files" do
     let(:root) { File.expand_path('../../..', __FILE__) }
@@ -75,7 +75,7 @@ describe BowerRails::Performer do
     end
 
     context "with additional main_files" do
-      let(:main_files) { ['./moment_plugin.js'] }
+      let(:main_files) { { 'moment' => ['./moment_plugin.js'] } }
 
       it "keeps moment_plugin.js" do
         expect(File).to exist("#{root}/tmp/vendor/assets/bower_components/moment/moment_plugin.js")

@@ -19,10 +19,11 @@ module BowerRails
       @dependencies = {}
       @resolutions = {}
       @assets_path ||= "assets"
-      @main_files = []
+      @main_files = {}
     end
 
     def asset(name, *args, &block)
+      @asset_name = name
       group = @current_group || default_group
       options = Hash === args.last ? args.pop.dup : {}
 
@@ -126,7 +127,7 @@ module BowerRails
     # accepts string or array to alter main option for bower.json
     def main_files(value = nil)
       if value
-        @main_files = Array(value)
+        @main_files[@asset_name] = Array(value)
       end
       @main_files
     end

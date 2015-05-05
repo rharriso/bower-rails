@@ -157,7 +157,8 @@ module BowerRails
 
         # Parse bower.json
         bower_json = JSON.parse(bower_file)
-        main_files = Array(bower_json['main']) + dsl.main_files
+        component_name = component_dir.split('/').last
+        main_files = Array(bower_json['main']) + main_files_for_component(component_name)
         next if main_files.empty?
 
         # Remove "./" relative path from main file strings
@@ -191,5 +192,10 @@ module BowerRails
       nil
     end
 
+    private
+
+    def main_files_for_component(name)
+      Array(dsl.main_files[name])
+    end
   end
 end
