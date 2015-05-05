@@ -41,9 +41,6 @@ describe BowerRails::Dsl do
 
   end
 
-
-
-
   context "group dsl method" do
     it "should create a group with just a name" do
       subject.send :group, :vendor
@@ -115,14 +112,14 @@ describe BowerRails::Dsl do
 
     it "should accept a main_files option and put it all together" do
       subject.asset :new_hotness, :main_files => ['dist/foo.js']
-      subject.main_files.should eq(['dist/foo.js'])
+      subject.main_files.should eq(new_hotness: ['dist/foo.js'])
     end
 
     it "should be able to set main_files via block and put it all together" do
       subject.asset :new_hotness do
         main_files ['dist/foo.js']
       end
-      subject.main_files.should eq(['dist/foo.js'])
+      subject.main_files.should eq(new_hotness: ['dist/foo.js'])
     end
 
   end
