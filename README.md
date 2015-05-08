@@ -94,6 +94,9 @@ asset "secret_logic", "1.0.0", github: "initech/secret_logic"
 
 # get a specific revision from a git endpoint
 asset "secret_logic", github: "initech/secret_logic", ref: '0adff'
+
+# get a single file
+asset "three.js", "https://raw.github.com/mrdoob/three.js/master/build/three.js"
 ```
 
 But the default value can be overridden by `assets_path` method:
