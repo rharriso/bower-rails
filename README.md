@@ -138,7 +138,7 @@ asset "moment", "2.10.1", main_files: ["./locale/en-gb.js"]
 
 # or in block
 asset "moment", "2.10.1" do
-  main_files: [
+  main_files [
     "./locale/en-gb.js",
     "./locale/fr.js",
     "./locale/lv.js"
