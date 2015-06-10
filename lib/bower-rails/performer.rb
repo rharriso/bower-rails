@@ -66,10 +66,9 @@ module BowerRails
       txt  = File.read(File.join(root_path, "bower.json"))
       json = JSON.parse(txt)
 
-
       # Load and merge root .bowerrc
       dot_bowerrc = JSON.parse(File.read(File.join(root_path, '.bowerrc'))) rescue {}
-      dot_bowerrc["directory"] = "bower_components"
+      dot_bowerrc["directory"] = BowerRails.bower_components_directory || "bower_components"
 
       if json.except('lib', 'vendor').empty?
         folders = json.keys
