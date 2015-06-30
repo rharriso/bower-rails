@@ -30,6 +30,10 @@ module BowerRails
     # instead of rake bower:install before assets precompilation
     attr_accessor :force_install
 
+    # If set to true then it checks whether the bowerfile
+    # has been updated after last bower install
+    attr_accessor :check_pending
+
     def configure &block
       yield self if block_given?
       collect_tasks
@@ -58,5 +62,6 @@ module BowerRails
   @resolve_before_precompile    = false
   @clean_before_precompile      = false
   @use_bower_install_deployment = false
-  @force_install = false
+  @force_install                = false
+  @check_pending                = false
 end

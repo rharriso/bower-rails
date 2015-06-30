@@ -10,6 +10,10 @@ module BowerRails
       new.perform(*args, &block)
     end
 
+    def self.check_pending!
+      new.check_pending!
+    end
+
     def root_path
       BowerRails.root_path
     end
@@ -176,6 +180,16 @@ module BowerRails
             FileUtils.rm(file_or_dir)
           end
         end
+      end
+    end
+
+    def check_pending!
+      bowerfile_mtime = File.mtime(File.join(root_path, "Bowerfile")).to_i
+      bower_json_mtime = File.mtime(File.join(root_path, "vendor", "assets", "bower.json")).to_i rescue 0
+
+      if bowerfile_mtime > bower_json_mtime
+        raise LoadError,
+              "Bowerfile has been updated after last bower install. Run rake bower:install to load latest packages."
       end
     end
 
