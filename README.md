@@ -1,11 +1,11 @@
 bower-rails
 ===========
 
-[![Gem Version](http://img.shields.io/gem/v/bower-rails.svg)][gem]
-[![Code Climate](http://img.shields.io/codeclimate/github/42dev/bower-rails.svg)][codeclimate]
-[![Dependency Status](http://img.shields.io/gemnasium/SergeyKishenin/bower-rails.svg)][gemnasium]
+[![Gem Version](https://badge.fury.io/rb/bower-rails.svg)](http://badge.fury.io/rb/bower-rails)
+[![Code Climate](https://codeclimate.com/github/rharriso/bower-rails/badges/gpa.svg)](https://codeclimate.com/github/rharriso/bower-rails)
+[![Dependency Status](https://img.shields.io/gemnasium/SergeyKishenin/bower-rails.svg)][gemnasium]
 [![Build Status](https://travis-ci.org/rharriso/bower-rails.svg?branch=master)][travis]
-[![Coverage Status](https://coveralls.io/repos/42dev/bower-rails/badge.png)][coveralls]
+[![Coverage Status](https://coveralls.io/repos/rharriso/bower-rails/badge.svg?branch=master&service=github)](https://coveralls.io/github/rharriso/bower-rails?branch=master)
 
 [gem]: https://rubygems.org/gems/bower-rails
 [travis]: https://travis-ci.org/rharriso/bower-rails
