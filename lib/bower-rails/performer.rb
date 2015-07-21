@@ -69,7 +69,7 @@ module BowerRails
 
       # Load and merge root .bowerrc
       dot_bowerrc = JSON.parse(File.read(File.join(root_path, '.bowerrc'))) rescue {}
-      dot_bowerrc["directory"] = "bower_components"
+      dot_bowerrc["directory"] = components_directory
 
       if json.except('lib', 'vendor').empty?
         folders = json.keys
@@ -91,7 +91,7 @@ module BowerRails
         Dir.chdir(dir) do
 
           # Remove old components
-          FileUtils.rm_rf("bower_components/*") if remove_components
+          FileUtils.rm_rf("#{components_directory}/*") if remove_components
 
           # Create bower.json
           File.open("bower.json", "w") do |f|
@@ -115,9 +115,9 @@ module BowerRails
       end
     end
 
-    def resolve_asset_paths
+    def resolve_asset_paths(root_directory = components_directory)
       # Resolve relative paths in CSS
-      Dir['bower_components/**/*.css'].each do |filename|
+      Dir["#{components_directory}/**/*.css"].each do |filename|
         contents = File.read(filename) if FileTest.file?(filename)
         # http://www.w3.org/TR/CSS2/syndata.html#uri
         url_regex = /url\((?!\#)\s*['"]?(?![a-z]+:)([^'"\)]*)['"]?\s*\)/
@@ -125,7 +125,7 @@ module BowerRails
         # Resolve paths in CSS file if it contains a url
         if contents =~ url_regex
           directory_path = Pathname.new(File.dirname(filename))
-          .relative_path_from(Pathname.new('bower_components'))
+          .relative_path_from(Pathname.new(root_directory))
 
           # Replace relative paths in URLs with Rails asset_path helper
           new_contents = contents.gsub(url_regex) do |match|
@@ -146,7 +146,7 @@ module BowerRails
     def remove_extra_files
       puts "\nAttempting to remove all but main files as specified by bower\n"
 
-      Dir['bower_components/*'].each do |component_dir|
+      Dir["#{components_directory}/*"].each do |component_dir|
         component_name = component_dir.split('/').last
         next if clean_should_skip_component? component_name
 
@@ -203,6 +203,10 @@ module BowerRails
     def clean_should_skip_component?(name)
       BowerRails.exclude_from_clean.respond_to?(:include?) &&
         BowerRails.exclude_from_clean.include?(name)
+    end
+
+    def components_directory
+      BowerRails.bower_components_directory
     end
   end
 end

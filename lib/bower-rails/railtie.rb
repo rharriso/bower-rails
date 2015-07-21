@@ -11,13 +11,15 @@ module BowerRails
       config.before_initialize do |app|
         @dsl = BowerRails::Dsl.evalute(BowerRails.root_path, @@bowerfile)
         @dsl.final_assets_path.map do |assets_root, assets_path|
-          app.config.assets.paths << Rails.root.join(assets_root, assets_path, "bower_components")
+          app.config.assets.paths <<
+            Rails.root.join(assets_root, assets_path, BowerRails.bower_components_directory)
         end
       end
     else
       config.before_initialize do |app|
         ["lib", "vendor"].each do |dir|
-          app.config.assets.paths << Rails.root.join(dir, 'assets', 'bower_components')
+          app.config.assets.paths <<
+            Rails.root.join(dir, 'assets', BowerRails.bower_components_directory)
         end
       end
     end
