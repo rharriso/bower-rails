@@ -91,7 +91,7 @@ module BowerRails
         Dir.chdir(dir) do
 
           # Remove old components
-          FileUtils.rm_rf("bower_components") if remove_components
+          FileUtils.rm_rf("bower_components/*") if remove_components
 
           # Create bower.json
           File.open("bower.json", "w") do |f|
