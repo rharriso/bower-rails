@@ -112,7 +112,7 @@ describe BowerRails do
         expect(BowerRails.tasks).to include('bower:install[-F]')
       end
 
-      it 'calls bower install deployement with -f' do
+      it 'calls bower install deployment with -f' do
         BowerRails.configure do |bower_rails|
           bower_rails.force_install = true
           bower_rails.use_bower_install_deployment = true
