@@ -1,5 +1,6 @@
 require 'bower-rails'
 require 'bower-rails/dsl'
+require 'bower-rails/performer'
 require 'rails'
 
 module BowerRails
@@ -20,6 +21,10 @@ module BowerRails
           app.config.assets.paths << Rails.root.join(dir, 'assets', 'bower_components')
         end
       end
+    end
+
+    config.after_initialize do
+      BowerRails::Performer.check_pending! if BowerRails.check_pending
     end
 
     rake_tasks do

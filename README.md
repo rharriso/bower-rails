@@ -226,6 +226,9 @@ BowerRails.configure do |bower_rails|
 
   # Passes the -F option to rake bower:install or rake bower:install:deployment. Defaults to false.
   bower_rails.force_install = true
+
+  # Raises exception if bower install needs to be run. Defaults to false
+  bower_rails.check_pending = true
 end
 ```
 
