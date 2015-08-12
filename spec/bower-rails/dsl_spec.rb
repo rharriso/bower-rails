@@ -144,4 +144,42 @@ describe BowerRails::Dsl do
       subject.send(:default_group).should eq [:vendor, { :assets_path => "assets/somepath" }]
     end
   end
+
+  describe '.evalute' do
+    let(:tmp_bowerfile) { 'asset "moment"' }
+    before do
+      allow(File).to receive(:open).with('tmp/Bowerfile', 'rb').and_return(tmp_bowerfile)
+    end
+
+    context 'when use_gem_deps_for_bowerfile is true' do
+      let(:gem1) { double(Gem::Specification, gem_dir: 'gem1') }
+      let(:gem1_bowerfile) { 'asset "jquery"' }
+      let(:gem2) { double(Gem::Specification, gem_dir: 'gem2') }
+
+      before do
+        BowerRails.use_gem_deps_for_bowerfile = true
+        allow(Gem::Specification).to receive(:map).and_yield(gem1).and_yield(gem2)
+        allow(File).to receive(:exist?).with('gem1/Bowerfile').and_return(true)
+        allow(File).to receive(:exist?).with('gem2/Bowerfile').and_return(false)
+        allow(File).to receive(:open).with('gem1/Bowerfile', 'rb').and_return(gem1_bowerfile)
+      end
+
+      it 'should also evaluate Bowerfile in dependency' do
+        dsl = BowerRails::Dsl.evalute('tmp', 'Bowerfile')
+        dependencies = dsl.dependencies['tmp/vendor/assets'][:dependencies]
+        expect(dependencies.count).to eq(2)
+        expect(dependencies).to have_key('jquery')
+        expect(dependencies).to have_key('moment')
+      end
+    end
+
+    context 'when use_gem_deps_for_bowerfile is false' do
+      it 'should evaluate Bowerfile in project' do
+        dsl = BowerRails::Dsl.evalute('tmp', 'Bowerfile')
+        dependencies = dsl.dependencies['tmp/vendor/assets'][:dependencies]
+        expect(dependencies.count).to eq(1)
+        expect(dependencies).to have_key('moment')
+      end
+    end
+  end
 end
