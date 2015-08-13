@@ -26,6 +26,11 @@ module BowerRails
     # instead of rake bower:install before assets precompilation
     attr_accessor :use_bower_install_deployment
 
+    # If set to true then rake bower:install will search for gem dependencies
+    # and in each gem it will search for Bowerfile and then concatenate all Bowerfile
+    # for evaluation
+    attr_accessor :use_gem_deps_for_bowerfile
+
     # If set to true then rake bower:install[-f] will be invoked
     # instead of rake bower:install before assets precompilation
     attr_accessor :force_install
@@ -58,5 +63,6 @@ module BowerRails
   @resolve_before_precompile    = false
   @clean_before_precompile      = false
   @use_bower_install_deployment = false
+  @use_gem_deps_for_bowerfile   = false
   @force_install = false
 end
