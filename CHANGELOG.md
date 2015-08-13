@@ -1,5 +1,9 @@
 ## Edge version
 
+* Load Bowerfile from all gem dependencies before load by @gabealmer [#162][]
+
+[#162]: https://github.com/rharriso/bower-rails/pull/162
+
 ## v0.10.0
 
 * add ability to configure bower to pass -F to bower install by @hubert [#129][]
