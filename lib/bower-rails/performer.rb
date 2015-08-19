@@ -147,6 +147,9 @@ module BowerRails
       puts "\nAttempting to remove all but main files as specified by bower\n"
 
       Dir['bower_components/*'].each do |component_dir|
+        component_name = component_dir.split('/').last
+        next if clean_should_skip_component? component_name
+
         if File.exists?(File.join(component_dir, 'bower.json'))
           bower_file = File.read(File.join(component_dir, 'bower.json'))
         elsif File.exists?(File.join(component_dir, '.bower.json'))
@@ -157,7 +160,6 @@ module BowerRails
 
         # Parse bower.json
         bower_json = JSON.parse(bower_file)
-        component_name = component_dir.split('/').last
         main_files = Array(bower_json['main']) + main_files_for_component(component_name)
         next if main_files.empty?
 
@@ -196,6 +198,11 @@ module BowerRails
 
     def main_files_for_component(name)
       Array(dsl.main_files[name])
+    end
+
+    def clean_should_skip_component?(name)
+      BowerRails.exclude_from_clean.respond_to?(:include?) &&
+        BowerRails.exclude_from_clean.include?(name)
     end
   end
 end
