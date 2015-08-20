@@ -19,6 +19,8 @@ module BowerRails
         ["lib", "vendor"].each do |dir|
           app.config.assets.paths << Rails.root.join(dir, 'assets', 'bower_components')
         end
+
+        app.config.bower_components_path = Rails.root.join('lib', 'assets', 'bower_components')
       end
     end
 
