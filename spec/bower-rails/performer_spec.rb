@@ -6,6 +6,7 @@ describe BowerRails::Performer do
 
   let(:performer) { BowerRails::Performer.new }
   let(:main_files) { {} }
+  let(:exempt_list) { nil }
 
   context "remove_extra_files" do
     let(:root) { File.expand_path('../../..', __FILE__) }
@@ -45,6 +46,9 @@ describe BowerRails::Performer do
 
       Dir.chdir("#{root}/tmp")
 
+      # Stub exclude from clean setting
+      BowerRails.exclude_from_clean = exempt_list
+
       performer.perform false do
         remove_extra_files
       end
@@ -78,6 +82,26 @@ describe BowerRails::Performer do
       let(:main_files) { { 'moment' => ['./moment_plugin.js'] } }
 
       it "keeps moment_plugin.js" do
+        expect(File).to exist("#{root}/tmp/vendor/assets/bower_components/moment/moment_plugin.js")
+      end
+    end
+
+    context 'with moment exempt from clean' do
+      let(:exempt_list) { ['moment'] }
+
+      it 'keeps bower.json' do
+        expect(File).to exist("#{root}/tmp/vendor/assets/bower_components/moment/bower.json")
+      end
+
+      it 'keeps unknown.file' do
+        expect(File).to exist("#{root}/tmp/vendor/assets/bower_components/moment/unknown.file")
+      end
+
+      it 'keeps unknown_dir' do
+        expect(File).to exist("#{root}/tmp/vendor/assets/bower_components/moment/unknown_dir")
+      end
+
+      it 'keeps moment_plugin.js' do
         expect(File).to exist("#{root}/tmp/vendor/assets/bower_components/moment/moment_plugin.js")
       end
     end

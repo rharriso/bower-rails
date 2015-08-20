@@ -22,6 +22,10 @@ module BowerRails
     # are invoked before assets precompilation
     attr_accessor :clean_before_precompile
 
+    # If containing a list of bower component names, those components
+    # will be excluded from the bower:clean
+    attr_accessor :exclude_from_clean
+
     # If set to true then rake bower:install:deployment will be invoked
     # instead of rake bower:install before assets precompilation
     attr_accessor :use_bower_install_deployment
