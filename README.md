@@ -223,7 +223,7 @@ BowerRails.configure do |bower_rails|
   # Excludes specific bower components from clean. Defaults to nil
   bower_rails.exclude_from_clean = ['moment']
 
-  # Invokes rake bower:install:deployment instead rake bower:install. Defaults to false
+  # Invokes rake bower:install:deployment instead of rake bower:install. Defaults to false
   bower_rails.use_bower_install_deployment = true
 
   # rake bower:install will search for gem dependencies and in each gem it will search for Bowerfile
