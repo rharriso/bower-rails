@@ -64,6 +64,13 @@ This will generate a `config/initializers/bower_rails.rb` config file and a spec
 }
 ```
 
+## Include in Asset Pipeline
+
+// Bower packages
+//= require d3/d3
+//= require underscore/underscore
+//
+
 ## Ruby DSL configuration
 
 The Ruby DSL configuration is a Bowerfile at the project's root with DSL syntax similar to Bundler.
