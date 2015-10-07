@@ -66,10 +66,12 @@ This will generate a `config/initializers/bower_rails.rb` config file and a spec
 
 ## Include in Asset Pipeline
 
+```javascript
 // Bower packages
 //= require d3/d3
 //= require underscore/underscore
 //
+```
 
 ## Ruby DSL configuration
 
