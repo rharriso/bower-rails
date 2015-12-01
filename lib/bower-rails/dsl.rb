@@ -134,6 +134,7 @@ module BowerRails
         normalized_group_path = normalize_location_path(group.first, group_assets_path(group))
         File.open(File.join(normalized_group_path, ".bowerrc"), "w") do |f|
           f.write(generate_dotbowerrc)
+          f.write("\n")
         end
       end
     end
