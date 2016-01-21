@@ -24,3 +24,7 @@ gem "rails", rails
 gem 'pry'
 
 gemspec
+
+group :test do
+  gem 'tins', '~> 1.6.0'
+end
