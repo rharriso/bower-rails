@@ -62,9 +62,10 @@ namespace :bower do
   end
 
   desc "Resolve assets paths in bower components"
-  task :resolve do
+  task :resolve, :relative_directory do |_, args|
     BowerRails::Performer.perform false do
-      resolve_asset_paths
+      resolve_asset_paths(
+        args[:relative_directory] || BowerRails.bower_components_directory)
     end
   end
 

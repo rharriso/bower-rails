@@ -39,6 +39,9 @@ module BowerRails
     # instead of rake bower:install before assets precompilation
     attr_accessor :force_install
 
+    # Where to store the bower components
+    attr_accessor :bower_components_directory
+
     def configure &block
       yield self if block_given?
       collect_tasks
@@ -69,4 +72,5 @@ module BowerRails
   @use_bower_install_deployment = false
   @use_gem_deps_for_bowerfile   = false
   @force_install = false
+  @bower_components_directory = "bower_components"
 end

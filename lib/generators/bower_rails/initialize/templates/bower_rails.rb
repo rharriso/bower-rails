@@ -16,4 +16,7 @@ BowerRails.configure do |bower_rails|
   #
   # Invokes rake bower:install and rake bower:install:deployment with -F (force) flag. Defaults to false
   # bower_rails.force_install = true
+
+  # Change the default directory name
+  # bower_rails.bower_components_directory = 'bower_components'
 end

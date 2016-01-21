@@ -1,8 +1,10 @@
 ## Edge version
 
 * Load Bowerfile from all gem dependencies before load by @gabealmer [#162][]
+* Make bower components directory configurable [#183][]
 
 [#162]: https://github.com/rharriso/bower-rails/pull/162
+[#183]: https://github.com/rharriso/bower-rails/pull/183
 
 ## v0.10.0
 
