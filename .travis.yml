@@ -1,6 +1,8 @@
 language: ruby
 rvm:
-  - 2.1.1
+  - 2.3.0
+  - 2.2.4
+  - 2.1.8
   - 2.0.0
   - 1.9.3
   - jruby-19mode
@@ -10,9 +12,11 @@ env:
   - "RAILS_VERSION=3.1.0"
   - "RAILS_VERSION=3.2.0"
   - "RAILS_VERSION=4.0.0"
-  - "RAILS_VERSION=master"  
+  - "RAILS_VERSION=master"
 matrix:
   allow_failures:
     - rvm: ruby-head
     - env: "RAILS_VERSION=master"
 script: rspec spec
+before_install:
+  - gem install bundler
