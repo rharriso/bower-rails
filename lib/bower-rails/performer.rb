@@ -188,7 +188,7 @@ module BowerRails
       paths.each do |path|
         exts.each do |ext|
           exe = File.join(path, "#{cmd}#{ext}")
-          return exe if (File.executable?(exe) && File.file?(exe))
+          return exe.gsub(/^(.*\s+.*)$/,'\'\0\'') if (File.executable?(exe) && File.file?(exe))
         end
       end
       nil
