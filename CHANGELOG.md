@@ -1,5 +1,5 @@
 ## Edge version
-
+* Bugfix with remove_extra_files when only bower.json in root without Bowerfile #issue-175
 * Load Bowerfile from all gem dependencies before load by @gabealmer [#162][]
 * Make bower components directory configurable [#183][]
 

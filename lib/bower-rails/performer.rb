@@ -15,8 +15,6 @@ module BowerRails
     end
 
     def perform(remove_components = true, &block)
-      entries = Dir.entries(root_path)
-
       npm_path = File.join(root_path, 'node_modules', '.bin')
       bower = find_command('bower', [npm_path])
 
@@ -71,7 +69,7 @@ module BowerRails
       dot_bowerrc = JSON.parse(File.read(File.join(root_path, '.bowerrc'))) rescue {}
       dot_bowerrc["directory"] = components_directory
 
-      if json.except('lib', 'vendor').empty?
+      if json.reject{ |key| ['lib', 'vendor'].include? key }.empty?
         folders = json.keys
       else
         raise "Assuming a standard bower package but cannot find the required 'name' key" unless !!json['name']
@@ -197,7 +195,12 @@ module BowerRails
     private
 
     def main_files_for_component(name)
+      return [] unless entries.include?('Bowerfile')
       Array(dsl.main_files[name])
+    end
+
+    def entries
+      @entries ||= Dir.entries(root_path)
     end
 
     def clean_should_skip_component?(name)

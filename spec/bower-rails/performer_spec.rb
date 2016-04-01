@@ -10,6 +10,7 @@ describe BowerRails::Performer do
 
   context "remove_extra_files" do
     let(:root) { File.expand_path('../../..', __FILE__) }
+    let(:create_bower_file) { true }
 
     before do
       # `rm -rf ./tmp` remove temporary directory
@@ -17,7 +18,9 @@ describe BowerRails::Performer do
 
       # setup temporary directory
       FileUtils.mkdir("#{root}/tmp")
-      FileUtils.cp("#{root}/spec/files/Bowerfile", "#{root}/tmp/Bowerfile")
+      FileUtils.cp("#{root}/spec/files/Bowerfile", "#{root}/tmp/Bowerfile") if create_bower_file
+      FileUtils.cp("#{root}/spec/files/bower.json", "#{root}/tmp/bower.json")
+
 
       FileUtils.mkdir_p("#{root}/tmp/vendor/assets/bower_components")
 
@@ -103,6 +106,34 @@ describe BowerRails::Performer do
 
       it 'keeps moment_plugin.js' do
         expect(File).to exist("#{root}/tmp/vendor/assets/bower_components/moment/moment_plugin.js")
+      end
+    end
+
+    context 'without Bowerfile but with bower.json' do
+      let(:create_bower_file) { false }
+
+      it "removes bower.json" do
+        expect(File).to_not exist("#{root}/tmp/vendor/assets/bower_components/moment/bower.json")
+      end
+
+      it "removes unknown.file" do
+        expect(File).to_not exist("#{root}/tmp/vendor/assets/bower_components/moment/unknown.file")
+      end
+
+      it "removes unknown_dir" do
+        expect(File).to_not exist("#{root}/tmp/vendor/assets/bower_components/moment/unknown_dir")
+      end
+
+      it "keeps moment.js" do
+        expect(File).to exist("#{root}/tmp/vendor/assets/bower_components/moment/moment.js")
+      end
+
+      it "keeps font/font.svg" do
+        expect(File).to exist("#{root}/tmp/vendor/assets/bower_components/moment/fonts/font.svg")
+      end
+
+      it "removes moment_plugin.js" do
+        expect(File).to_not exist("#{root}/tmp/vendor/assets/bower_components/moment/moment_plugin.js")
       end
     end
   end
