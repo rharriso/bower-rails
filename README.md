@@ -174,7 +174,7 @@ results in the following bower.json file:
 
 ```json
 {
-  "name": "dsl-generated dependencies",
+  "name": "dsl-generated-dependencies",
   "dependencies": {
     "backbone": "1.1.1",
     "angular": "1.2.18",
@@ -199,7 +199,7 @@ That will produce `bower.json` like:
 
 ```json
 {
-  "name" : "dsl-generated dependencies",
+  "name" : "dsl-generated-dependencies",
   "dependencies": {
     "angular": "1.2.22"
   },
