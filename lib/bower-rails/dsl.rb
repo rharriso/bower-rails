@@ -202,7 +202,7 @@ module BowerRails
     #
     def dependencies_to_json(data)
       JSON.pretty_generate({
-        :name => "dsl-generated dependencies"
+        :name => "dsl-generated-dependencies"
       }.merge(data))
     end
 
