@@ -289,7 +289,9 @@ namespace :bower do
   task :install do
     on roles(:web) do
       within release_path do
-        execute :rake, 'bower:install CI=true'
+        with rails_env: fetch(:rails_env) do
+          execute :rake, 'bower:install CI=true'
+        end
       end
     end
   end
