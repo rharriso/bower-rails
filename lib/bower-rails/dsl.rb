@@ -26,6 +26,7 @@ module BowerRails
       @resolutions = {}
       @assets_path ||= "assets"
       @main_files = {}
+      @current_group = nil
     end
 
     def asset(name, *args, &block)

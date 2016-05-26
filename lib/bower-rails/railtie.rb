@@ -1,6 +1,4 @@
-require 'bower-rails'
 require 'bower-rails/dsl'
-require 'rails'
 
 module BowerRails
   class Railtie < Rails::Railtie
