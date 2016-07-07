@@ -1,6 +1,8 @@
 module BowerRails
   module Generators
     class InitializeGenerator < Rails::Generators::Base
+      INITIALIZE_FILE_PATH = 'config/initializers/bower_rails.rb'
+
       desc 'Adds a boilerplate bower.json or Bowerfile to the root of Rails project and an empty initializer'
       source_root File.expand_path('../templates', __FILE__)
       argument :config_file, :type => :string, :default => 'bowerfile'
@@ -16,12 +18,12 @@ module BowerRails
       end
 
       def copy_initializer_file
-        copy_file 'bower_rails.rb', 'config/initializers/bower_rails.rb'
+        copy_file 'bower_rails.rb', INITIALIZE_FILE_PATH
       end
 
       def require_initializer_in_application_rb
         if Rails.version < "4.0.0"
-          environment { "require \"#{Rails.root}/config/initializers/bower_rails.rb\"" }
+          environment { "require Rails.root.join(\"#{INITIALIZE_FILE_PATH}\").to_s" }
         end
       end
     end
