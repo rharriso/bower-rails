@@ -186,7 +186,9 @@ module BowerRails
       paths.each do |path|
         exts.each do |ext|
           exe = File.join(path, "#{cmd}#{ext}")
-          return exe if (File.executable?(exe) && File.file?(exe))
+          if (File.executable?(exe) && File.file?(exe))
+            return Shellwords.escape exe
+          end
         end
       end
       nil
