@@ -1,10 +1,13 @@
 ## Edge version
-* Bugfix with remove_extra_files when only bower.json in root without Bowerfile #issue-175
+* Bugfix with remove_extra_files when only bower.json in root without Bowerfile [#175][]
 * Load Bowerfile from all gem dependencies before load by @gabealmer [#162][]
 * Make bower components directory configurable [#183][]
+* Shell-escape bower command to handle directories with spaces [#199][]
 
 [#162]: https://github.com/rharriso/bower-rails/pull/162
+[#175]: https://github.com/rharriso/bower-rails/pull/175
 [#183]: https://github.com/rharriso/bower-rails/pull/183
+[#199]: https://github.com/rharriso/bower-rails/pull/199
 
 ## v0.10.0
 
