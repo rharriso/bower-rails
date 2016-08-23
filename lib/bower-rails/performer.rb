@@ -22,7 +22,7 @@ module BowerRails
         $stderr.puts ["Bower not found! You can install Bower using Node and npm:",
         "$ npm install bower -g",
         "For more info see http://bower.io/"].join("\n")
-        return
+        exit 127
       end
 
       if entries.include?('Bowerfile')
