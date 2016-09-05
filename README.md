@@ -34,7 +34,7 @@ in Gemfile
 
 ## JSON configuration
 
-Bower-rails now supports the standard [bower package](http://bower.io/docs/creating-packages/#specification) format out-of-the-box. Simply place your bower.json file the Rails root directory to start. Using the standard format will default all bower components to be installed under the `vendor` directory.
+Bower-rails now supports the standard [bower package](http://bower.io/docs/creating-packages/#specification) format out-of-the-box. Simply place your bower.json file inside the Rails root directory to start. Using the standard format will default all bower components to be installed under the `vendor` directory.
 
 To install dependencies into both `lib` and `vendor` directories, run the initializer to generate a custom bower.json:
 
