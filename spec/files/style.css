@@ -1,0 +1,16 @@
+body {
+  background: url('../foobar.png')
+}
+
+.param {
+  background: url("../foobar.png?foo=true")
+}
+
+.anchor {
+  background: url(../foobar.png#foo)
+}
+
+.param.anchor {
+  background: url("../foobar.png#foo?foo=true#foo")
+}
+

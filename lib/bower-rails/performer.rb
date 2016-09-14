@@ -118,7 +118,7 @@ module BowerRails
       Dir["#{components_directory}/**/*.css"].each do |filename|
         contents = File.read(filename) if FileTest.file?(filename)
         # http://www.w3.org/TR/CSS2/syndata.html#uri
-        url_regex = /url\((?!\#)\s*['"]?(?![a-z]+:)([^'"\)]*)['"]?\s*\)/
+        url_regex = /url\((?!\#)\s*['"]?((?![a-z]+:)([^'"\)]*?)([?#][^'"\)]*)?)['"]?\s*\)/
 
         # Resolve paths in CSS file if it contains a url
         if contents =~ url_regex
@@ -127,11 +127,12 @@ module BowerRails
 
           # Replace relative paths in URLs with Rails asset_path helper
           new_contents = contents.gsub(url_regex) do |match|
-            relative_path = $1
+            relative_path = $2
+            params = $3
             image_path = directory_path.join(relative_path).cleanpath
-            puts "#{match} => #{image_path}"
+            puts "#{match} => #{image_path} #{params}"
 
-            "url(<%= asset_path '#{image_path}' %>)"
+            "url(<%= asset_path '#{image_path}' %>#{params})"
           end
 
           # Replace CSS with ERB CSS file with resolved asset paths
