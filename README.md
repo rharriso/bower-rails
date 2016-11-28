@@ -185,7 +185,9 @@ results in the following bower.json file:
   }
 }
 ```
-NOTE: Available dependency groups are `:dependencies` (default) and `:dev_dependencies`. Others are not allowed according to the Rails convention.
+NOTE:
+* Available dependency groups are `:dependencies` (default) and `:dev_dependencies`. Others are not allowed according to the Rails convention.
+* In order to install assets on the `:dev_dependencies` group please run `RAILS_ENV=development rake bower:install`.
 
 ## Bower Resolutions
 
