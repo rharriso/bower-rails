@@ -83,6 +83,8 @@ Run the initializer to generate a sample Bowerfile inside the Rails root and a `
   rails g bower_rails:initialize
 ```
 
+Then you need to create a **Bowerfile** in the project's root directory, which is the Ruby DSL version of `bower.json`.
+
 **Example Bowerfile**
 
 By default assets are put to `./vendor/assets/bower_components` directory:
