@@ -1,4 +1,4 @@
 # -*- encoding : utf-8 -*-
 module BowerRails
-  VERSION = "0.11.0"
+  VERSION = "0.12.0"
 end
