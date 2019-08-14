@@ -14,7 +14,7 @@ when "3.2.0"
 when "4.0.0"
   "~> 4.0.0"
 when "default"
-  "~> 4.0.0"
+  "~> 5.2.3"
 else
   "~> #{rails_version}"
 end
