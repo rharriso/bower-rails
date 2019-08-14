@@ -1,6 +1,7 @@
 require 'json'
 require 'pp'
 require 'find'
+require 'shellwords'
 
 module BowerRails
   class Performer
