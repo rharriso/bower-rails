@@ -213,7 +213,7 @@ That will produce `bower.json` like:
 
 [bower resolution]: http://jaketrent.com/post/bower-resolutions/
 
-##Configuration
+## Configuration
 
 Change options in your `config/initializers/bower_rails.rb`:
 
