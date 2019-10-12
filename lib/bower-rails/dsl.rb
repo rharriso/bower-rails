@@ -24,6 +24,7 @@ module BowerRails
       @bower_dependencies_list = []
       @dependencies = {}
       @resolutions = {}
+      @ignored_dependencies = []
       @assets_path ||= "assets"
       @main_files = {}
       @current_group = nil
@@ -94,6 +95,7 @@ module BowerRails
     def generate_dotbowerrc
       contents = JSON.parse(File.read(File.join(root_path, '.bowerrc'))) rescue {}
       contents["directory"] = "bower_components"
+      contents["ignoredDependencies"] = @ignored_dependencies
       JSON.pretty_generate(contents)
     end
 
@@ -117,6 +119,10 @@ module BowerRails
 
     def resolutions_with_root
       { :resolutions => @resolutions }
+    end
+
+    def ignored_dependency(name)
+      @ignored_dependencies.push(name)
     end
 
     def write_bower_json
