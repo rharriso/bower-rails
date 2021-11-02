@@ -165,7 +165,7 @@ dependency_group :dev_dependencies  do
   asset "jasmine-matchers"         # Defaults to 'latest'
 end
 
-# Explicit dependency group notation ( not neccessary )
+# Explicit dependency group notation ( not necessary )
 dependency_group :dependencies  do
   asset "emberjs"                  # Defaults to 'latest'
 end

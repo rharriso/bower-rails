@@ -37,7 +37,7 @@ module BowerRails
       version = args.last || "latest"
       version = options[:ref] if options[:ref]
 
-      options[:git] = "git://github.com/#{options[:github]}" if options[:github]
+      options[:git] = "https://github.com/#{options[:github]}.git" if options[:github]
 
       if options[:git]
         version = if version == 'latest'

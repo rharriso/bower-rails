@@ -1,6 +1,8 @@
-## Egde version
+## Edge version
 
-Nothing pushed yet
+* Use https for github sources (github deprecated insecure git) by @abrom [#218][]
+
+[#218]: https://github.com/rharriso/bower-rails/pull/218 
 
 ## v0.11.0
 
