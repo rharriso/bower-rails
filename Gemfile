@@ -1,4 +1,4 @@
-source "http://rubygems.org"
+source "https://rubygems.org"
 
 rails_version = ENV["RAILS_VERSION"] || "default"
 
@@ -17,6 +17,11 @@ when "default"
   "~> 5.2.3"
 else
   "~> #{rails_version}"
+end
+
+if RUBY_VERSION == '2.7.8'
+  gem "racc", "~> 1.4.0"
+  gem "nio4r", "~> 2.4.0"
 end
 
 gem "rails", rails
