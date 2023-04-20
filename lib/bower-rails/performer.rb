@@ -150,9 +150,9 @@ module BowerRails
         component_name = component_dir.split('/').last
         next if clean_should_skip_component? component_name
 
-        if File.exists?(File.join(component_dir, 'bower.json'))
+        if File.exist?(File.join(component_dir, 'bower.json'))
           bower_file = File.read(File.join(component_dir, 'bower.json'))
-        elsif File.exists?(File.join(component_dir, '.bower.json'))
+        elsif File.exist?(File.join(component_dir, '.bower.json'))
           bower_file = File.read(File.join(component_dir, '.bower.json'))
         else
           next
