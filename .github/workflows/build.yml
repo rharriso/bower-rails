@@ -1,0 +1,51 @@
+name: CI Test
+on:
+  - pull_request  
+jobs:
+  build:
+    name: Ruby ${{ matrix.ruby }} / Rails ${{ matrix.rails_version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - ruby: 3.2
+            rails_version: 6.1.7.3
+          - ruby: 3.2
+            rails_version: 5.2.3
+          - ruby: 3.1
+            rails_version: 6.1.7.3
+          - ruby: 3.1
+            rails_version: 5.2.3
+          - ruby: 3.0
+            rails_version: 6.1.7.3
+          - ruby: 3.0
+            rails_version: 5.2.3
+          - ruby: 2.7.8
+            rails_version: 6.1.7.3
+            bundler_version: 1.15
+          - ruby: 2.7.8
+            rails_version: 5.2.3
+            bundler_version: 1.15
+          - ruby: 2.7.8
+            rails_version: 4.2.5
+            bundler_version: 1.15
+          - ruby: 2.7.8
+            rails_version: 3.2.17
+            bundler_version: 1.15
+    env:
+      CI: 1
+      RAILS_VERSION: ${{ matrix.rails_version }}
+      BUNDLER_VERSION: ${{ matrix.bundler_version }}
+      USE_OFFICIAL_GEM_SOURCE: 1
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - name: Install bundler
+        if: env.BUNDLER_VERSION != ''
+        run: gem install bundler -v $BUNDLER_VERSION
+      - name: Install dependencies
+        run: bundle install
+      - run: bundle exec rspec
